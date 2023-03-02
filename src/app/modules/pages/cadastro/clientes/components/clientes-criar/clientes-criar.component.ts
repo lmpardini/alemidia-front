@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ClienteService } from "../../../../../../core/services/cliente.service";
 import { AlertService } from "../../../../../../core/services/alert.service";
 import { BuscaCepService } from "../../../../../../core/services/busca-cep.service";
-import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
+import { MatDialog } from "@angular/material/dialog";
+import { DesejaCancelarComponent } from "../../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
+import { GenericValidator } from "../../../../../../core/validators";
 
 @Component({
   selector: 'app-clientes-criar',
@@ -17,11 +19,20 @@ export class ClientesCriarComponent implements OnInit{
 
   cliente:any;
 
+  public edit: boolean = true
+  public view: boolean = false
+  public new: boolean = false
+  public clienteId: number = 0;
+
+  public confirmDialog: boolean = false
+
   novoCliente = this.fb.group({
     tipo_cadastro: ['pf'],
+    ativo: [true],
     nome_razao_social: [null, Validators.required],
     mail: [null, [Validators.required, Validators.email]],
-    cpf_cnpj: [null, Validators.required],
+    //cpf_cnpj: [null, Validators.required],
+    cpf_cnpj: [null, Validators.compose([Validators.required, GenericValidator.ValidaCpf])],
     rg_ie: [null, Validators.required],
     telefone: [null],
     celular: [null, Validators.required],
@@ -42,38 +53,72 @@ export class ClientesCriarComponent implements OnInit{
                private clienteService: ClienteService,
                private alert: AlertService,
                private buscaCepService: BuscaCepService,
+               private activatedRoute: ActivatedRoute,
+               private alertService: AlertService,
+               private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe({next: (res) => {
+      //se vier parametro de id, significa que é visualização. Então seta as variaveis de ocultar botões e busca por id no banco
+      if (res['id']) {
+        this.view = true;
+        this.edit = false;
+        this.getCliente(res['id']);
+        this.novoCliente.disable();
+        this.clienteId = res['id'];
+      } else {
+        this.new = true;
+      }
+      }});
+  }
+
+  public getCliente(id:number) {
+    this.clienteService.listClientesbyId(id).subscribe({next: (res) => {
+        let dadosCliente = JSON.parse(JSON.stringify(res.data));
+        this.novoCliente.patchValue(dadosCliente)
+      }, error: (err) => {
+        this.alertService.errorMessage(err);
+      }});
   }
 
   public addCliente(): void {
 
-    console.log(this.novoCliente.value.cpf_cnpj)
-    // @ts-ignore
-    this.clienteService.addCliente(this.novoCliente.value).subscribe( {next: (res) => {
-        this.alert.successMessage(res.message);
-        this.router.navigate(['cadastros/clientes']);
-      }, error: (err) => {
-        this.alert.errorMessage(err);
-      }});
+    if (this.new) {
+      this.clienteService.addCliente(this.novoCliente.value).subscribe( {next: (res) => {
+          this.alert.successMessage(res.message);
+          this.router.navigate(['cadastros/clientes/listar']);
+        }, error: (err) => {
+          this.alert.errorMessage(err);
+        }});
+    } else {
+      this.openDialogEdit();
+    }
   }
 
   public cancelAddCliente() {
-    if (this.novoCliente.dirty) {
-      alert("deseja realmente cancelar")
+    // verifica se é edição ou cadastro novo
+    if (!this.view && this.edit && !this.new){
+      if (this.novoCliente.dirty){
+        this.openDialogCancel()
+      } else {
+        this.view = true
+        this.edit = false
+        this.novoCliente.disable();
+        return;
+      }
     } else {
-      this.router.navigate(['cadastros/clientes'])
+      if (this.novoCliente.dirty) {
+        this.openDialogCancel()
+      } else {
+        this.router.navigate(['cadastros/clientes/listar'])
+      }
     }
   }
 
   public buscaCep() {
-    console.log(this.novoCliente.value);
     this.buscaCepService.buscaCep(this.novoCliente.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
-
-        console.log(res)
-
         let dadosCep = JSON.parse(JSON.stringify(res.data));
         this.novoCliente.get('logradouro')?.patchValue(dadosCep.logradouro);
         this.novoCliente.get('bairro')?.patchValue(dadosCep.bairro);
@@ -86,4 +131,48 @@ export class ClientesCriarComponent implements OnInit{
       }})
   }
 
+  public cancelarEdicao() {
+    this.edit = !this.edit;
+    this.novoCliente.disable()
+  }
+
+  public editar(): void {
+    this.edit = !this.edit;
+    this.view = !this.view;
+    this.novoCliente.enable();
+  }
+
+  public openDialogCancel(): void {
+    const dialogRef = this.dialog.open(DesejaCancelarComponent, {
+       data: { titulo: "Cancelar Alterações", descricao: "Deseja realmante cancelar as alterações? Os dados modificados serão perdidos", tipo: 'advertencia' }
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if (res) {
+        if (!this.view && this.edit && !this.new) {
+          this.view = true
+          this.edit = false
+          this.novoCliente.disable();
+          return;
+        }
+        this.router.navigate(['cadastros/clientes/listar'])
+      }
+    })
+  }
+
+  public openDialogEdit(): void {
+    const dialogRef = this.dialog.open(DesejaCancelarComponent, {
+      data: { titulo: "Editar Cadastro", descricao: "Deseja realmante editar as informações deste cadastro?", tipo: 'confirmacao' }
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if (res) {
+        this.clienteService.editCliente(this.clienteId, this.novoCliente.value).subscribe({next: (res) => {
+            this.alertService.successMessage(res.message);
+            this.router.navigate(['cadastros/clientes/listar']);
+          }, error: (err) => {
+            this.alert.errorMessage(err);
+          }});
+      }
+      return;
+    })
+  }
 }

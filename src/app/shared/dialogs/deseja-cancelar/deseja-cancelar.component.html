@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ titulo}}</h1>
+
+<div mat-dialog-content>{{ descricao }} </div>
+
+<div mat-dialog-actions class="btnDialog">
+
+  <div *ngIf="tipo == 'advertencia'">
+    <button class="btn btn btn-secondary" (click)="cancelar()">Não</button>
+    <button class="btn btn btn-danger" (click)="confirmar()">Sim</button>
+  </div>
+
+  <div *ngIf="tipo === 'confirmacao'">
+    <button class="btn btn btn-secondary" (click)="cancelar()">Não</button>
+    <button class="btn btn btn-success" (click)="confirmar()">Sim</button>
+  </div>
+
+  <div *ngIf="tipo === 'aviso'">
+    <button class="btn btn btn-secondary" (click)="cancelar()">Não</button>
+    <button class="btn btn btn-primary" (click)="confirmar()">Sim</button>
+  </div>
+
+
+</div>
+
+
+

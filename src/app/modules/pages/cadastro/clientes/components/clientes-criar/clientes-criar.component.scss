@@ -1,5 +1,5 @@
 .container {
-  margin-top: 30px;
+  margin-top: 10px;
   flex-direction: column;
 }
 
@@ -7,6 +7,13 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.btnEditar {
+  display: flex;
+  align-items: self-end;
+  justify-content: space-between;
+
 }
 
 .area-form {

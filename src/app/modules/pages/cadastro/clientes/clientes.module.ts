@@ -12,14 +12,11 @@ import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { ClientesCriarComponent } from './components/clientes-criar/clientes-criar.component';
 import { NgxMaskDirective, NgxMaskPipe } from "ngx-mask";
-import { ClientesEditarComponent } from './components/clientes-editar/clientes-editar.component';
-
 
 @NgModule({
   declarations: [
     ClientesGridComponent,
     ClientesCriarComponent,
-    ClientesEditarComponent
   ],
   imports: [
     CommonModule,

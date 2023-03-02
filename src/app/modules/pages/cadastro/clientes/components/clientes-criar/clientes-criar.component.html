@@ -1,22 +1,34 @@
 <div class="container">
-  <h4>Cadastrar novo Cliente</h4>
+  <h1 *ngIf="new && edit">Cadastrar novo Cliente</h1>
+  <h1 *ngIf="view">Dados Clientes</h1>
+  <h1 *ngIf="edit && !new">Editar Clientes</h1>
 
 
 
   <form [formGroup]="novoCliente" novalidate>
 
     <!-- Verifica se é PF ou PJ -->
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaFisica" value="pf" formControlName="tipo_cadastro">
-      <label class="form-check-label" for="pessoaFisica">
-        Pessoa Física
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaJuridica" value="pj" formControlName="tipo_cadastro">
-      <label class="form-check-label" for="pessoaJuridica">
-        Pessoa Juridica
-      </label>
+    <div class="btnEditar">
+      <div class="inputTipoEmpresa">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaFisica" value="pf" formControlName="tipo_cadastro">
+          <label class="form-check-label" for="pessoaFisica">
+            Pessoa Física
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaJuridica" value="pj" formControlName="tipo_cadastro">
+          <label class="form-check-label" for="pessoaJuridica">
+            Pessoa Juridica
+          </label>
+        </div>
+      </div>
+
+      <div *ngIf="view">
+        <button class="btn btn-danger" [routerLink]="'/cadastros/clientes/listar'" >Voltar</button>
+        <button class="btn btn-primary" (click)="editar()">Editar</button>
+      </div>
+
     </div>
 
     <!--DadosPessoais-->
@@ -24,6 +36,12 @@
     <!--Se For Pessoa Física-->
     <div *ngIf="novoCliente.value.tipo_cadastro === 'pf'">
       <div class="area-form">
+        <div class="form-check" *ngIf="!new">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+          <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+            Ativo
+          </label>
+        </div>
         <h6>Dados Pessoais:</h6>
         <div class="row">
           <div class="col">
@@ -32,7 +50,7 @@
               <input type="text" class="form-control help-block with-errors" id="nome_razao_social" formControlName="nome_razao_social">
               <span class="text-danger"
                     *ngIf="novoCliente.get('nome_razao_social')?.errors?.['required'] && novoCliente.get('nome_razao_social')?.touched">
-                O Campo nome é obrigatório
+                O campo nome é obrigatório
               </span>
             </div>
           </div>
@@ -42,11 +60,11 @@
               <input type="email" class="form-control" id="mail" formControlName="mail" >
               <span class="text-danger"
                     *ngIf="novoCliente.get('mail')?.errors?.['required'] && novoCliente.get('mail')?.touched">
-                O Campo email é obrigatório
+                O campo email é obrigatório
               </span>
               <span class="text-danger"
                     *ngIf="novoCliente.get('mail')?.errors?.['email'] && novoCliente.get('mail')?.touched">
-                O valor informado deve ser um email valido
+                O valor informado não é um endereço de email valido
               </span>
             </div>
           </div>
@@ -58,8 +76,13 @@
               <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
-                O Campo CPF é obrigatório
+                O campo CPF é obrigatório
               </span>
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['cpfCnpjInvalido'] && novoCliente.get('cpf_cnpj')?.touched">
+                O CPF informado não é valido
+              </span>
+
             </div>
           </div>
           <div class="col">
@@ -87,7 +110,7 @@
               <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
-                O Campo celular é obrigatório
+                O campo celular é obrigatório
               </span>
             </div>
           </div>
@@ -117,7 +140,7 @@
               <input type="text" class="form-control" id="nome_razao_social" formControlName="nome_razao_social">
               <span class="text-danger"
                     *ngIf="novoCliente.get('nome_razao_social')?.errors?.['required'] && novoCliente.get('nome_razao_social')?.touched">
-                O Campo razão social é obrigatório
+                O campo razão social é obrigatório
               </span>
             </div>
           </div>
@@ -127,7 +150,7 @@
               <input type="email" class="form-control" id="mail" formControlName="mail" >
               <span class="text-danger"
                     *ngIf="novoCliente.get('mail')?.errors?.['required'] && novoCliente.get('mail')?.touched">
-                O Campo email é obrigatório
+                O campo email é obrigatório
               </span>
               <span class="text-danger"
                     *ngIf="novoCliente.get('mail')?.errors?.['email'] && novoCliente.get('mail')?.touched">
@@ -144,7 +167,11 @@
               <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
-                O Campo CNPJ é obrigatório
+                O campo CNPJ é obrigatório
+              </span>
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['cpfCnpjInvalido'] && novoCliente.get('cpf_cnpj')?.touched">
+                O CNPJ informado não é valido
               </span>
             </div>
           </div>
@@ -169,7 +196,7 @@
               <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
-                O Campo celular é obrigatório
+                O campo celular é obrigatório
               </span>
             </div>
           </div>
@@ -193,12 +220,12 @@
             <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000">
             <span class="text-danger"
                   *ngIf="novoCliente.get('cep')?.errors?.['required'] && novoCliente.get('cep')?.touched">
-                O Campo cep é obrigatório
+                O campo cep é obrigatório
               </span>
           </div>
         </div>
         <div class="col-6" id="colCepButton">
-          <button class="btn btn-primary" id="buscarCep" style="margin-top: 30px" (click)="buscaCep()"
+          <button  *ngIf="edit" class="btn btn-primary" id="buscarCep" style="margin-top: 30px" (click)="buscaCep()"
                   [disabled]="novoCliente.value.cep === null || novoCliente.value.cep === ''">Buscar CEP</button>
         </div>
       </div>
@@ -210,7 +237,7 @@
             <input type="text" class="form-control" id="logradouro" formControlName="logradouro">
             <span class="text-danger"
                   *ngIf="novoCliente.get('logradouro')?.errors?.['required'] && novoCliente.get('logradouro')?.touched">
-                O Campo logradouro é obrigatório
+                O campo logradouro é obrigatório
               </span>
           </div>
         </div>
@@ -220,7 +247,7 @@
             <input type="email" class="form-control" id="numero" formControlName="numero">
             <span class="text-danger"
                   *ngIf="novoCliente.get('numero')?.errors?.['required'] && novoCliente.get('numero')?.touched">
-                O Campo numero é obrigatório
+                O campo numero é obrigatório
               </span>
           </div>
         </div>
@@ -239,7 +266,7 @@
               <input type="text" class="form-control" id="bairro" formControlName="bairro">
               <span class="text-danger"
                     *ngIf="novoCliente.get('bairro')?.errors?.['required'] && novoCliente.get('bairro')?.touched">
-                O Campo bairro é obrigatório
+                O campo bairro é obrigatório
               </span>
             </div>
           </div>
@@ -249,7 +276,7 @@
               <input type="text" class="form-control" id="cidade" formControlName="cidade">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cidade')?.errors?.['required'] && novoCliente.get('cidade')?.touched">
-                O Campo cidade é obrigatório
+                O campo cidade é obrigatório
               </span>
             </div>
           </div>
@@ -288,13 +315,13 @@
               </select>
               <span class="text-danger"
                     *ngIf="novoCliente.get('estado')?.errors?.['required'] && novoCliente.get('estado')?.touched">
-                O Campo estado é obrigatório
+                O campo estado é obrigatório
               </span>
             </div>
           </div>
 
       </div>
-      <div class="botoes">
+      <div class="botoes" *ngIf="edit">
         <button class="btn btn-danger" (click)="cancelAddCliente()">Cancelar</button>
         <button class="btn btn-success" [disabled]="!novoCliente.valid"(click)="addCliente()">Salvar</button>
       </div>

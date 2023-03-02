@@ -2,7 +2,7 @@
   <section>
     <div class="cab">
       <div class="button-section">
-        <button mat-raised-button  class="botaoAddCliente" (click)="addCliente()">Adicionar Clientes</button>
+        <button mat-raised-button  class="botaoAddCliente" [routerLink]="['/cadastros/clientes/novo']">Adicionar Clientes</button>
       </div>
       <form class="input-pesquisa" [formGroup]="pesquisaForm">
         <div class="filtroArea">

@@ -6,12 +6,17 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from "ngx-mask";
+import { DesejaCancelarComponent } from './dialogs/deseja-cancelar/deseja-cancelar.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { DesejaEditarComponent } from './dialogs/deseja-editar/deseja-editar.component';
 
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    DesejaCancelarComponent,
+    DesejaEditarComponent
   ],
   exports: [
     HeaderComponent
@@ -23,7 +28,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from "ngx-mask";
     MatIconModule,
     RouterOutlet,
     MatToolbarModule,
-    NgxMaskDirective, NgxMaskPipe
+    NgxMaskDirective, NgxMaskPipe, MatDialogModule
 
   ],
   providers: [provideNgxMask()]
