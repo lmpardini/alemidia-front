@@ -48,7 +48,7 @@
           <ng-container matColumnDef="detalhes">
             <th mat-header-cell *matHeaderCellDef>Detalhes</th>
             <td mat-cell *matCellDef="let row">
-              <button mat-raised-button>Detalhes</button>
+              <button mat-raised-button [routerLink]="['/cadastros/clientes/consultar', row.id]">Detalhes</button>
             </td>
           </ng-container>
 

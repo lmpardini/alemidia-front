@@ -18,6 +18,11 @@ export class ClienteService {
     return this.http.get<any>(url);
   }
 
+  public listClientesbyId(id:number): Observable<any> {
+    const url = `${this.urlClientes}/cliente/${id}`
+    return this.http.get<any>(url);
+  }
+
   public addCliente(cliente:any): Observable<any> {
     const url = `${this.urlClientes}/cliente/`;
     return this.http.post<any>(url, cliente);

@@ -16,6 +16,7 @@ import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 export class ClientesCriarComponent implements OnInit{
 
   cliente:any;
+
   novoCliente = this.fb.group({
     tipo_cadastro: ['pf'],
     nome_razao_social: [null, Validators.required],
@@ -47,6 +48,8 @@ export class ClientesCriarComponent implements OnInit{
   }
 
   public addCliente(): void {
+
+    console.log(this.novoCliente.value.cpf_cnpj)
     // @ts-ignore
     this.clienteService.addCliente(this.novoCliente.value).subscribe( {next: (res) => {
         this.alert.successMessage(res.message);

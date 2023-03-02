@@ -67,4 +67,8 @@ export class ClientesGridComponent implements OnInit {
     this.router.navigate(['cadastros/clientes/novo'])
   }
 
+  public verDetalhes(id:number) {
+    this.router.navigate(['cadastros/clientes/consultar'])
+  }
+
 }
