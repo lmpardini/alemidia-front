@@ -1,0 +1,32 @@
+.mat-toolbar{
+  display: flex;
+  justify-content: space-between;
+}
+.area-total {
+  width: 100%;
+  height: 91vh;
+}
+.area-menu{
+  width: 250px;
+  background-color: #ffffff ;
+}
+.item-menu{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 35px;
+}
+.item-sub-menu{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 55px;
+}
+.item-menu:hover , .item-sub-menu:hover{
+  background-color: #efefef;
+}
+.icon-menu{
+  color: #d9d9d9;
+  margin-right: 10px;
+}
+

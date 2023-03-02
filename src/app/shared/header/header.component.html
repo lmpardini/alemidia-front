@@ -1,0 +1,65 @@
+<mat-toolbar color="primary">
+  <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+</mat-toolbar>
+
+<mat-drawer-container class="area-total">
+  <mat-drawer class="area-menu" #drawer>
+
+    <div class="item-menu" (click)="goToHome();drawer.toggle()">
+      <mat-icon class="icon-menu" >home </mat-icon>  Inicio
+    </div>
+
+    <div class="item-menu" (click)="exibirCadastro()">
+      <mat-icon class="icon-menu">group</mat-icon> Cadastros
+    </div>
+    <!-- Submenu Cadastro   -->
+    <div *ngIf="cadastro">
+      <div class="item-sub-menu" (click)="goToClientes();drawer.toggle()">
+        <mat-icon class="icon-menu">person</mat-icon> Clientes
+      </div>
+      <div class="item-sub-menu" (click)="goToBuffet();drawer.toggle()">
+        <mat-icon class="icon-menu">domain</mat-icon> Buffets
+      </div>
+      <div class="item-sub-menu" (click)="goToAssessoria();drawer.toggle()">
+        <mat-icon class="icon-menu">handshake</mat-icon> Assessoria
+      </div>
+      <!-- Fim submenu Cadastro   -->
+    </div>
+
+    <!-- Menu Contratos-->
+    <div class="item-menu" (click)="exibirVendas()">
+      <mat-icon class="icon-menu">point_of_sale</mat-icon> Contratos
+    </div>
+
+
+    <!-- Menu Financeiro-->
+    <div class="item-menu" (click)="exibirFinanceiro()">
+      <mat-icon class="icon-menu">payments</mat-icon> Financeiro
+    </div>
+
+    <!-- Submenu Financeiro   -->
+    <!--    <div *ngIf="financeiro">-->
+    <!--      <div class="item-sub-menu"  >-->
+    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Fornecedores-->
+    <!--      </div>-->
+    <!--      <div class="item-sub-menu"  >-->
+    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Clientes-->
+    <!--      </div>-->
+    <!--      <div class="item-sub-menu"  >-->
+    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Espaços-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!-- Fim submenu Financeiro   -->
+
+    <!-- Menu Administrativo-->
+    <div class="item-menu" *ngIf="admin">
+      <mat-icon class="icon-menu">settings</mat-icon> Ferramentas administrativas
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content>
+
+    <router-outlet></router-outlet>
+
+  </mat-drawer-content>
+</mat-drawer-container>
