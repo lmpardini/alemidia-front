@@ -5,6 +5,7 @@ import { RouterLink, RouterOutlet } from "@angular/router";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from "ngx-mask";
 
 
 
@@ -22,6 +23,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatIconModule,
     RouterOutlet,
     MatToolbarModule,
-  ]
+    NgxMaskDirective, NgxMaskPipe
+
+  ],
+  providers: [provideNgxMask()]
 })
 export class SharedModule { }

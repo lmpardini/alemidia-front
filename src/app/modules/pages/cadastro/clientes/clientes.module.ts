@@ -11,6 +11,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { ClientesCriarComponent } from './components/clientes-criar/clientes-criar.component';
+import { NgxMaskDirective, NgxMaskPipe } from "ngx-mask";
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { ClientesCriarComponent } from './components/clientes-criar/clientes-cri
     SharedModule,
     MatIconModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ]
 })
 export class ClientesModule { }

@@ -4,11 +4,14 @@ import { Router } from "@angular/router";
 import { ClienteService } from "../../../../../../core/services/cliente.service";
 import { AlertService } from "../../../../../../core/services/alert.service";
 import { BuscaCepService } from "../../../../../../core/services/busca-cep.service";
+import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 
 @Component({
   selector: 'app-clientes-criar',
   templateUrl: './clientes-criar.component.html',
-  styleUrls: ['./clientes-criar.component.scss']
+  styleUrls: ['./clientes-criar.component.scss'],
+
+
 })
 export class ClientesCriarComponent implements OnInit{
 
@@ -62,8 +65,11 @@ export class ClientesCriarComponent implements OnInit{
   }
 
   public buscaCep() {
+    console.log(this.novoCliente.value);
     this.buscaCepService.buscaCep(this.novoCliente.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
+
+        console.log(res)
 
         let dadosCep = JSON.parse(JSON.stringify(res.data));
         this.novoCliente.get('logradouro')?.patchValue(dadosCep.logradouro);

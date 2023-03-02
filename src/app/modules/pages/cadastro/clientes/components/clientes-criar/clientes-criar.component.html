@@ -55,7 +55,7 @@
           <div class="col">
             <div class="mb-3">
               <label for="cpf_cnpj" class="form-label">CPF</label>
-              <input type="number" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj">
+              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
                 O Campo CPF é obrigatório
@@ -63,9 +63,11 @@
             </div>
           </div>
           <div class="col">
+            <div class="mb-3">
             <label for="rg_ie" class="form-label">RG</label>
             <div class="input-group">
               <input type="text" class="form-control" id="rg_ie" formControlName="rg_ie">
+            </div>
             </div>
           </div>
         </div>
@@ -73,16 +75,16 @@
         <div class="row">
           <div class="col">
             <div class="mb-3">
-              <label for="telefone" class="form-label">Telefone</label>
+              <label for="telefone" class="form-label">Telefone Fixo</label>
               <div class="input-group">
-                <input type="number" class="form-control" id="telefone" formControlName="telefone">
+                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
               </div>
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
               <label for="celular" class="form-label">Celular</label>
-              <input type="number" class="form-control" id="celular" formControlName="celular">
+              <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
                 O Campo celular é obrigatório
@@ -93,7 +95,7 @@
             <div class="mb-3">
               <label for="celular2" class="form-label">Celular 2</label>
               <div class="input-group">
-                <input type="number" class="form-control" id="celular2" formControlName="celular2">
+                <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
               </div></div>
           </div>
         </div>
@@ -139,36 +141,32 @@
           <div class="col">
             <div class="mb-3">
               <label for="cpf_cnpj" class="form-label">CNPJ</label>
-
-              <input type="number" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj">
+              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
                 O Campo CNPJ é obrigatório
               </span>
-
             </div>
           </div>
           <div class="col">
+            <div class="mb-3">
             <label for="rg_ie" class="form-label">Inscrição Estadual</label>
-            <div class="input-group">
               <input type="text" class="form-control" id="rg_ie" formControlName="rg_ie">
-            </div>
+          </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
             <div class="mb-3">
-              <label for="telefone" class="form-label">Telefone</label>
-              <div class="input-group">
-                <input type="number" class="form-control" id="telefone" formControlName="telefone">
-              </div>
+              <label for="telefone" class="form-label">Telefone Fixo</label>
+                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
               <label for="celular" class="form-label">Celular</label>
-              <input type="number" class="form-control" id="celular" formControlName="celular">
+              <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
                 O Campo celular é obrigatório
@@ -178,7 +176,7 @@
           <div class="col">
             <div class="mb-3">
               <label for="celular2" class="form-label">Celular 2</label>
-              <input type="number" class="form-control" id="celular2" formControlName="celular2">
+              <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
             </div>
           </div>
         </div>
@@ -192,7 +190,7 @@
         <div class="col-3" id="colCepInput">
           <div class="mb-3">
             <label for="cep" class="form-label">CEP</label>
-            <input type="number" class="form-control" id="cep" formControlName="cep">
+            <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000">
             <span class="text-danger"
                   *ngIf="novoCliente.get('cep')?.errors?.['required'] && novoCliente.get('cep')?.touched">
                 O Campo cep é obrigatório
@@ -226,9 +224,6 @@
               </span>
           </div>
         </div>
-        <div class="row">
-
-
         </div>
 
         <div class="row">
@@ -256,13 +251,12 @@
                     *ngIf="novoCliente.get('cidade')?.errors?.['required'] && novoCliente.get('cidade')?.touched">
                 O Campo cidade é obrigatório
               </span>
-
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
               <label for="estado" class="form-label">Estado</label>
-              <select class="form-select" formControlName="estado"  id="estado">
+              <select class="form-select" formControlName="estado" id="estado">
                 <option selected>Selecione um estado</option>
                 <option value ="AC">Acre (AC)</option>
                 <option value ="AL">Alagoas (AL)</option>
@@ -296,10 +290,9 @@
                     *ngIf="novoCliente.get('estado')?.errors?.['required'] && novoCliente.get('estado')?.touched">
                 O Campo estado é obrigatório
               </span>
-
             </div>
           </div>
-        </div>
+
       </div>
       <div class="botoes">
         <button class="btn btn-danger" (click)="cancelAddCliente()">Cancelar</button>
