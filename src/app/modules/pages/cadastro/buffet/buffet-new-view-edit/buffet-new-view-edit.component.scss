@@ -1,0 +1,62 @@
+.container {
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btnEditar {
+  display: flex;
+  align-items: self-end;
+  justify-content: space-between;
+
+}
+
+.area-form {
+  padding: 15px;
+  border: 1px solid #C1C1C2;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.botoes{
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 575px) {
+  .row {
+    flex-direction: column;
+
+  }
+
+  //.col {
+  //  width: 100%;
+  //}
+
+  #rowCep {
+    flex-direction: row;
+  }
+
+  #cep{
+    width: 120px;
+  }
+  #colCepButton {
+    width: 42%;
+  }
+  #colCepInput {
+    width: 58%;
+  }
+  #colLogradouro, #colNumero {
+    width: 100%;
+  }
+}

@@ -1,56 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
+import { GenericValidator } from "../../../../../core/validators";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ClienteService } from "../../../../../../core/services/cliente.service";
-import { AlertService } from "../../../../../../core/services/alert.service";
-import { BuscaCepService } from "../../../../../../core/services/busca-cep.service";
+import { AlertService } from "../../../../../core/services/alert.service";
+import { BuscaCepService } from "../../../../../core/services/busca-cep.service";
 import { MatDialog } from "@angular/material/dialog";
-import { DesejaCancelarComponent } from "../../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
-import { GenericValidator } from "../../../../../../core/validators";
+import { DesejaCancelarComponent } from "../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
+import { BuffetService } from "../../../../../core/services/buffet.service";
 
 @Component({
-  selector: 'app-clientes-criar',
-  templateUrl: './clientes-criar.component.html',
-  styleUrls: ['./clientes-criar.component.scss'],
-
-
+  selector: 'app-buffet-new-view-edit',
+  templateUrl: './buffet-new-view-edit.component.html',
+  styleUrls: ['./buffet-new-view-edit.component.scss']
 })
-export class ClientesCriarComponent implements OnInit{
+export class BuffetNewViewEditComponent {
 
-  cliente:any;
+  buffet:any;
 
   public edit: boolean = true
   public view: boolean = false
   public new: boolean = false
-  public clienteId: number = 0;
+  public buffetId: number = 0;
 
   public confirmDialog: boolean = false
 
-  novoCliente = this.fb.group({
-    tipo_cadastro: ['pf'],
+  novoBuffet = this.fb.group({
+    tipo_cadastro: ['pj'],
     ativo: [true],
     nome_razao_social: [null, Validators.required],
     mail: [null, [Validators.required, Validators.email]],
-    //cpf_cnpj: [null, Validators.required],
-    cpf_cnpj: [null, Validators.compose([Validators.required, GenericValidator.ValidaCpf])],
-    rg_ie: [null, Validators.required],
     telefone: [null, Validators.compose([GenericValidator.ValidaTelefone])],
     celular: [null, Validators.compose([Validators.required, GenericValidator.ValidaTelefone])],
     celular2: [null, Validators.compose([GenericValidator.ValidaTelefone])],
+    cep: [null, Validators.required],
     logradouro: [null, Validators.required],
     numero: [null, Validators.required],
     complemento: [null],
     bairro: [null, Validators.required],
     cidade: [null, Validators.required],
     estado: [null, Validators.required],
-    cep: [null, Validators.required],
+    banco: [null],
+    agencia: [null],
+    cc: [null],
+    cpf_cnpj: [null, Validators.compose([GenericValidator.ValidaCpf])],
+    chave_pix: [null],
+    comissao: [null],
   });
 
-  public  tipoCadastro = this.novoCliente.value.tipo_cadastro;
+  public  tipoCadastro = this.novoBuffet.value.tipo_cadastro;
 
   constructor( private fb: FormBuilder,
                private router: Router,
-               private clienteService: ClienteService,
+               private buffetService: BuffetService,
                private alert: AlertService,
                private buscaCepService: BuscaCepService,
                private activatedRoute: ActivatedRoute,
@@ -59,35 +60,36 @@ export class ClientesCriarComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    console.log(this.novoBuffet.errors);
     this.activatedRoute.params.subscribe({next: (res) => {
-      //se vier parametro de id, significa que é visualização. Então seta as variaveis de ocultar botões e busca por id no banco
-      if (res['id']) {
-        this.view = true;
-        this.edit = false;
-        this.getCliente(res['id']);
-        this.novoCliente.disable();
-        this.clienteId = res['id'];
-      } else {
-        this.new = true;
-      }
+        //se vier parametro de id, significa que é visualização. Então seta as variaveis de ocultar botões e busca por id no banco
+        if (res['id']) {
+          this.view = true;
+          this.edit = false;
+          this.getBuffet(res['id']);
+          this.novoBuffet.disable();
+          this.buffetId = res['id'];
+        } else {
+          this.new = true;
+        }
       }});
   }
 
-  public getCliente(id:number) {
-    this.clienteService.listClientesbyId(id).subscribe({next: (res) => {
-        let dadosCliente = JSON.parse(JSON.stringify(res.data));
-        this.novoCliente.patchValue(dadosCliente)
+  public getBuffet(id:number) {
+    this.buffetService.listBuffetById(id).subscribe({next: (res) => {
+        let dadosBuffet = JSON.parse(JSON.stringify(res.data));
+        this.novoBuffet.patchValue(dadosBuffet)
       }, error: (err) => {
         this.alertService.errorMessage(err);
       }});
   }
 
-  public addCliente(): void {
-
+  public addBuffet(): void {
     if (this.new) {
-      this.clienteService.addCliente(this.novoCliente.value).subscribe( {next: (res) => {
+      console.log(this.novoBuffet.value);
+      this.buffetService.addBuffet(this.novoBuffet.value).subscribe( {next: (res) => {
           this.alert.successMessage(res.message);
-          this.router.navigate(['cadastros/clientes/listar']);
+          this.router.navigate(['cadastros/buffets/listar']);
         }, error: (err) => {
           this.alert.errorMessage(err);
         }});
@@ -96,35 +98,35 @@ export class ClientesCriarComponent implements OnInit{
     }
   }
 
-  public cancelAddCliente() {
+  public cancelAddBuffet() {
     // verifica se é edição ou cadastro novo
     if (!this.view && this.edit && !this.new){
-      if (this.novoCliente.dirty){
+      if (this.novoBuffet.dirty){
         this.openDialogCancel()
       } else {
         this.view = true
         this.edit = false
-        this.novoCliente.disable();
+        this.novoBuffet.disable();
         return;
       }
     } else {
-      if (this.novoCliente.dirty) {
+      if (this.novoBuffet.dirty) {
         this.openDialogCancel()
       } else {
-        this.router.navigate(['cadastros/clientes/listar'])
+        this.router.navigate(['cadastros/buffets/listar'])
       }
     }
   }
 
   public buscaCep() {
-    this.buscaCepService.buscaCep(this.novoCliente.value.cep).subscribe({next: (res) => {
+    this.buscaCepService.buscaCep(this.novoBuffet.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
-        this.novoCliente.get('logradouro')?.patchValue(dadosCep.logradouro);
-        this.novoCliente.get('bairro')?.patchValue(dadosCep.bairro);
-        this.novoCliente.get('cidade')?.patchValue(dadosCep.localidade);
-        this.novoCliente.get('logradouro')?.patchValue(dadosCep.logradouro);
-        this.novoCliente.get('estado')?.patchValue(dadosCep.uf);
+        this.novoBuffet.get('logradouro')?.patchValue(dadosCep.logradouro);
+        this.novoBuffet.get('bairro')?.patchValue(dadosCep.bairro);
+        this.novoBuffet.get('cidade')?.patchValue(dadosCep.localidade);
+        this.novoBuffet.get('logradouro')?.patchValue(dadosCep.logradouro);
+        this.novoBuffet.get('estado')?.patchValue(dadosCep.uf);
 
       }, error: (err) => {
         this.alert.errorMessage(err);
@@ -133,28 +135,28 @@ export class ClientesCriarComponent implements OnInit{
 
   public cancelarEdicao() {
     this.edit = !this.edit;
-    this.novoCliente.disable()
+    this.novoBuffet.disable()
   }
 
   public editar(): void {
     this.edit = !this.edit;
     this.view = !this.view;
-    this.novoCliente.enable();
+    this.novoBuffet.enable();
   }
 
   public openDialogCancel(): void {
     const dialogRef = this.dialog.open(DesejaCancelarComponent, {
-       data: { titulo: "Cancelar Alterações", descricao: "Deseja realmante cancelar as alterações? Os dados modificados serão perdidos", tipo: 'advertencia' }
+      data: { titulo: "Cancelar Alterações", descricao: "Deseja realmante cancelar as alterações? Os dados modificados serão perdidos", tipo: 'advertencia' }
     });
     dialogRef.afterClosed().subscribe( res => {
       if (res) {
         if (!this.view && this.edit && !this.new) {
           this.view = true
           this.edit = false
-          this.novoCliente.disable();
+          this.novoBuffet.disable();
           return;
         }
-        this.router.navigate(['cadastros/clientes/listar'])
+        this.router.navigate(['cadastros/buffets/listar'])
       }
     })
   }
@@ -165,9 +167,9 @@ export class ClientesCriarComponent implements OnInit{
     });
     dialogRef.afterClosed().subscribe( res => {
       if (res) {
-        this.clienteService.editCliente(this.clienteId, this.novoCliente.value).subscribe({next: (res) => {
+        this.buffetService.editBuffet(this.buffetId, this.novoBuffet.value).subscribe({next: (res) => {
             this.alertService.successMessage(res.message);
-            this.router.navigate(['cadastros/clientes/listar']);
+            this.router.navigate(['cadastros/buffets/listar']);
           }, error: (err) => {
             this.alert.errorMessage(err);
           }});

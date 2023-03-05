@@ -101,6 +101,10 @@
               <label for="telefone" class="form-label">Telefone Fixo</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
+                <span class="text-danger"
+                      *ngIf="novoCliente.get('telefone')?.errors?.['telefoneInvalido'] && novoCliente.get('telefone')?.touched">
+                O campo telefone deve conter um numero de telefone valido
+              </span>
               </div>
             </div>
           </div>
@@ -112,6 +116,11 @@
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
                 O campo celular é obrigatório
               </span>
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('celular')?.errors?.['telefoneInvalido'] && novoCliente.get('celular')?.touched">
+                O campo celular deve conter um numero de telefone celular valido
+              </span>
+
             </div>
           </div>
           <div class="col">
@@ -119,6 +128,10 @@
               <label for="celular2" class="form-label">Celular 2</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
+                <span class="text-danger"
+                      *ngIf="novoCliente.get('celular2')?.errors?.['telefoneInvalido'] && novoCliente.get('celular2')?.touched">
+                O campo celular2 deve conter um numero de telefone celular valido
+              </span>
               </div></div>
           </div>
         </div>

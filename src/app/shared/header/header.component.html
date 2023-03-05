@@ -18,7 +18,7 @@
       <div class="item-sub-menu" [routerLink]="['/cadastros/clientes/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">person</mat-icon> Clientes
       </div>
-      <div class="item-sub-menu" (click)="goToBuffet();drawer.toggle()">
+      <div class="item-sub-menu"  [routerLink]="['/cadastros/buffets/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">domain</mat-icon> Buffets
       </div>
       <div class="item-sub-menu" (click)="goToAssessoria();drawer.toggle()">

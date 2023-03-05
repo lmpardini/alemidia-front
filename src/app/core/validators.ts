@@ -111,4 +111,49 @@ export class GenericValidator {
     }
     return null
   }
+
+  static ValidaTelefone(controle: AbstractControl) {
+
+    const value = controle.value;
+
+    if (value) {
+      if (value.startsWith('0') || value.startsWith('10')) {
+        return { telefoneInvalido: true };
+
+      }
+      if (value.length < 10) {
+        return { telefoneInvalido: true };
+      }
+
+      if (value == "1100000000" ||
+          value == "1111111111" ||
+          value == "2222222222" ||
+          value == "3333333333" ||
+          value == "4444444444" ||
+          value == "5555555555" ||
+          value == "6666666666" ||
+          value == "7777777777" ||
+          value == "8888888888" ||
+          value == "9999999999" ||
+          value == "11111111111"||
+          value == "22222222222"||
+          value == "33333333333"||
+          value == "44444444444"||
+          value == "55555555555"||
+          value == "66666666666"||
+          value == "77777777777"||
+          value == "88888888888"||
+          value == "99999999999"||
+          value == "11123456789"||
+          value == "11000000000"
+      ) {
+        return { telefoneInvalido: true };
+      }
+    }
+
+
+
+
+    return null
+  }
 }

@@ -28,7 +28,9 @@ import { DesejaEditarComponent } from './dialogs/deseja-editar/deseja-editar.com
     MatIconModule,
     RouterOutlet,
     MatToolbarModule,
-    NgxMaskDirective, NgxMaskPipe, MatDialogModule
+    NgxMaskDirective,
+    NgxMaskPipe,
+    MatDialogModule
 
   ],
   providers: [provideNgxMask()]
