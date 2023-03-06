@@ -1,7 +1,14 @@
+<div class="spinner" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
 <div class="container">
+
+
   <h1 *ngIf="new && edit">Cadastrar novo Cliente</h1>
   <h1 *ngIf="view">Dados Clientes</h1>
   <h1 *ngIf="edit && !new">Editar Clientes</h1>
+
 
 
 
@@ -11,13 +18,13 @@
     <div class="btnEditar">
       <div class="inputTipoEmpresa">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaFisica" value="pf" formControlName="tipo_cadastro">
+          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaFisica" value="pf" formControlName="tipo_cadastro" (click)="limpaForm()">
           <label class="form-check-label" for="pessoaFisica">
             Pessoa Física
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaJuridica" value="pj" formControlName="tipo_cadastro">
+          <input class="form-check-input" type="radio" name="tipo_cadastro" id="pessoaJuridica" value="pj" formControlName="tipo_cadastro" (click)="limpaForm()">
           <label class="form-check-label" for="pessoaJuridica">
             Pessoa Juridica
           </label>
@@ -73,7 +80,7 @@
           <div class="col">
             <div class="mb-3">
               <label for="cpf_cnpj" class="form-label">CPF</label>
-              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
+              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="000.000.000-00">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
                 O campo CPF é obrigatório
@@ -100,7 +107,7 @@
             <div class="mb-3">
               <label for="telefone" class="form-label">Telefone Fixo</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
+                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000">
                 <span class="text-danger"
                       *ngIf="novoCliente.get('telefone')?.errors?.['telefoneInvalido'] && novoCliente.get('telefone')?.touched">
                 O campo telefone deve conter um numero de telefone valido
@@ -177,7 +184,7 @@
           <div class="col">
             <div class="mb-3">
               <label for="cpf_cnpj" class="form-label">CNPJ</label>
-              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
+              <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="00.000.000/0000-00">
               <span class="text-danger"
                     *ngIf="novoCliente.get('cpf_cnpj')?.errors?.['required'] && novoCliente.get('cpf_cnpj')?.touched">
                 O campo CNPJ é obrigatório
@@ -200,7 +207,11 @@
           <div class="col">
             <div class="mb-3">
               <label for="telefone" class="form-label">Telefone Fixo</label>
-                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000">
+                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000">
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('telefone')?.errors?.['telefoneInvalido'] && novoCliente.get('telefone')?.touched">
+                O campo telefone deve conter um numero de telefone valido
+              </span>
             </div>
           </div>
           <div class="col">
@@ -211,12 +222,20 @@
                     *ngIf="novoCliente.get('celular')?.errors?.['required'] && novoCliente.get('celular')?.touched">
                 O campo celular é obrigatório
               </span>
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('celular')?.errors?.['telefoneInvalido'] && novoCliente.get('celular')?.touched">
+                O campo celular deve conter um numero de telefone valido
+              </span>
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
               <label for="celular2" class="form-label">Celular 2</label>
               <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
+              <span class="text-danger"
+                    *ngIf="novoCliente.get('celular2')?.errors?.['telefoneInvalido'] && novoCliente.get('celular2')?.touched">
+                O campo celular deve conter um numero de telefone valido
+              </span>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <mat-toolbar class="navBar" color="primary">
   <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-  <img class="logoAlemidia" src="assets/images/Alemidia%20-%20Completo%203D%20PNG.png">
+  <img class="logoAlemidia" src="assets/images/Alemidia%20-%20Completo%203D%20PNG.png" [routerLink]="['/home']">
 </mat-toolbar>
 
 <mat-drawer-container class="area-total">
@@ -21,7 +21,7 @@
       <div class="item-sub-menu"  [routerLink]="['/cadastros/buffets/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">domain</mat-icon> Buffets
       </div>
-      <div class="item-sub-menu" (click)="goToAssessoria();drawer.toggle()">
+      <div class="item-sub-menu" [routerLink]="['/cadastros/assessores/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">handshake</mat-icon> Assessoria
       </div>
       <!-- Fim submenu Cadastro   -->

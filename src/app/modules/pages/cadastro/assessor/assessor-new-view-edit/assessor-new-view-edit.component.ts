@@ -2,29 +2,30 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { GenericValidator } from "../../../../../core/validators";
 import { ActivatedRoute, Router } from "@angular/router";
+import { BuffetService } from "../../../../../core/services/buffet.service";
 import { AlertService } from "../../../../../core/services/alert.service";
 import { BuscaCepService } from "../../../../../core/services/busca-cep.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DesejaCancelarComponent } from "../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
-import { BuffetService } from "../../../../../core/services/buffet.service";
+import { AssessoriaService } from "../../../../../core/services/assessoria.service";
 
 @Component({
-  selector: 'app-buffet-new-view-edit',
-  templateUrl: './buffet-new-view-edit.component.html',
-  styleUrls: ['./buffet-new-view-edit.component.scss']
+  selector: 'app-assessor-new-view-edit',
+  templateUrl: './assessor-new-view-edit.component.html',
+  styleUrls: ['./assessor-new-view-edit.component.scss']
 })
-export class BuffetNewViewEditComponent {
+export class AssessorNewViewEditComponent {
 
-  buffet:any;
+  assessoria:any;
 
   public edit: boolean = true
   public view: boolean = false
   public new: boolean = false
-  public buffetId: number = 0;
+  public assessoriaId: number = 0;
 
   public confirmDialog: boolean = false
 
-  novoBuffet = this.fb.group({
+  novoAssessor = this.fb.group({
     tipo_cadastro: ['pj'],
     ativo: [true],
     nome_razao_social: [null, Validators.required],
@@ -47,12 +48,12 @@ export class BuffetNewViewEditComponent {
     comissao: [null],
   });
 
-  public  tipoCadastro = this.novoBuffet.value.tipo_cadastro;
+  public  tipoCadastro = this.novoAssessor.value.tipo_cadastro;
   public loading = false;
 
   constructor( private fb: FormBuilder,
                private router: Router,
-               private buffetService: BuffetService,
+               private assessoriaService: AssessoriaService,
                private alert: AlertService,
                private buscaCepService: BuscaCepService,
                private activatedRoute: ActivatedRoute,
@@ -61,36 +62,36 @@ export class BuffetNewViewEditComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.novoBuffet.errors);
+    console.log(this.novoAssessor.errors);
     this.activatedRoute.params.subscribe({next: (res) => {
         //se vier parametro de id, significa que é visualização. Então seta as variaveis de ocultar botões e busca por id no banco
         if (res['id']) {
           this.view = true;
           this.edit = false;
-          this.getBuffet(res['id']);
-          this.novoBuffet.disable();
-          this.buffetId = res['id'];
+          this.getAssessor(res['id']);
+          this.novoAssessor.disable();
+          this.assessoriaId = res['id'];
         } else {
           this.new = true;
         }
       }});
   }
 
-  public getBuffet(id:number) {
-    this.buffetService.listBuffetById(id).subscribe({next: (res) => {
+  public getAssessor(id:number) {
+    this.assessoriaService.listAssessoriaById(id).subscribe({next: (res) => {
         let dadosBuffet = JSON.parse(JSON.stringify(res.data));
-        this.novoBuffet.patchValue(dadosBuffet)
+        this.novoAssessor.patchValue(dadosBuffet)
       }, error: (err) => {
         this.alertService.errorMessage(err);
       }});
   }
 
-  public addBuffet(): void {
+  public addAssessor(): void {
     if (this.new) {
-      console.log(this.novoBuffet.value);
-      this.buffetService.addBuffet(this.novoBuffet.value).subscribe( {next: (res) => {
+      console.log(this.novoAssessor.value);
+      this.assessoriaService.addAssessoria(this.novoAssessor.value).subscribe( {next: (res) => {
           this.alert.successMessage(res.message);
-          this.router.navigate(['cadastros/buffets/listar']);
+          this.router.navigate(['cadastros/assessores/listar']);
         }, error: (err) => {
           this.alert.errorMessage(err);
         }});
@@ -99,36 +100,36 @@ export class BuffetNewViewEditComponent {
     }
   }
 
-  public cancelAddBuffet() {
+  public cancelAddAssessor() {
     // verifica se é edição ou cadastro novo
     if (!this.view && this.edit && !this.new){
-      if (this.novoBuffet.dirty){
+      if (this.novoAssessor.dirty){
         this.openDialogCancel()
       } else {
         this.view = true
         this.edit = false
-        this.novoBuffet.disable();
+        this.novoAssessor.disable();
         return;
       }
     } else {
-      if (this.novoBuffet.dirty) {
+      if (this.novoAssessor.dirty) {
         this.openDialogCancel()
       } else {
-        this.router.navigate(['cadastros/buffets/listar'])
+        this.router.navigate(['cadastros/assessores/listar'])
       }
     }
   }
 
   public buscaCep() {
     this.loading = true;
-    this.buscaCepService.buscaCep(this.novoBuffet.value.cep).subscribe({next: (res) => {
+    this.buscaCepService.buscaCep(this.novoAssessor.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
-        this.novoBuffet.get('logradouro')?.patchValue(dadosCep.logradouro);
-        this.novoBuffet.get('bairro')?.patchValue(dadosCep.bairro);
-        this.novoBuffet.get('cidade')?.patchValue(dadosCep.localidade);
-        this.novoBuffet.get('logradouro')?.patchValue(dadosCep.logradouro);
-        this.novoBuffet.get('estado')?.patchValue(dadosCep.uf);
+        this.novoAssessor.get('logradouro')?.patchValue(dadosCep.logradouro);
+        this.novoAssessor.get('bairro')?.patchValue(dadosCep.bairro);
+        this.novoAssessor.get('cidade')?.patchValue(dadosCep.localidade);
+        this.novoAssessor.get('logradouro')?.patchValue(dadosCep.logradouro);
+        this.novoAssessor.get('estado')?.patchValue(dadosCep.uf);
 
       }, error: (err) => {
         this.alert.errorMessage(err);
@@ -140,13 +141,13 @@ export class BuffetNewViewEditComponent {
 
   public cancelarEdicao() {
     this.edit = !this.edit;
-    this.novoBuffet.disable()
+    this.novoAssessor.disable()
   }
 
   public editar(): void {
     this.edit = !this.edit;
     this.view = !this.view;
-    this.novoBuffet.enable();
+    this.novoAssessor.enable();
   }
 
   public openDialogCancel(): void {
@@ -158,10 +159,10 @@ export class BuffetNewViewEditComponent {
         if (!this.view && this.edit && !this.new) {
           this.view = true
           this.edit = false
-          this.novoBuffet.disable();
+          this.novoAssessor.disable();
           return;
         }
-        this.router.navigate(['cadastros/buffets/listar'])
+        this.router.navigate(['cadastros/assessores/listar'])
       }
     })
   }
@@ -172,9 +173,9 @@ export class BuffetNewViewEditComponent {
     });
     dialogRef.afterClosed().subscribe( res => {
       if (res) {
-        this.buffetService.editBuffet(this.buffetId, this.novoBuffet.value).subscribe({next: (res) => {
+        this.assessoriaService.editAssessoria(this.assessoriaId, this.novoAssessor.value).subscribe({next: (res) => {
             this.alertService.successMessage(res.message);
-            this.router.navigate(['cadastros/buffets/listar']);
+            this.router.navigate(['cadastros/assessores/listar']);
           }, error: (err) => {
             this.alert.errorMessage(err);
           }});

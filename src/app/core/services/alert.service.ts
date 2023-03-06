@@ -12,6 +12,10 @@ export class AlertService {
     this.toastr.success(message);
   }
 
+  public errorGenericMessage(message:string) {
+    this.toastr.error(message)
+  }
+
   public errorMessage(err:any) {
     if (err.status === 422) {
       Object.entries(err.error.errors).forEach( res => {

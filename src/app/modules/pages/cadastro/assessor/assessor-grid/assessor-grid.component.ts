@@ -1,25 +1,26 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cliente } from "../../../../../core/interfaces/cliente";
 import { MatTableDataSource } from "@angular/material/table";
+import { Buffet } from "../../../../../core/interfaces/buffet";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { ClienteService } from "../../../../../core/services/cliente.service";
-import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
-import { Buffet } from "../../../../../core/interfaces/buffet";
 import { BuffetService } from "../../../../../core/services/buffet.service";
 import { AlertService } from "../../../../../core/services/alert.service";
+import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
+import { AssessoriaService } from "../../../../../core/services/assessoria.service";
 
 @Component({
-  selector: 'app-buffet-grid',
-  templateUrl: './buffet-grid.component.html',
-  styleUrls: ['./buffet-grid.component.scss']
+  selector: 'app-assessor-grid',
+  templateUrl: './assessor-grid.component.html',
+  styleUrls: ['./assessor-grid.component.scss']
 })
-export class BuffetGridComponent {
+export class AssessorGridComponent implements OnInit {
 
   public clientes:Cliente[] = [];
 
   displayedColumns = ['id', 'nome', 'mail', 'celular', 'cidade', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
+
   loading = true;
 
   pesquisaForm = this.fb.group({
@@ -28,7 +29,7 @@ export class BuffetGridComponent {
 
   constructor(  private router: Router,
                 private fb: FormBuilder,
-                private buffetService: BuffetService,
+                private assessoriaService: AssessoriaService,
                 private alertService: AlertService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
 
@@ -43,38 +44,40 @@ export class BuffetGridComponent {
   }
 
   ngOnInit() {
-    this.listBuffet('');
+    this.listAssessoria('');
 
     //traduz label da barra de paginação da tabela
     this._MatPaginatorIntl.itemsPerPageLabel = 'Itens por Pagina'
   }
 
-  public listBuffet(filtro: string | null | undefined) {
-    this.buffetService.listBuffet(filtro).subscribe({next: (res) => {
-      this.clientes = res.data;
-      this.dataSource = new MatTableDataSource(res.data);
-      this.dataSource.paginator = this.paginator;
-      setTimeout(() => {
-        this.loading = false;
-      }, 1500)
+  public listAssessoria(filtro: string | null | undefined) {
+    this.assessoriaService.listAssessoria(filtro).subscribe({next: (res) => {
+        this.clientes = res.data;
 
+        this.dataSource = new MatTableDataSource(res.data);
+        this.dataSource.paginator = this.paginator;
 
-  }, error: (err) => {
-      this.alertService.errorMessage(err);
-    }})}
+        setTimeout( () => {
+          this.loading = false;
+        }, 1500)
+
+      }, error: (err) => {
+        this.alertService.errorMessage(err);
+      }})}
 
   public filtro() {
     console.log(typeof this.pesquisaForm.value.filtro)
     const filter = this.pesquisaForm.get('filtro')?.value
-    this.listBuffet(filter)
+    this.listAssessoria(filter)
   }
 
   public limparFiltro() {
     this.pesquisaForm.reset();
-    this.listBuffet('');
+    this.listAssessoria('');
   }
 
   public verDetalhes(id:number) {
     //this.router.navigate(['cadastros/buffet/consultar'])
   }
+
 }

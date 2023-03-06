@@ -9,8 +9,8 @@ import { Buffet } from "../interfaces/buffet";
 export class BuffetService {
 
   //private urlApi = 'http://127.0.0.1:8000/api'
-  private urlApi = 'http://192.168.0.8:8000/api'
-  // private urlApi = 'http://177.83.186.254:8000/api'
+  //private urlApi = 'http://192.168.0.8:8000/api'
+  private urlApi = 'http://177.83.186.254:8000/api'
 
   constructor(private http: HttpClient) { }
 

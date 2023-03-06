@@ -1,37 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ClientesRoutingModule } from './clientes-routing.module';
-import { ClientesGridComponent } from './components/clientes-grid/clientes-grid.component';
-import { MatCardModule } from "@angular/material/card";
+import { AssessorRoutingModule } from './assessor-routing.module';
+import { AssessorGridComponent } from './assessor-grid/assessor-grid.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
 import { ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from "../../../../shared/shared.module";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
-import { MatButtonModule } from "@angular/material/button";
-import { ClientesCriarComponent } from './components/clientes-criar/clientes-criar.component';
 import { NgxMaskDirective, NgxMaskPipe } from "ngx-mask";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { AssessorNewViewEditComponent } from './assessor-new-view-edit/assessor-new-view-edit.component';
+
 
 @NgModule({
   declarations: [
-    ClientesGridComponent,
-    ClientesCriarComponent,
+    AssessorGridComponent,
+    AssessorNewViewEditComponent
   ],
   imports: [
     CommonModule,
-    ClientesRoutingModule,
-    MatCardModule,
+    AssessorRoutingModule,
     MatPaginatorModule,
+    MatCardModule,
+    MatButtonModule,
     ReactiveFormsModule,
-    SharedModule,
     MatIconModule,
     MatTableModule,
-    MatButtonModule,
-    NgxMaskDirective,
     NgxMaskPipe,
     MatProgressSpinnerModule,
+    NgxMaskDirective
   ]
 })
-export class ClientesModule { }
+export class AssessorModule { }

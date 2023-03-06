@@ -3,11 +3,11 @@
 </div>
 
 <div class="container">
-  <h1 *ngIf="new && edit">Cadastrar novo Buffet</h1>
-  <h1 *ngIf="view">Dados Buffet</h1>
-  <h1 *ngIf="edit && !new">Editar Buffet</h1>
+  <h1 *ngIf="new && edit">Cadastrar nova Assessoria</h1>
+  <h1 *ngIf="view">Dados Assessoria</h1>
+  <h1 *ngIf="edit && !new">Editar Assessoria</h1>
 
-  <form [formGroup]="novoBuffet" novalidate>
+  <form [formGroup]="novoAssessor" novalidate>
 
     <!-- Verifica se é PF ou PJ -->
     <div class="btnEditar">
@@ -27,7 +27,7 @@
       </div>
 
       <div *ngIf="view">
-        <button class="btn btn-danger" [routerLink]="'/cadastros/buffets/listar'" >Voltar</button>
+        <button class="btn btn-danger" [routerLink]="'/cadastros/assessores/listar'" >Voltar</button>
         <button class="btn btn-primary" (click)="editar()">Editar</button>
       </div>
 
@@ -36,7 +36,7 @@
     <!--DadosPessoais-->
 
     <!--Se For Pessoa Física-->
-    <div *ngIf="novoBuffet.value.tipo_cadastro === 'pf'">
+    <div *ngIf="novoAssessor.value.tipo_cadastro === 'pf'">
       <div class="area-form">
         <div class="form-check" *ngIf="!new">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
@@ -51,7 +51,7 @@
               <label for="nome_razao_social" class="form-label">Nome Completo</label>
               <input type="text" class="form-control help-block with-errors" id="nome_razao_social" formControlName="nome_razao_social">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('nome_razao_social')?.errors?.['required'] && novoBuffet.get('nome_razao_social')?.touched">
+                    *ngIf="novoAssessor.get('nome_razao_social')?.errors?.['required'] && novoAssessor.get('nome_razao_social')?.touched">
                 O campo nome é obrigatório
               </span>
             </div>
@@ -61,11 +61,11 @@
               <label for="mail" class="form-label">E-mail</label>
               <input type="email" class="form-control" id="mail" formControlName="mail" >
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('mail')?.errors?.['required'] && novoBuffet.get('mail')?.touched">
+                    *ngIf="novoAssessor.get('mail')?.errors?.['required'] && novoAssessor.get('mail')?.touched">
                 O campo email é obrigatório
               </span>
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('mail')?.errors?.['email'] && novoBuffet.get('mail')?.touched">
+                    *ngIf="novoAssessor.get('mail')?.errors?.['email'] && novoAssessor.get('mail')?.touched">
                 O valor informado não é um endereço de email valido
               </span>
             </div>
@@ -79,7 +79,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000">
                 <span class="text-danger"
-                      *ngIf="novoBuffet.get('telefone')?.errors?.['telefoneInvalido'] && novoBuffet.get('telefone')?.touched">
+                      *ngIf="novoAssessor.get('telefone')?.errors?.['telefoneInvalido'] && novoAssessor.get('telefone')?.touched">
                 O campo telefone deve conter um numero de telefone valido              </span>
 
               </div>
@@ -90,11 +90,11 @@
               <label for="celular" class="form-label">Celular</label>
               <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('celular')?.errors?.['required'] && novoBuffet.get('celular')?.touched">
+                    *ngIf="novoAssessor.get('celular')?.errors?.['required'] && novoAssessor.get('celular')?.touched">
                 O campo celular é obrigatório
               </span>
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('celular')?.errors?.['telefoneInvalido'] && novoBuffet.get('celular')?.touched">
+                    *ngIf="novoAssessor.get('celular')?.errors?.['telefoneInvalido'] && novoAssessor.get('celular')?.touched">
                 O campo celular deve conter um numero de telefone valido
               </span>
             </div>
@@ -105,7 +105,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
                 <span class="text-danger"
-                      *ngIf="novoBuffet.get('celular2')?.errors?.['telefoneInvalido'] && novoBuffet.get('celular2')?.touched">
+                      *ngIf="novoAssessor.get('celular2')?.errors?.['telefoneInvalido'] && novoAssessor.get('celular2')?.touched">
                 O campo celular 2 deve conter um numero de telefone valido
               </span>
               </div></div>
@@ -116,7 +116,7 @@
 
     <!--Se For Pessoa Juridica-->
 
-    <div *ngIf="novoBuffet.value.tipo_cadastro === 'pj'">
+    <div *ngIf="novoAssessor.value.tipo_cadastro === 'pj'">
       <div class="area-form">
         <h6>Dados Cadastro:</h6>
         <div class="row">
@@ -125,7 +125,7 @@
               <label for="nome_razao_social" class="form-label">Razão Social</label>
               <input type="text" class="form-control" id="nome_razao_social" formControlName="nome_razao_social">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('nome_razao_social')?.errors?.['required'] && novoBuffet.get('nome_razao_social')?.touched">
+                    *ngIf="novoAssessor.get('nome_razao_social')?.errors?.['required'] && novoAssessor.get('nome_razao_social')?.touched">
                 O campo razão social é obrigatório
               </span>
             </div>
@@ -135,11 +135,11 @@
               <label for="mail" class="form-label">E-mail</label>
               <input type="email" class="form-control" id="mail" formControlName="mail" >
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('mail')?.errors?.['required'] && novoBuffet.get('mail')?.touched">
+                    *ngIf="novoAssessor.get('mail')?.errors?.['required'] && novoAssessor.get('mail')?.touched">
                 O campo email é obrigatório
               </span>
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('mail')?.errors?.['email'] && novoBuffet.get('mail')?.touched">
+                    *ngIf="novoAssessor.get('mail')?.errors?.['email'] && novoAssessor.get('mail')?.touched">
                 O valor informado deve ser um email valido
               </span>
             </div>
@@ -152,7 +152,7 @@
               <label for="telefone" class="form-label">Telefone Fixo</label>
               <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('telefone')?.errors?.['telefoneInvalido'] && novoBuffet.get('telefone')?.touched">
+                    *ngIf="novoAssessor.get('telefone')?.errors?.['telefoneInvalido'] && novoAssessor.get('telefone')?.touched">
                 O campo telefone deve conter um numero de telefone valido
               </span>
             </div>
@@ -162,11 +162,11 @@
               <label for="celular" class="form-label">Celular</label>
               <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('celular')?.errors?.['required'] && novoBuffet.get('celular')?.touched">
+                    *ngIf="novoAssessor.get('celular')?.errors?.['required'] && novoAssessor.get('celular')?.touched">
                 O campo celular é obrigatório
               </span>
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('celular')?.errors?.['telefoneInvalido'] && novoBuffet.get('celular')?.touched">
+                    *ngIf="novoAssessor.get('celular')?.errors?.['telefoneInvalido'] && novoAssessor.get('celular')?.touched">
                 O campo celular deve conter um numero de telefone celular valido
               </span>
             </div>
@@ -176,7 +176,7 @@
               <label for="celular2" class="form-label">Celular 2</label>
               <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
               <span class="text-danger"
-                    *ngIf="novoBuffet.get('celular2')?.errors?.['telefoneInvalido'] && novoBuffet.get('celular2')?.touched">
+                    *ngIf="novoAssessor.get('celular2')?.errors?.['telefoneInvalido'] && novoAssessor.get('celular2')?.touched">
                 O campo celular 2 deve conter um numero de telefone celular valido
               </span>
             </div>
@@ -194,14 +194,14 @@
             <label for="cep" class="form-label">CEP</label>
             <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('cep')?.errors?.['required'] && novoBuffet.get('cep')?.touched">
+                  *ngIf="novoAssessor.get('cep')?.errors?.['required'] && novoAssessor.get('cep')?.touched">
                 O campo cep é obrigatório
               </span>
           </div>
         </div>
         <div class="col-6" id="colCepButton">
           <button  *ngIf="edit" class="btn btn-primary" id="buscarCep" style="margin-top: 30px" (click)="buscaCep()"
-                   [disabled]="novoBuffet.value.cep === null || novoBuffet.value.cep === ''">Buscar CEP</button>
+                   [disabled]="novoAssessor.value.cep === null || novoAssessor.value.cep === ''">Buscar CEP</button>
         </div>
       </div>
       <div class="row">
@@ -211,7 +211,7 @@
 
             <input type="text" class="form-control" id="logradouro" formControlName="logradouro">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('logradouro')?.errors?.['required'] && novoBuffet.get('logradouro')?.touched">
+                  *ngIf="novoAssessor.get('logradouro')?.errors?.['required'] && novoAssessor.get('logradouro')?.touched">
                 O campo logradouro é obrigatório
               </span>
           </div>
@@ -221,7 +221,7 @@
             <label for="numero" class="form-label">Numero</label>
             <input type="email" class="form-control" id="numero" formControlName="numero">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('numero')?.errors?.['required'] && novoBuffet.get('numero')?.touched">
+                  *ngIf="novoAssessor.get('numero')?.errors?.['required'] && novoAssessor.get('numero')?.touched">
                 O campo numero é obrigatório
               </span>
           </div>
@@ -240,7 +240,7 @@
             <label for="bairro" class="form-label">Bairro</label>
             <input type="text" class="form-control" id="bairro" formControlName="bairro">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('bairro')?.errors?.['required'] && novoBuffet.get('bairro')?.touched">
+                  *ngIf="novoAssessor.get('bairro')?.errors?.['required'] && novoAssessor.get('bairro')?.touched">
                 O campo bairro é obrigatório
               </span>
           </div>
@@ -250,7 +250,7 @@
             <label for="cidade" class="form-label">Cidade</label>
             <input type="text" class="form-control" id="cidade" formControlName="cidade">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('cidade')?.errors?.['required'] && novoBuffet.get('cidade')?.touched">
+                  *ngIf="novoAssessor.get('cidade')?.errors?.['required'] && novoAssessor.get('cidade')?.touched">
                 O campo cidade é obrigatório
               </span>
           </div>
@@ -289,7 +289,7 @@
               <option value ="TO">Tocantins (TO)</option>
             </select>
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('estado')?.errors?.['required'] && novoBuffet.get('estado')?.touched">
+                  *ngIf="novoAssessor.get('estado')?.errors?.['required'] && novoAssessor.get('estado')?.touched">
                 O campo estado é obrigatório
               </span>
           </div>
@@ -324,7 +324,7 @@
             <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
             <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
             <span class="text-danger"
-                  *ngIf="novoBuffet.get('cpf_cnpj')?.errors?.['cpfCnpjInvalido'] && novoBuffet.get('cpf_cnpj')?.touched">
+                  *ngIf="novoAssessor.get('cpf_cnpj')?.errors?.['cpfCnpjInvalido'] && novoAssessor.get('cpf_cnpj')?.touched">
                 O valor informado para CPF/CNPJ é invalido
               </span>
           </div>
@@ -343,8 +343,8 @@
         </div>
       </div>
       <div class="botoes" *ngIf="edit">
-        <button class="btn btn-danger" (click)="cancelAddBuffet()">Cancelar</button>
-        <button class="btn btn-success" [disabled]="!novoBuffet.valid"(click)="addBuffet()">Salvar</button>
+        <button class="btn btn-danger" (click)="cancelAddAssessor()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novoAssessor.valid"(click)="addAssessor()">Salvar</button>
       </div>
     </div>
   </form>

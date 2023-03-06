@@ -12,6 +12,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { BuffetNewViewEditComponent } from './buffet-new-view-edit/buffet-new-view-edit.component';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { BuffetNewViewEditComponent } from './buffet-new-view-edit/buffet-new-vi
     MatCardModule,
     MatButtonModule,
     NgxMaskDirective,
+    MatProgressSpinnerModule,
 
 
   ]

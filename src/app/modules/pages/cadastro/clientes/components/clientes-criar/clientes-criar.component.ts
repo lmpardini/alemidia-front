@@ -24,6 +24,8 @@ export class ClientesCriarComponent implements OnInit{
   public new: boolean = false
   public clienteId: number = 0;
 
+  public loading = false;
+
   public confirmDialog: boolean = false
 
   novoCliente = this.fb.group({
@@ -33,7 +35,7 @@ export class ClientesCriarComponent implements OnInit{
     mail: [null, [Validators.required, Validators.email]],
     //cpf_cnpj: [null, Validators.required],
     cpf_cnpj: [null, Validators.compose([Validators.required, GenericValidator.ValidaCpf])],
-    rg_ie: [null, Validators.required],
+    rg_ie: [null],
     telefone: [null, Validators.compose([GenericValidator.ValidaTelefone])],
     celular: [null, Validators.compose([Validators.required, GenericValidator.ValidaTelefone])],
     celular2: [null, Validators.compose([GenericValidator.ValidaTelefone])],
@@ -117,6 +119,7 @@ export class ClientesCriarComponent implements OnInit{
   }
 
   public buscaCep() {
+    this.loading = true;
     this.buscaCepService.buscaCep(this.novoCliente.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
@@ -129,6 +132,10 @@ export class ClientesCriarComponent implements OnInit{
       }, error: (err) => {
         this.alert.errorMessage(err);
       }})
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000)
   }
 
   public cancelarEdicao() {
@@ -174,5 +181,12 @@ export class ClientesCriarComponent implements OnInit{
       }
       return;
     })
+  }
+
+  public limpaForm(){
+    this.novoCliente.get('cpf_cnpj')?.reset()
+    this.novoCliente.get('rg_ie')?.reset()
+    this.novoCliente.get('nome_razao_social')?.reset()
+    this.novoCliente.get('mail')?.reset()
   }
 }
