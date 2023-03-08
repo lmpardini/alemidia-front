@@ -15,6 +15,7 @@
   align-items: center;
   height: 50px;
   padding-left: 35px;
+  border:none;
 }
 .item-sub-menu{
   display: flex;
@@ -23,6 +24,9 @@
   padding-left: 55px;
 }
 .item-menu:hover , .item-sub-menu:hover{
+  background-color: #efefef;
+}
+.item-menu:active{
   background-color: #efefef;
 }
 .icon-menu{

@@ -53,9 +53,34 @@
     <!-- Fim submenu Financeiro   -->
 
     <!-- Menu Administrativo-->
-    <div class="item-menu" *ngIf="admin">
-      <mat-icon class="icon-menu">settings</mat-icon> Ferramentas administrativas
+
+    <div class="item-menu" (click)="exibirPainelcontrole()">
+      <mat-icon class="icon-menu" >settings </mat-icon>  Ferramentas administrativas
     </div>
+
+    <!-- Submenu Administrativo   -->
+    <div *ngIf="painelControle">
+      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">room_preferences</mat-icon> Dados da Empresa
+      </div>
+      <div class="item-sub-menu"  [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">group</mat-icon> Usuários
+      </div>
+      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">man</mat-icon> Vendedores
+      </div>
+      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">diversity_3</mat-icon> Monitores
+      </div>
+      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">shopping_bag</mat-icon> Produtos
+      </div>
+      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">credit_card</mat-icon> Formas de Pagamento
+      </div>
+      <!-- Fim submenu Administrativo   -->
+    </div>
+
 
   </mat-drawer>
   <mat-drawer-content>

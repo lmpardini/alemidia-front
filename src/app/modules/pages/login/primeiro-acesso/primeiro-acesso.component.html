@@ -1,0 +1,44 @@
+<div class="container">
+
+  <mat-card class="cardLogin">
+    <mat-card-header class="areaLogo">
+      <h1>Primeiro Acesso</h1>
+    </mat-card-header>
+    <mat-card-content class="areaLogin">
+
+      <div class="texto-primeiro-login">
+        <p>Este é seu primeiro acesso ao Alemidia Software :)</p>
+        <p>Para finalizar seu cadastro, por gentileza escolha uma nova senha para seu acesso.</p>
+        <p>Lembre-se a senha deve ter no minimo 8 caracteres</p>
+      </div>
+
+      <form action="POST" [formGroup]="loginForm">
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="password" placeholder="Digite sua nova senha" formControlName="password">
+          <span class="text-danger"
+                *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched">
+            Campo obrigatório
+          </span>
+          <span class="text-danger"
+                *ngIf="loginForm.controls.password.errors && loginForm.get('password')?.touched">
+            Deve conter no minimo 8 caracteres
+          </span>
+
+        </div>
+        <div class="mb-3">
+          <label for="password_confirmed" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="password_confirmed" placeholder="Confirme sua nova senha" formControlName="password_confirmed">
+          <span class="text-danger"
+                *ngIf="loginForm.get('password_confirmed')?.errors?.['required'] && loginForm.get('password_confirmed')?.touched">
+            Campo obrigatório
+          </span>
+          <span class="text-danger"    *ngIf="loginForm.controls.password_confirmed.errors && loginForm.get('password_confirmed')?.touched">
+            Deve conter no minimo 8 caracteres
+          </span>
+        </div>
+        <button class="btn btn-primary" [disabled]="!loginForm.valid" (click)="trocaSenha()">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

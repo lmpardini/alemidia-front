@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   public cadastro: boolean = false
   public vendas: boolean = false
   public financeiro: boolean = false
+  public painelControle: boolean = false
   public admin: boolean = true
 
   constructor(
@@ -28,6 +29,10 @@ export class HeaderComponent implements OnInit {
   }
   public exibirFinanceiro(): void {
     this.financeiro = !this.financeiro;
+  }
+
+  public exibirPainelcontrole(): void {
+    this.painelControle = !this.painelControle;
   }
 
   public goToHome(): void {
