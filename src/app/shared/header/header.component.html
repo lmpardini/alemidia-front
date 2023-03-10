@@ -1,6 +1,21 @@
 <mat-toolbar class="navBar" color="primary">
-  <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-  <img class="logoAlemidia" src="assets/images/Alemidia%20-%20Completo%203D%20PNG.png" [routerLink]="['/home']">
+  <div style="display: flex; align-items: center">
+    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+    <img class="logoAlemidia" src="assets/images/Alemidia%20-%20Completo%203D%20PNG.png" [routerLink]="['/home']">
+  </div>
+
+  <div class="menuDireito">
+    <div ngbDropdown class="dropdown">
+      <button ngbDropdownToggle class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" aria-expanded="false">
+        {{ nome }}
+      </button>
+      <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+        <li><a ngbDropdownItem class="dropdown-item opcaoMenu"><mat-icon style="margin-right: 12px"> settings</mat-icon>Trocar Senha</a></li>
+        <li><hr  class="dropdown-divider"></li>
+        <li (click)="logout()"><a ngbDropdownItem class="dropdown-item opcaoMenu"><mat-icon style="margin-right: 12px" > logout</mat-icon>Sair</a></li>
+      </ul>
+    </div>
+  </div>
 </mat-toolbar>
 
 <mat-drawer-container class="area-total">
@@ -54,7 +69,7 @@
 
     <!-- Menu Administrativo-->
 
-    <div class="item-menu" (click)="exibirPainelcontrole()">
+    <div class="item-menu" *ngIf="admin" (click)="exibirPainelcontrole()">
       <mat-icon class="icon-menu" >settings </mat-icon>  Ferramentas administrativas
     </div>
 
@@ -63,7 +78,7 @@
       <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">room_preferences</mat-icon> Dados da Empresa
       </div>
-      <div class="item-sub-menu"  [routerLink]="['']" (click)="drawer.toggle()">
+      <div class="item-sub-menu"  [routerLink]="['/admin/usuarios/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">group</mat-icon> Usuários
       </div>
       <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
@@ -85,7 +100,15 @@
   </mat-drawer>
   <mat-drawer-content>
 
-    <router-outlet></router-outlet>
+    <router-outlet>
+      <ng-template #blockTemplate>
+        <div class="block-ui-template">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-template>
+    </router-outlet>
 
   </mat-drawer-content>
 </mat-drawer-container>

@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ClienteService } from "../../../../../../core/services/cliente.service";
 import { Cliente } from "../../../../../../core/interfaces/cliente";
+import { BlockUI, NgBlockUI } from "ng-block-ui";
+import { AlertService } from "../../../../../../core/services/alert.service";
 
 @Component({
   selector: 'app-clientes-grid',
@@ -13,6 +15,8 @@ import { Cliente } from "../../../../../../core/interfaces/cliente";
   encapsulation: ViewEncapsulation.None,
 })
 export class ClientesGridComponent implements OnInit {
+
+  @BlockUI() blockUI: NgBlockUI | undefined;
 
   public clientes:Cliente[] = [];
 
@@ -28,7 +32,8 @@ export class ClientesGridComponent implements OnInit {
   constructor(  private router: Router,
                 private fb: FormBuilder,
                 private clienteService: ClienteService,
-                public _MatPaginatorIntl: MatPaginatorIntl
+                public _MatPaginatorIntl: MatPaginatorIntl,
+                private alertService: AlertService
 
   ) { }
 
@@ -48,14 +53,21 @@ export class ClientesGridComponent implements OnInit {
 
 
   public listCliente(filtro: string | null | undefined) {
-    this.clienteService.listClientes(filtro).subscribe(res => {
-      this.clientes = res.data;
-      this.dataSource = new MatTableDataSource(res.data);
-      this.dataSource.paginator = this.paginator;
-
+    // @ts-ignore
+    this.blockUI.start();
+    this.clienteService.listClientes(filtro).subscribe({next: (res) => {
+        this.clientes = res.data;
+        this.dataSource = new MatTableDataSource(res.data);
+        this.dataSource.paginator = this.paginator;
+        setTimeout(() => {
+          this.loading = false;
+        }, 1500)
+      }, error: (err) =>{
+      this.alertService.errorMessage(err)
       setTimeout(() => {
         this.loading = false;
       }, 1500)
+      }
     })
   }
 

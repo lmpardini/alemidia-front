@@ -28,12 +28,12 @@
         </div>
         <div class="mb-3">
           <label for="password_confirmed" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="password_confirmed" placeholder="Confirme sua nova senha" formControlName="password_confirmed">
+          <input type="password" class="form-control" id="password_confirmed" placeholder="Confirme sua nova senha" formControlName="password_confirmation">
           <span class="text-danger"
-                *ngIf="loginForm.get('password_confirmed')?.errors?.['required'] && loginForm.get('password_confirmed')?.touched">
+                *ngIf="loginForm.get('password_confirmation')?.errors?.['required'] && loginForm.get('password_confirmed')?.touched">
             Campo obrigatório
           </span>
-          <span class="text-danger"    *ngIf="loginForm.controls.password_confirmed.errors && loginForm.get('password_confirmed')?.touched">
+          <span class="text-danger"    *ngIf="loginForm.controls.password_confirmation.errors && loginForm.get('password_confirmed')?.touched">
             Deve conter no minimo 8 caracteres
           </span>
         </div>

@@ -19,6 +19,13 @@
     <button class="btn btn btn-primary" (click)="confirmar()">Sim</button>
   </div>
 
+  <div *ngIf="tipo === 'warning'">
+    <button class="btn btn btn-secondary" (click)="cancelar()">Não</button>
+    <button class="btn btn btn-warning" (click)="confirmar()">Sim</button>
+  </div>
+
+
+
 
 </div>
 

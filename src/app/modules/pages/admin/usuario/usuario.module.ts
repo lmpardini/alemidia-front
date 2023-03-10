@@ -1,33 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from "@angular/material/icon";
-
+import { UsuarioRoutingModule } from './usuario-routing.module';
+import { UsuarioGridComponent } from './usuario-grid/usuario-grid.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { NgxMaskPipe } from "ngx-mask";
 import { MatTableModule } from "@angular/material/table";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { UsuarioViewNewEditComponent } from './usuario-view-new-edit/usuario-view-new-edit.component';
+import { NgxMaskDirective } from "ngx-mask";
 
 
 @NgModule({
   declarations: [
-
+    UsuarioGridComponent,
+    UsuarioViewNewEditComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,
-    MatCardModule,
-    MatIconModule,
+    UsuarioRoutingModule,
     MatPaginatorModule,
-    NgxMaskPipe,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatIconModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMaskDirective
   ]
 })
-export class AdminModule { }
+export class UsuarioModule { }

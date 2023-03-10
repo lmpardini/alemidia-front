@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminGridComponent } from "./admin-grid/admin-grid.component";
+
+
 
 const routes: Routes = [
-  { path: 'painel-controle', component: AdminGridComponent }
+  { path: 'usuarios', loadChildren: () => import('./usuario/usuario.module').then( m => m.UsuarioModule) },
 ];
 
 @NgModule({

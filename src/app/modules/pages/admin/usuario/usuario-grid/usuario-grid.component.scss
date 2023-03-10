@@ -1,0 +1,213 @@
+.mat-toolbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.spinner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,.6);
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-property: background-color,visibility;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 3;
+  //visibility: hidden;
+  box-sizing: border-box;
+}
+
+.area-total {
+  width: 100%;
+  height: 91vh;
+}
+.area-menu{
+  width: 200px;
+  background-color: #ffffff ;
+}
+.card-home{
+  width: 100%;
+  margin-top: 20px;
+}
+
+.item-menu{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 35px;
+}
+.item-menu:hover{
+  background-color: #efefef;
+}
+.icon-menu{
+  color: #d9d9d9;
+  margin-right: 10px;
+}
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+.container2{
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cab{
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-section{
+  margin-top: 10px;
+}
+
+.button-section button{
+  margin-right:10px ;
+  margin-left:10px ;
+}
+
+.tabela{
+  margin-top: 10px;
+}
+
+.tabela{
+  min-width: 950px;
+  width: 100%;
+}
+table{
+  width: 100%;
+  min-width: 150px;
+}
+
+td, th {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+
+.mat-elevation-z8{
+  margin-top: 15px;
+}
+
+.input-pesquisa {
+  display: flex;
+  margin-top: 5px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.pesquisa{
+  margin-top: 5px;
+}
+.limpa{
+  margin-left: -12px;
+}
+mat-header-cell, mat-cell {
+  justify-content: center;
+}
+
+.mat-mdc-paginator-container {
+  justify-content: center!important;
+  min-height: 70px!important;
+}
+
+.limpaBusca {
+  margin-top: 7px;
+  margin-left: -30px;
+}
+
+.filtroArea {
+  display: flex;
+  margin-top:4px
+}
+
+.area-form {
+  padding: 15px;
+  border: 1px solid #C1C1C2;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+@media (min-width 651px) and (max-width 992px) {
+
+  .ocultaMobileMail {
+    display: none!important;
+  }
+  .tabela {
+    min-width: 750px;
+    width: 100%;
+  }
+
+}
+
+@media screen and (min-width:768px) and (max-width: 992px) {
+
+  .ocultaMobileCPF {
+    display: none!important;
+  }
+
+  .tabela {
+    min-width: 750px;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width:651px) and (max-width: 767px) {
+
+  .ocultaMobileCPF, .ocultaMobileMail {
+    display: none!important;
+  }
+
+  .tabela {
+    min-width: 550px;
+    width: 100%;
+  }
+
+
+}
+
+@media screen and (max-width: 650px) {
+
+  .modal {
+    width: auto;
+  }
+  .input-pesquisa {
+    display: flex;
+    flex-direction: column;
+    //width: 160px!important;
+  }
+
+  .ocultaMobileCPF, .ocultaMobileMail , .ocultaMobileTelefone {
+    display: none!important;
+  }
+
+  .botaoAdd {
+    font-size: 13px;
+  }
+
+  .tabela {
+    min-width: 350px;
+    width: 100%!important;
+  }
+
+  .mat-mdc-paginator-container {
+    justify-content: center !important;
+    min-height: 100px !important;
+  }
+}
+
+
+
+
+

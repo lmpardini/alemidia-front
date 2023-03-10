@@ -1,0 +1,80 @@
+.container {
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+.spinner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,.6);
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-property: background-color,visibility;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 3;
+  //visibility: hidden;
+  box-sizing: border-box;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btnEditar {
+  display: flex;
+  align-items: self-end;
+  justify-content: space-between;
+
+}
+
+.area-form {
+  padding: 15px;
+  border: 1px solid #C1C1C2;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.botoes{
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 575px) {
+  .row {
+    flex-direction: column;
+
+  }
+
+  .spinner {
+    height: 200%;
+  }
+
+  #rowCep {
+    flex-direction: row;
+  }
+
+  #cep{
+    width: 120px;
+  }
+  #colCepButton {
+    width: 42%;
+  }
+  #colCepInput {
+    width: 58%;
+  }
+  #colLogradouro, #colNumero {
+    width: 100%;
+  }
+}

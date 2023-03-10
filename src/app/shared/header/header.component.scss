@@ -40,6 +40,18 @@
 }
 
 .navBar{
-  justify-content: flex-start;
+  justify-content: space-between;
 }
+
+#dropdownMenuButton1, #dropdownMenuButton1:active {
+  border:none;
+  background: none;
+  color: white;
+}
+
+.opcaoMenu {
+  display: flex;
+  align-items: center;
+}
+
 

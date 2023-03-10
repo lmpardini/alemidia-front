@@ -1,0 +1,95 @@
+<div class="spinner" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="container">
+
+  <div class="btnEditar">
+    <h1 *ngIf="new && edit">Cadastrar novo Usuário</h1>
+    <h1 *ngIf="view">Dados Usuário</h1>
+    <h1 *ngIf="edit && !new">Editar Usuário</h1>
+
+    <div *ngIf="view">
+      <button class="btn btn-danger" [routerLink]="'/admin/usuarios/listar'" >Voltar</button>
+      <button class="btn btn-primary" (click)="editar()">Editar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="novoUsuario" novalidate>
+    <div class="area-form">
+      <h6>Dados Usuário:</h6>
+
+      <div style="display: flex;justify-content: space-between">
+
+        <div class="form-check" *ngIf="!new" >
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+          <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+            Ativo
+          </label>
+
+        </div>
+
+        <button *ngIf="edit && !new" class="btn btn-warning btn-sm" (click)="redefinirSenha()">Redefinir senha</button>
+
+
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+            <span class="text-danger"
+                  *ngIf="novoUsuario.get('nome')?.errors?.['required'] && novoUsuario.get('nome')?.touched">
+                O campo nome é obrigatório
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" >
+            <span class="text-danger"
+                  *ngIf="novoUsuario.get('email')?.errors?.['required'] && novoUsuario.get('email')?.touched">
+                O campo email é obrigatório
+            </span>
+            <span class="text-danger"
+                  *ngIf="novoUsuario.controls.email.errors && novoUsuario.get('email')?.touched">
+                O valor informado deve ser um email valido
+              </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Usuário</label>
+            <input type="text" class="form-control" id="usuario" formControlName="usuario">
+            <span class="text-danger"
+                  *ngIf="novoUsuario.get('usuario')?.errors?.['required'] && novoUsuario.get('usuario')?.touched">
+                O campo usuário é obrigatório
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="role" class="form-label">Perfil Usuário</label>
+            <select class="form-select" formControlName="role" id="role">
+<!--              <option selected>Selecione um perfil de Usuário</option>-->
+              <option *ngFor="let item of perfilUsuario" [value]="item.name">{{item.name_role}}</option>
+            </select>
+            <span class="text-danger"
+                  *ngIf="novoUsuario.get('role')?.errors?.['required'] && novoUsuario.get('role')?.touched">
+                É obrigatório definir um perfil de usuário
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="botoes" *ngIf="edit">
+        <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novoUsuario.valid"(click)="add()">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -4,13 +4,9 @@
 
 <div class="container">
 
-
   <h1 *ngIf="new && edit">Cadastrar novo Cliente</h1>
   <h1 *ngIf="view">Dados Clientes</h1>
   <h1 *ngIf="edit && !new">Editar Clientes</h1>
-
-
-
 
   <form [formGroup]="novoCliente" novalidate>
 

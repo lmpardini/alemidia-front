@@ -34,16 +34,12 @@ export class LoginComponent implements OnInit{
 
   public login() {
     this.loginService.login(this.loginForm.value).subscribe({next: (res) => {
-
-      if (res.data.user.primeiro_acesso){
+      if (res.user.primeiro_acesso){
         this.router.navigate(['/login/primeiro-acesso'])
       } else {
         this.router.navigate(['/home'])
       }
-    }, error: (err) => {
-      this.alertService.errorMessage(err);
-      }})
-
+    }})
   }
 
 }

@@ -8,7 +8,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from "ngx-mask";
 import { DesejaCancelarComponent } from './dialogs/deseja-cancelar/deseja-cancelar.component';
 import { MatDialogModule } from "@angular/material/dialog";
-import { DesejaEditarComponent } from './dialogs/deseja-editar/deseja-editar.component';
+
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -16,7 +19,7 @@ import { DesejaEditarComponent } from './dialogs/deseja-editar/deseja-editar.com
   declarations: [
     HeaderComponent,
     DesejaCancelarComponent,
-    DesejaEditarComponent
+
   ],
   exports: [
     HeaderComponent
@@ -30,7 +33,13 @@ import { DesejaEditarComponent } from './dialogs/deseja-editar/deseja-editar.com
     MatToolbarModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    NgbDropdown,
+    NgbDropdownToggle,
+    NgbDropdownMenu,
+    NgbDropdownItem
 
   ],
   providers: [provideNgxMask()]

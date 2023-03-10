@@ -13,7 +13,7 @@ export class PrimeiroAcessoComponent {
 
   loginForm = this.fb.group({
     password: [null, [Validators.required, Validators.minLength(8)]],
-    password_confirmed: [null, [Validators.required, Validators.minLength(8)]],
+    password_confirmation: [null, [Validators.required, Validators.minLength(8)]],
   })
 
   constructor(private router: Router,
@@ -22,7 +22,10 @@ export class PrimeiroAcessoComponent {
               private loginService:LoginService) {}
 
   public trocaSenha() {
-
+    this.loginService.trocarSenha(this.loginForm.value).subscribe({next: (res) => {
+      this.router.navigate(['/home']);
+      this.alertService.successMessage(res.message);
+      }, error: (err) => {
+      }})
   }
-
 }
