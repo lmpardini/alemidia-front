@@ -20,7 +20,6 @@ export class BuffetGridComponent {
 
   displayedColumns = ['id', 'nome', 'mail', 'celular', 'cidade', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
-  loading = true;
 
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
@@ -31,8 +30,6 @@ export class BuffetGridComponent {
                 private buffetService: BuffetService,
                 private alertService: AlertService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
-
-
   ) { }
 
   private paginator:any =  MatPaginator;
@@ -54,12 +51,7 @@ export class BuffetGridComponent {
       this.clientes = res.data;
       this.dataSource = new MatTableDataSource(res.data);
       this.dataSource.paginator = this.paginator;
-      setTimeout(() => {
-        this.loading = false;
-      }, 1500)
-
-
-  }, error: (err) => {
+    }, error: (err) => {
       this.alertService.errorMessage(err);
     }})}
 
@@ -72,9 +64,5 @@ export class BuffetGridComponent {
   public limparFiltro() {
     this.pesquisaForm.reset();
     this.listBuffet('');
-  }
-
-  public verDetalhes(id:number) {
-    //this.router.navigate(['cadastros/buffet/consultar'])
   }
 }

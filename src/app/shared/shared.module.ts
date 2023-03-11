@@ -12,6 +12,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
+import { LoadingComponent } from './loading/loading.component';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 
@@ -19,10 +21,12 @@ import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from
   declarations: [
     HeaderComponent,
     DesejaCancelarComponent,
+    LoadingComponent,
 
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,8 @@ import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from
     NgbDropdown,
     NgbDropdownToggle,
     NgbDropdownMenu,
-    NgbDropdownItem
+    NgbDropdownItem,
+    MatProgressSpinnerModule
 
   ],
   providers: [provideNgxMask()]

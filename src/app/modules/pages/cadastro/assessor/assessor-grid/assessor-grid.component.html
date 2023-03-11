@@ -13,10 +13,6 @@
       </form>
     </div>
 
-    <div class="spinner" *ngIf="loading">
-      <mat-spinner></mat-spinner>
-    </div>
-
     <div *ngIf="clientes.length >=0; then thenBlock else elseBlock"></div>
 
     <ng-template #thenBlock>

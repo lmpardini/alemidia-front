@@ -49,7 +49,6 @@ export class AssessorNewViewEditComponent {
   });
 
   public  tipoCadastro = this.novoAssessor.value.tipo_cadastro;
-  public loading = false;
 
   constructor( private fb: FormBuilder,
                private router: Router,
@@ -121,7 +120,7 @@ export class AssessorNewViewEditComponent {
   }
 
   public buscaCep() {
-    this.loading = true;
+
     this.buscaCepService.buscaCep(this.novoAssessor.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
@@ -134,9 +133,6 @@ export class AssessorNewViewEditComponent {
       }, error: (err) => {
         this.alert.errorMessage(err);
       }})
-    setTimeout(() => {
-      this.loading = false;
-    }, 1500)
   }
 
   public cancelarEdicao() {

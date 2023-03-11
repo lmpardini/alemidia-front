@@ -5,7 +5,6 @@ import { Router } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ClienteService } from "../../../../../../core/services/cliente.service";
 import { Cliente } from "../../../../../../core/interfaces/cliente";
-import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { AlertService } from "../../../../../../core/services/alert.service";
 
 @Component({
@@ -16,14 +15,10 @@ import { AlertService } from "../../../../../../core/services/alert.service";
 })
 export class ClientesGridComponent implements OnInit {
 
-  @BlockUI() blockUI: NgBlockUI | undefined;
-
   public clientes:Cliente[] = [];
 
   displayedColumns = ['id', 'nome', 'cpf', 'mail', 'telefone', 'detalhes'];
   dataSource =  new MatTableDataSource<Cliente>;
-
-  loading = true;
 
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
@@ -53,20 +48,13 @@ export class ClientesGridComponent implements OnInit {
 
 
   public listCliente(filtro: string | null | undefined) {
-    // @ts-ignore
-    this.blockUI.start();
     this.clienteService.listClientes(filtro).subscribe({next: (res) => {
         this.clientes = res.data;
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
-        setTimeout(() => {
-          this.loading = false;
-        }, 1500)
+
       }, error: (err) =>{
       this.alertService.errorMessage(err)
-      setTimeout(() => {
-        this.loading = false;
-      }, 1500)
       }
     })
   }
@@ -81,12 +69,4 @@ export class ClientesGridComponent implements OnInit {
     this.pesquisaForm.reset();
     this.listCliente('');
   }
-  public addCliente(): void {
-    this.router.navigate(['cadastros/clientes/novo'])
-  }
-
-  public verDetalhes(id:number) {
-    this.router.navigate(['cadastros/clientes/consultar'])
-  }
-
 }

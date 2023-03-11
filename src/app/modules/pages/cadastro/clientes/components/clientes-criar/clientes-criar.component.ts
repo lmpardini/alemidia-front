@@ -24,8 +24,6 @@ export class ClientesCriarComponent implements OnInit{
   public new: boolean = false
   public clienteId: number = 0;
 
-  public loading = false;
-
   public confirmDialog: boolean = false
 
   novoCliente = this.fb.group({
@@ -85,7 +83,6 @@ export class ClientesCriarComponent implements OnInit{
   }
 
   public addCliente(): void {
-
     if (this.new) {
       this.clienteService.addCliente(this.novoCliente.value).subscribe( {next: (res) => {
           this.alert.successMessage(res.message);
@@ -119,7 +116,6 @@ export class ClientesCriarComponent implements OnInit{
   }
 
   public buscaCep() {
-    this.loading = true;
     this.buscaCepService.buscaCep(this.novoCliente.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
@@ -132,10 +128,6 @@ export class ClientesCriarComponent implements OnInit{
       }, error: (err) => {
         this.alert.errorMessage(err);
       }})
-
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000)
   }
 
   public cancelarEdicao() {

@@ -19,8 +19,6 @@ export class UsuarioGridComponent {
   displayedColumns = ['id', 'nome', 'usuario', 'email', 'ativo', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
 
-  loading = true;
-
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
   })
@@ -59,11 +57,6 @@ export class UsuarioGridComponent {
     this.usuarioService.listUsers(filtro).subscribe({next: (res) => {
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
-
-        setTimeout( () => {
-          this.loading = false;
-        }, 1500)
-
       }, error: (err) => {
         this.alertService.errorMessage(err);
       }})}

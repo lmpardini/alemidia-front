@@ -31,8 +31,6 @@ export class UsuarioViewNewEditComponent {
     role: [null, Validators.required],
   });
 
-  public loading = false;
-
   constructor( private fb: FormBuilder,
                private router: Router,
                private usuarioService: UsuarioService,
@@ -62,7 +60,6 @@ export class UsuarioViewNewEditComponent {
   public getUsuario(id:number) {
     this.usuarioService.listById(id).subscribe({next: (res) => {
         let dados = JSON.parse(JSON.stringify(res.data));
-        console.log(dados)
         this.novoUsuario.patchValue(dados)
       }, error: (err) => {
         this.alertService.errorMessage(err);
@@ -71,7 +68,6 @@ export class UsuarioViewNewEditComponent {
 
   public add(): void {
     if (this.new) {
-      console.log(this.novoUsuario.value);
       this.usuarioService.add(this.novoUsuario.value).subscribe( {next: (res) => {
           this.alert.successMessage(res.message);
           this.router.navigate(['admin/usuarios/listar']);
@@ -151,7 +147,6 @@ export class UsuarioViewNewEditComponent {
   public getPerfilAcesso() {
     this.usuarioService.listPerfilUsuario().subscribe({next: (res) => {
       this.perfilUsuario = res.data;
-      console.log(this.perfilUsuario)
       }
     })
   }

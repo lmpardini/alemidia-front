@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ToastrModule } from "ngx-toastr";
 import { BlockUI, BlockUIModule, NgBlockUI } from "ng-block-ui";
 import { TokenInterceptor } from "./core/interceptor/token.interceptor";
+import { LoadingInterceptor } from "./core/interceptor/loading.interceptor";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TokenInterceptor } from "./core/interceptor/token.interceptor";
     BlockUIModule.forRoot()
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

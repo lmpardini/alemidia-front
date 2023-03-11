@@ -48,7 +48,6 @@ export class BuffetNewViewEditComponent {
   });
 
   public  tipoCadastro = this.novoBuffet.value.tipo_cadastro;
-  public loading = false;
 
   constructor( private fb: FormBuilder,
                private router: Router,
@@ -120,7 +119,6 @@ export class BuffetNewViewEditComponent {
   }
 
   public buscaCep() {
-    this.loading = true;
     this.buscaCepService.buscaCep(this.novoBuffet.value.cep).subscribe({next: (res) => {
         this.alert.successMessage(res.message);
         let dadosCep = JSON.parse(JSON.stringify(res.data));
@@ -133,9 +131,6 @@ export class BuffetNewViewEditComponent {
       }, error: (err) => {
         this.alert.errorMessage(err);
       }})
-    setTimeout(() => {
-      this.loading = false;
-    }, 1500)
   }
 
   public cancelarEdicao() {

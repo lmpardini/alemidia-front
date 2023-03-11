@@ -21,8 +21,6 @@ export class AssessorGridComponent implements OnInit {
   displayedColumns = ['id', 'nome', 'mail', 'celular', 'cidade', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
 
-  loading = true;
-
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
   })
@@ -32,8 +30,6 @@ export class AssessorGridComponent implements OnInit {
                 private assessoriaService: AssessoriaService,
                 private alertService: AlertService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
-
-
   ) { }
 
   private paginator:any =  MatPaginator;
@@ -53,20 +49,13 @@ export class AssessorGridComponent implements OnInit {
   public listAssessoria(filtro: string | null | undefined) {
     this.assessoriaService.listAssessoria(filtro).subscribe({next: (res) => {
         this.clientes = res.data;
-
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
-
-        setTimeout( () => {
-          this.loading = false;
-        }, 1500)
-
       }, error: (err) => {
         this.alertService.errorMessage(err);
       }})}
 
   public filtro() {
-    console.log(typeof this.pesquisaForm.value.filtro)
     const filter = this.pesquisaForm.get('filtro')?.value
     this.listAssessoria(filter)
   }
@@ -75,9 +64,4 @@ export class AssessorGridComponent implements OnInit {
     this.pesquisaForm.reset();
     this.listAssessoria('');
   }
-
-  public verDetalhes(id:number) {
-    //this.router.navigate(['cadastros/buffet/consultar'])
-  }
-
 }
