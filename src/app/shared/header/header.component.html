@@ -75,7 +75,7 @@
 
     <!-- Submenu Administrativo   -->
     <div *ngIf="painelControle">
-      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+      <div class="item-sub-menu" [routerLink]="['/admin/dados-empresa']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">room_preferences</mat-icon> Dados da Empresa
       </div>
       <div class="item-sub-menu"  [routerLink]="['/admin/usuarios/listar']" (click)="drawer.toggle()">

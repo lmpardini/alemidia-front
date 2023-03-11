@@ -13,10 +13,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 
 
-@NgModule({
-  declarations: [
 
-  ],
+
+@NgModule({
+  declarations: [],
   imports: [
     CommonModule,
     AdminRoutingModule,

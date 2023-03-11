@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { LoadingService } from "./core/services/loading.service";
@@ -14,7 +14,11 @@ import { LoadingService } from "./core/services/loading.service";
 export class AppComponent {
 
   constructor(public  _router: Router,
-              public loadingService: LoadingService) {
+              public loadingService: LoadingService,
+              public changeDetector: ChangeDetectorRef) {
 
+  }
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 }
