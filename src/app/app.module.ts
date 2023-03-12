@@ -12,11 +12,14 @@ import { ToastrModule } from "ngx-toastr";
 import { BlockUI, BlockUIModule, NgBlockUI } from "ng-block-ui";
 import { TokenInterceptor } from "./core/interceptor/token.interceptor";
 import { LoadingInterceptor } from "./core/interceptor/loading.interceptor";
+import { AtivoPipe } from './core/pipes/ativo.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -30,8 +33,12 @@ import { LoadingInterceptor } from "./core/interceptor/loading.interceptor";
     BlockUIModule.forRoot()
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+  ],
+  exports: [
+
+
   ],
   bootstrap: [AppComponent]
 })

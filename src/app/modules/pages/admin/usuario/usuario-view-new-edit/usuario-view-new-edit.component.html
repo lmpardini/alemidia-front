@@ -24,13 +24,8 @@
           </label>
 
         </div>
-
         <button *ngIf="edit && !new" class="btn btn-warning btn-sm" (click)="redefinirSenha()">Redefinir senha</button>
-
-
       </div>
-
-
       <div class="row">
         <div class="col">
           <div class="mb-3">
@@ -88,4 +83,6 @@
       </div>
     </div>
   </form>
+
+  {{novoUsuario.errors |json}}
 </div>

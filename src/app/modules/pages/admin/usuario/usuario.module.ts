@@ -11,6 +11,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { UsuarioViewNewEditComponent } from './usuario-view-new-edit/usuario-view-new-edit.component';
 import { NgxMaskDirective } from "ngx-mask";
+import { AppModule  } from "../../../../app.module";
+import { AtivoPipe } from "../../../../core/pipes/ativo.pipe";
+import { SharedModule } from "../../../../shared/shared.module";
+
 
 
 @NgModule({
@@ -27,7 +31,8 @@ import { NgxMaskDirective } from "ngx-mask";
     MatIconModule,
     ReactiveFormsModule,
     MatButtonModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    SharedModule,
   ]
 })
 export class UsuarioModule { }

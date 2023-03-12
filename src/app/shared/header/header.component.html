@@ -81,11 +81,8 @@
       <div class="item-sub-menu"  [routerLink]="['/admin/usuarios/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">group</mat-icon> Usuários
       </div>
-      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
-        <mat-icon class="icon-menu">man</mat-icon> Vendedores
-      </div>
-      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
-        <mat-icon class="icon-menu">diversity_3</mat-icon> Monitores
+      <div class="item-sub-menu" [routerLink]="['/admin/colaboradores/listar']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">diversity_3</mat-icon> Colaboradores
       </div>
       <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">shopping_bag</mat-icon> Produtos

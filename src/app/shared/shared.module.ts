@@ -14,6 +14,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { LoadingComponent } from './loading/loading.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { AtivoPipe } from "../core/pipes/ativo.pipe";
 
 
 
@@ -22,11 +23,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     HeaderComponent,
     DesejaCancelarComponent,
     LoadingComponent,
+    AtivoPipe
 
   ],
   exports: [
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent, AtivoPipe
   ],
   imports: [
     CommonModule,

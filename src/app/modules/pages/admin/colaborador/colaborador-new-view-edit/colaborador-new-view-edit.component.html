@@ -1,0 +1,273 @@
+<div class="container">
+  <h1 *ngIf="new && edit">Cadastrar novo Colaborador</h1>
+  <h1 *ngIf="view">Dados Colaborador</h1>
+  <h1 *ngIf="edit && !new">Editar Colaborador</h1>
+
+  <form [formGroup]="novoColaborador" novalidate>
+
+    <div class="btnEditar">
+      <div *ngIf="view">
+        <button class="btn btn-danger" [routerLink]="'/admin/colaboradores/listar'" >Voltar</button>
+        <button class="btn btn-primary" (click)="editar()">Editar</button>
+      </div>
+    </div>
+
+    <!--DadosPessoais-->
+
+    <div>
+      <div class="area-form">
+        <div class="form-check" *ngIf="!new">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+          <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+            Ativo
+          </label>
+        </div>
+        <h6>Dados cadastro:</h6>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input type="text" class="form-control help-block with-errors" id="nome" formControlName="nome">
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('nome')?.errors?.['required'] && novoColaborador.get('nome')?.touched">
+                O campo nome é obrigatório
+              </span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="mail" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="mail" formControlName="mail" >
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('mail')?.errors?.['required'] && novoColaborador.get('mail')?.touched">
+                O campo email é obrigatório
+              </span>
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('mail')?.errors?.['email'] && novoColaborador.get('mail')?.touched">
+                O valor informado não é um endereço de email valido
+              </span>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="mb-3">
+              <label for="funcao" class="form-label">Funcão</label>
+              <mat-select class="form-control" formControlName="funcao" id="funcao" multiple>
+                <mat-option *ngFor="let item of funcoes" [value]="item.slug">{{item.nome_funcao}}</mat-option>
+              </mat-select>
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('funcao')?.errors?.['required'] && novoColaborador.get('funcao')?.touched">
+                É obrigatório atribuir ao menos uma função
+              </span>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="telefone" class="form-label">Telefone Fixo</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="telefone" formControlName="telefone" mask="(00) 0000-0000">
+                <span class="text-danger"
+                      *ngIf="novoColaborador.get('telefone')?.errors?.['telefoneInvalido'] && novoColaborador.get('telefone')?.touched">
+                O campo telefone deve conter um numero de telefone valido
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="celular" class="form-label">Celular</label>
+              <input type="text" class="form-control" id="celular" formControlName="celular" mask="(00) 0000-0000||(00) 00000-0000">
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('celular')?.errors?.['required'] && novoColaborador.get('celular')?.touched">
+                O campo celular é obrigatório
+              </span>
+              <span class="text-danger"
+                    *ngIf="novoColaborador.get('celular')?.errors?.['telefoneInvalido'] && novoColaborador.get('celular')?.touched">
+                O campo celular deve conter um numero de telefone valido
+              </span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="celular2" class="form-label">Celular 2</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="celular2" formControlName="celular2" mask="(00) 0000-0000||(00) 00000-0000">
+                <span class="text-danger"
+                      *ngIf="novoColaborador.get('celular2')?.errors?.['telefoneInvalido'] && novoColaborador.get('celular2')?.touched">
+                O campo celular 2 deve conter um numero de telefone valido
+              </span>
+              </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endereço     -->
+
+    <div class="area-form">
+      <h6>Endereço: </h6>
+      <div class="row" id="rowCep">
+        <div class="col-3" id="colCepInput">
+          <div class="mb-3">
+            <label for="cep" class="form-label">CEP</label>
+            <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('cep')?.errors?.['required'] && novoColaborador.get('cep')?.touched">
+                O campo cep é obrigatório
+              </span>
+          </div>
+        </div>
+        <div class="col-6" id="colCepButton">
+          <button  *ngIf="edit" class="btn btn-primary" id="buscarCep" style="margin-top: 30px" (click)="buscaCep()"
+                   [disabled]="novoColaborador.value.cep === null || novoColaborador.value.cep === ''">Buscar CEP</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-10" id="colLogradouro">
+          <div class="mb-3">
+            <label for="logradouro" class="form-label">Logradouro</label>
+
+            <input type="text" class="form-control" id="logradouro" formControlName="logradouro">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('logradouro')?.errors?.['required'] && novoColaborador.get('logradouro')?.touched">
+                O campo logradouro é obrigatório
+              </span>
+          </div>
+        </div>
+        <div class="col-2" id="colNumero">
+          <div class="mb-3">
+            <label for="numero" class="form-label">Numero</label>
+            <input type="email" class="form-control" id="numero" formControlName="numero">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('numero')?.errors?.['required'] && novoColaborador.get('numero')?.touched">
+                O campo numero é obrigatório
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="complemento" class="form-label">Complemento</label>
+            <input type="text" class="form-control" id="complemento" formControlName="complemento">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="bairro" class="form-label">Bairro</label>
+            <input type="text" class="form-control" id="bairro" formControlName="bairro">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('bairro')?.errors?.['required'] && novoColaborador.get('bairro')?.touched">
+                O campo bairro é obrigatório
+              </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input type="text" class="form-control" id="cidade" formControlName="cidade">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('cidade')?.errors?.['required'] && novoColaborador.get('cidade')?.touched">
+                O campo cidade é obrigatório
+              </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <mat-select class="form-control" formControlName="estado" id="estado">
+              <mat-option value ="AC">Acre (AC)</mat-option>
+              <mat-option value ="AL">Alagoas (AL)</mat-option>
+              <mat-option value ="AP">Amapá (AP)</mat-option>
+              <mat-option value ="AM">Amazonas (AM)</mat-option>
+              <mat-option value ="BA">Bahia (BA)</mat-option>
+              <mat-option value ="CE">Ceará (CE)</mat-option>
+              <mat-option value ="DF">Distrito Federal (DF)</mat-option>
+              <mat-option value ="ES">Espírito Santo (ES)</mat-option>
+              <mat-option value ="GO">Goiás (GO)</mat-option>
+              <mat-option value ="MA">Maranhão (MA)</mat-option>
+              <mat-option value ="MT">Mato Grosso (MT)</mat-option>
+              <mat-option value ="MS">Mato Grosso do Sul (MS)</mat-option>
+              <mat-option value ="MG">Minas Gerais (MG)</mat-option>
+              <mat-option value ="PA">Pará (PA)</mat-option>
+              <mat-option value ="PB">Paraíba (PB)</mat-option>
+              <mat-option value ="PR">Paraná (PR)</mat-option>
+              <mat-option value ="PE">Pernambuco (PE)</mat-option>
+              <mat-option value ="PI">Piauí (PI)</mat-option>
+              <mat-option value ="RJ">Rio de Janeiro (RJ)</mat-option>
+              <mat-option value ="RN">Rio Grande do Norte (RN)</mat-option>
+              <mat-option value ="RS">Rio Grande do Sul (RS)</mat-option>
+              <mat-option value ="RO">Rondônia (RO)</mat-option>
+              <mat-option value ="RR">Roraima (RR)</mat-option>
+              <mat-option value ="SC">Santa Catarina (SC)</mat-option>
+              <mat-option value ="SP">São Paulo (SP)</mat-option>
+              <mat-option value ="SE">Sergipe (SE)</mat-option>
+              <mat-option value ="TO">Tocantins (TO)</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('estado')?.errors?.['required'] && novoColaborador.get('estado')?.touched">
+                O campo estado é obrigatório
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--    Dados Bancários-->
+    <div class="area-form">
+      <h6>Dados Bancários:</h6>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="banco" class="form-label">Banco</label>
+            <input type="text" class="form-control" id="banco" formControlName="banco">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="agencia" class="form-label">Agência</label>
+            <input type="email" class="form-control" id="agencia" formControlName="agencia" >
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="cc" class="form-label">Conta Corrente</label>
+            <input type="text" class="form-control" id="cc" formControlName="cc">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
+            <input type="text" class="form-control" id="cpf_cnpj" formControlName="cpf_cnpj" mask="CPF_CNPJ">
+            <span class="text-danger"
+                  *ngIf="novoColaborador.get('cpf_cnpj')?.errors?.['cpfCnpjInvalido'] && novoColaborador.get('cpf_cnpj')?.touched">
+                O valor informado para CPF/CNPJ é invalido
+              </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="chave_pix" class="form-label">Chave Pix</label>
+            <input type="text" class="form-control" id="chave_pix" formControlName="chave_pix">
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="comissao" class="form-label">Comissão % </label>
+            <input type="text" class="form-control" id="comissao" formControlName="comissao" mask="00.00">
+          </div>
+        </div>
+      </div>
+      <div class="botoes" *ngIf="edit">
+        <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novoColaborador.valid"(click)="add()">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>

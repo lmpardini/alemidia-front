@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from "@angular/material/table";
 import { Buffet } from "../../../../../core/interfaces/buffet";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -6,38 +6,31 @@ import { Router } from "@angular/router";
 import { UsuarioService } from "../../../../../core/services/usuario.service";
 import { AlertService } from "../../../../../core/services/alert.service";
 import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
-
+import { Cliente } from "../../../../../core/interfaces/cliente";
+import { AssessoriaService } from "../../../../../core/services/assessoria.service";
+import { ColaboradorService } from "../../../../../core/services/colaborador.service";
 
 @Component({
-  selector: 'app-usuario-grid',
-  templateUrl: './usuario-grid.component.html',
-  styleUrls: ['./usuario-grid.component.scss']
+  selector: 'app-colaborador-grid',
+  templateUrl: './colaborador-grid.component.html',
+  styleUrls: ['./colaborador-grid.component.scss']
 })
-export class UsuarioGridComponent {
+export class ColaboradorGridComponent implements OnInit {
 
-  public confirmDialog: boolean = false
+  public clientes:Cliente[] = [];
 
-  displayedColumns = ['id', 'nome', 'usuario', 'email', 'ativo', 'detalhes'];
+  displayedColumns = ['id', 'nome', 'celular', 'cidade', 'funcao', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
 
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
   })
 
-  usuario = this.fb.group({
-    id:[null],
-    nome:[null],
-    email:[null],
-    usuario:[null],
-    ativo:[null],
-  })
-
   constructor(  private router: Router,
                 private fb: FormBuilder,
-                private usuarioService: UsuarioService,
+                private colaboradorService: ColaboradorService,
                 private alertService: AlertService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
-
   ) { }
 
   private paginator:any =  MatPaginator;
@@ -48,14 +41,15 @@ export class UsuarioGridComponent {
   }
 
   ngOnInit() {
-    this.list('');
+    this.listAssessoria('');
 
     //traduz label da barra de paginação da tabela
     this._MatPaginatorIntl.itemsPerPageLabel = 'Itens por Pagina'
   }
 
-  public list(filtro: string | null | undefined) {
-    this.usuarioService.listUsers(filtro).subscribe({next: (res) => {
+  public listAssessoria(filtro: string | null | undefined) {
+    this.colaboradorService.list(filtro).subscribe({next: (res) => {
+        this.clientes = res.data;
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
       }, error: (err) => {
@@ -63,13 +57,12 @@ export class UsuarioGridComponent {
       }})}
 
   public filtro() {
-    console.log(typeof this.pesquisaForm.value.filtro)
     const filter = this.pesquisaForm.get('filtro')?.value
-    this.list(filter)
+    this.listAssessoria(filter)
   }
 
   public limparFiltro() {
     this.pesquisaForm.reset();
-    this.list('');
+    this.listAssessoria('');
   }
 }
