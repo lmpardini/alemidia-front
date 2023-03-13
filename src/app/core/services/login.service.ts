@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { StorageKeys } from "../interfaces/storage-keys";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  //private urlClientes = 'http://127.0.0.1:8000/api'
-  //private urlClientes = 'http://192.168.0.8:8000/api'
-  private urlClientes = 'http://177.83.186.254:8000/api'
+  protected urlApi: string = environment.alemidia_api;
 
   constructor(private http: HttpClient) { }
 
   public login(login:any): Observable<any> {
-    const url = `${this.urlClientes}/auth/login`
+    const url = `${this.urlApi}/auth/login`
     return this.http.post<any>(url, login).pipe(
       map(res => res['data']),
       tap(res => {
@@ -29,7 +28,7 @@ export class LoginService {
   }
 
   public isLogged(): Observable<any> {
-    const url = `${this.urlClientes}/auth/logged`
+    const url = `${this.urlApi}/auth/logged`
     return this.http.get<any>(url).pipe(
       map(res => res['data']),
       tap(res => {
@@ -43,7 +42,7 @@ export class LoginService {
   }
 
   public logout() :Observable<any> {
-    const url = `${this.urlClientes}/auth/logout`
+    const url = `${this.urlApi}/auth/logout`
     return this.http.get<any>(url).pipe(
       map(res => res),
       tap(res => {
@@ -58,7 +57,7 @@ export class LoginService {
   }
 
   public trocarSenha(form:any) : Observable<any> {
-    const url = `${this.urlClientes}/auth/trocar-senha`;
+    const url = `${this.urlApi}/auth/trocar-senha`;
     return this.http.put<any>(url, form);
   }
 

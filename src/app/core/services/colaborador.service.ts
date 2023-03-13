@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColaboradorService {
 
-
-  //private urlApi = 'http://127.0.0.1:8000/api'
-  //private urlApi = 'http://192.168.0.8:8000/api'
-  private urlApi = 'http://177.83.186.254:8000/api'
+  protected urlApi: string = environment.alemidia_api;
 
   constructor(private http: HttpClient) { }
 
