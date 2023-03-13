@@ -49,23 +49,9 @@
 
 
     <!-- Menu Financeiro-->
-    <div class="item-menu" (click)="exibirFinanceiro()">
-      <mat-icon class="icon-menu">paid</mat-icon> Financeiro
-    </div>
-
-    <!-- Submenu Financeiro   -->
-    <!--    <div *ngIf="financeiro">-->
-    <!--      <div class="item-sub-menu"  >-->
-    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Fornecedores-->
-    <!--      </div>-->
-    <!--      <div class="item-sub-menu"  >-->
-    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Clientes-->
-    <!--      </div>-->
-    <!--      <div class="item-sub-menu"  >-->
-    <!--        <mat-icon class="icon-menu">person_add</mat-icon> Espaços-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!-- Fim submenu Financeiro   -->
+<!--    <div class="item-menu" (click)="exibirFinanceiro()">-->
+<!--      <mat-icon class="icon-menu">paid</mat-icon> Financeiro-->
+<!--    </div>    -->
 
     <!-- Menu Administrativo-->
 
@@ -84,7 +70,7 @@
       <div class="item-sub-menu" [routerLink]="['/admin/colaboradores/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">diversity_3</mat-icon> Colaboradores
       </div>
-      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
+      <div class="item-sub-menu" [routerLink]="['/admin/produtos/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">shopping_bag</mat-icon> Produtos
       </div>
       <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
@@ -92,20 +78,10 @@
       </div>
       <!-- Fim submenu Administrativo   -->
     </div>
-
-
   </mat-drawer>
   <mat-drawer-content>
 
-    <router-outlet>
-      <ng-template #blockTemplate>
-        <div class="block-ui-template">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </ng-template>
-    </router-outlet>
+    <router-outlet></router-outlet>
 
   </mat-drawer-content>
 </mat-drawer-container>

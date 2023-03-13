@@ -2,7 +2,7 @@
   <section>
     <div class="cab">
       <div class="button-section">
-        <button mat-raised-button  class="botaoAddBuffet" [routerLink]="['/admin/colaboradores/novo']">Adicionar colaborador</button>
+        <button mat-raised-button  class="botaoAdd" [routerLink]="['/admin/produtos/novo']">Adicionar Produto</button>
       </div>
       <form class="input-pesquisa" [formGroup]="pesquisaForm">
         <div class="filtroArea">
@@ -14,7 +14,7 @@
     </div>
 
     <div>
-      <div class="mat-elevation-z8 tabela-carros" >
+      <div class="mat-elevation-z8 tabela" >
         <table mat-table [dataSource]="dataSource">
 
           <ng-container matColumnDef="id">
@@ -27,27 +27,20 @@
             <td mat-cell *matCellDef="let row">{{row.nome}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="cidade">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Cidade</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileTelefone"> {{row.cidade }}  </td>
+          <ng-container matColumnDef="descricao" class="campoVeiculo">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileCPF">Quantidade por dia</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileCPF">{{row.quantidade_dia}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="celular">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Celular</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileMail">{{row.celular | mask:"(00) 00000-0000"}}</td>
+          <ng-container matColumnDef="ativo">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Ativo</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileTelefone"> {{row.ativo | ativo }}  </td>
           </ng-container>
-
-          <ng-container matColumnDef="funcao" class="campoVeiculo">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileCPF">Função</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileCPF">{{row.funcao}}</td>
-          </ng-container>
-
-
 
           <ng-container matColumnDef="detalhes">
             <th mat-header-cell *matHeaderCellDef>Detalhes</th>
             <td mat-cell *matCellDef="let row">
-              <button mat-raised-button [routerLink]="['/admin/colaboradores/consultar', row.id]">Detalhes</button>
+              <button mat-raised-button [routerLink]="['/admin/produtos/consultar', row.id]">Detalhes</button>
             </td>
           </ng-container>
 

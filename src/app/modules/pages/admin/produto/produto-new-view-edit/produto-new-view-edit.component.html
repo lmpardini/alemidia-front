@@ -1,0 +1,65 @@
+<div class="container">
+
+  <div class="btnEditar">
+    <h1 *ngIf="new && edit">Cadastrar novo Produto</h1>
+    <h1 *ngIf="view">Dados Produto</h1>
+    <h1 *ngIf="edit && !new">Editar Produto</h1>
+
+    <div *ngIf="view">
+      <button class="btn btn-danger" [routerLink]="'/admin/produtos/listar'" >Voltar</button>
+      <button class="btn btn-primary" (click)="editar()">Editar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="novoProduto" novalidate>
+    <div class="area-form">
+      <h6>Dados Produto:</h6>
+
+      <div class="form-check" *ngIf="!new" >
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+        <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+          Ativo
+        </label>
+
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+            <span class="text-danger"
+                  *ngIf="novoProduto.get('nome')?.errors?.['required'] && novoProduto.get('nome')?.touched">
+                O campo nome é obrigatório
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="quantidade_dia" class="form-label">Quantidade por Dia</label>
+            <input type="number" min="1" class="form-control" id="quantidade_dia" formControlName="quantidade_dia" >
+            <span class="text-danger"
+                  *ngIf="novoProduto.get('quantidade_dia')?.errors?.['required'] && novoProduto.get('quantidade_dia')?.touched">
+                O campo quantidade por dia é obrigatório
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" aria-label="Descrição"formControlName="descricao" rows="4" maxlength="254"></textarea>
+            <span class="text-danger"
+                  *ngIf="novoProduto.get('descricao')?.errors?.['required'] && novoProduto.get('descricao')?.touched">
+                O campo descricao é obrigatório
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="botoes" *ngIf="edit">
+        <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novoProduto.valid"(click)="add()">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>
