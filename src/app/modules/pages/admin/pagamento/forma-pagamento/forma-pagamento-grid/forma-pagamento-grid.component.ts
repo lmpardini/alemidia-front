@@ -14,6 +14,7 @@ import { FormaPagamentoService } from "../../../../../../core/services/admin/pag
   styleUrls: ['./forma-pagamento-grid.component.scss']
 })
 export class FormaPagamentoGridComponent {
+
   public confirmDialog: boolean = false
 
   displayedColumns = ['id', 'nome','ativo', 'detalhes'];

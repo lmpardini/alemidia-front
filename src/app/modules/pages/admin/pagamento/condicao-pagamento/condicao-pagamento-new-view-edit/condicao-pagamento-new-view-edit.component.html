@@ -1,0 +1,80 @@
+<div class="container">
+
+  <div class="btnEditar">
+    <h1 *ngIf="new && edit">Cadastrar nova Condição de Pagamento</h1>
+    <h1 *ngIf="view">Dados Condição de Pagamento</h1>
+    <h1 *ngIf="edit && !new">Editar Condição de Pagamento</h1>
+
+    <div *ngIf="view">
+      <button class="btn btn-danger" [routerLink]="'/admin/pagamentos/condicoes/listar'" >Voltar</button>
+      <button class="btn btn-primary" (click)="editar()">Editar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="novaCondicaoPagamento" novalidate>
+    <div class="area-form">
+      <h6>Dados Produto:</h6>
+
+      <div class="form-check" *ngIf="!new" >
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+        <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+          Ativo
+        </label>
+
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input  type="text" class="form-control" id="nome" formControlName="nome">
+            <span class="text-danger"
+                  *ngIf="novaCondicaoPagamento.get('nome')?.errors?.['required'] && novaCondicaoPagamento.get('nome')?.touched">
+                O campo nome é obrigatório
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="aceita_parcelamento" class="form-label">Aceita Parcelamento</label>
+            <mat-select class="form-control" id="aceita_parcelamento" formControlName="aceita_parcelamento">
+              <mat-option [value]="1">Sim</mat-option>
+              <mat-option [value]="0">Não</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="novaCondicaoPagamento.get('aceita_parcelamento')?.errors?.['required'] && novaCondicaoPagamento.get('aceita_parcelamento')?.touched">
+                É obrigatorio informar se aceita parcelamento
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label for="forma_pagamento" class="form-label">Formas de Pagamento</label>
+            <mat-select class="form-control" formControlName="forma_pagamento" id="forma_pagamento" multiple>
+              <mat-option *ngFor="let item of formasPagamento" [value]="item.slug">{{ item.nome }}</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="novaCondicaoPagamento.get('forma_pagamento')?.errors?.['required'] && novaCondicaoPagamento.get('forma_pagamento')?.touched">
+               É obrigatório escolher ao menos uma forma de pagamento
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" aria-label="descricao"formControlName="descricao" id="descricao" rows="4" maxlength="254"></textarea>
+            <span class="text-danger"
+                  *ngIf="novaCondicaoPagamento.get('descricao')?.errors?.['required'] && novaCondicaoPagamento.get('descricao')?.touched">
+                O campo descricao é obrigatório
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="botoes" *ngIf="edit">
+        <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novaCondicaoPagamento.valid"(click)="add()">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>

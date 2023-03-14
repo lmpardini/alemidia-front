@@ -1,1 +1,55 @@
-<p>condicao-pagamento-grid works!</p>
+<div class="container-xl">
+  <section>
+    <div class="cab">
+      <div class="button-section">
+        <button mat-raised-button  class="botaoAdd" [routerLink]="['/admin/pagamentos/condicoes/novo']">Adicionar Condições de Pagamento</button>
+      </div>
+      <form class="input-pesquisa" [formGroup]="pesquisaForm">
+        <div class="filtroArea">
+          <input type="text" class="form-control" id="filtro" formControlName="filtro" placeholder="Busque por nome" (keyup)="filtro()"aria-describedby="button-addon2">
+          <mat-icon class="icon-menu limpaBusca" (click)="limparFiltro()">close</mat-icon>
+        </div>
+
+      </form>
+    </div>
+
+    <div>
+      <div class="mat-elevation-z8 tabela" >
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef >Nome</th>
+            <td mat-cell *matCellDef="let row">{{row.nome}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="ativo">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Ativo</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileTelefone"> {{row.ativo | ativo }}  </td>
+          </ng-container>
+
+          <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-raised-button [routerLink]="['/admin/pagamentos/condicoes/consultar', row.id]">Detalhes</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator style="width: 100%"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                       showFirstLastButtons
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+    </div>
+  </section>
+</div>

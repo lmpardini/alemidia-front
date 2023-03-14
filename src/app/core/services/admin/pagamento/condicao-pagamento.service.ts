@@ -6,34 +6,29 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class FormaPagamentoService {
+export class CondicaoPagamentoService {
 
   protected urlApi: string = environment.alemidia_api;
 
   constructor(private http: HttpClient) { }
 
   public list(filtro: string | null | undefined): Observable<any> {
-    const url = `${this.urlApi}/admin/pagamento/formas?filtro=${filtro}`
+    const url = `${this.urlApi}/admin/pagamento/condicoes?filtro=${filtro}`
     return this.http.get<any>(url);
   }
 
   public listById(id:number): Observable<any> {
-    const url = `${this.urlApi}/admin/pagamento/forma/${id}`
+    const url = `${this.urlApi}/admin/pagamento/condicao/${id}`
     return this.http.get<any>(url);
   }
 
   public store(produto:any): Observable<any> {
-    const url = `${this.urlApi}/admin/pagamento/forma`;
+    const url = `${this.urlApi}/admin/pagamento/condicao`;
     return this.http.post<any>(url, produto);
   }
 
   public update(id:number,produto:any): Observable<any> {
-    const url = `${this.urlApi}/admin/pagamento/forma/${id}`;
+    const url = `${this.urlApi}/admin/pagamento/condicao/${id}`;
     return this.http.put<any>(url, produto);
-  }
-
-  public listFormaPagamento() {
-    const url = `${this.urlApi}/admin/pagamento/formas-pagamento`
-    return this.http.get<any>(url);
   }
 }

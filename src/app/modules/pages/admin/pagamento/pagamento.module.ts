@@ -11,13 +11,17 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { SharedModule } from "../../../../shared/shared.module";
 import { FormaPagamentoNewViewEditComponent } from './forma-pagamento/forma-pagamento-new-view-edit/forma-pagamento-new-view-edit.component';
+import { CondicaoPagamentoNewViewEditComponent } from './condicao-pagamento/condicao-pagamento-new-view-edit/condicao-pagamento-new-view-edit.component';
+import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from "@angular/material/input";
 
 
 @NgModule({
   declarations: [
     CondicaoPagamentoGridComponent,
     FormaPagamentoGridComponent,
-    FormaPagamentoNewViewEditComponent
+    FormaPagamentoNewViewEditComponent,
+    CondicaoPagamentoNewViewEditComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,9 @@ import { FormaPagamentoNewViewEditComponent } from './forma-pagamento/forma-paga
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule,
+    MatInputModule
   ]
 })
 export class PagamentoModule { }
