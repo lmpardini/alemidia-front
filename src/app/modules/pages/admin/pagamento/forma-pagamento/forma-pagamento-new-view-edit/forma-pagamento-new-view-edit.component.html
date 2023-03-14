@@ -1,0 +1,55 @@
+<div class="container">
+
+  <div class="btnEditar">
+    <h1 *ngIf="new && edit">Cadastrar nova Forma de Pagamento</h1>
+    <h1 *ngIf="view">Dados Forma de Pagamento</h1>
+    <h1 *ngIf="edit && !new">Editar Forma de Pagamento</h1>
+
+    <div *ngIf="view">
+      <button class="btn btn-danger" [routerLink]="'/admin/pagamentos/formas/listar'" >Voltar</button>
+      <button class="btn btn-primary" (click)="editar()">Editar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="novaFormaPagamento" novalidate>
+    <div class="area-form">
+      <h6>Dados Produto:</h6>
+
+      <div class="form-check" *ngIf="!new" >
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="ativo">
+        <label class="form-check-label" for="flexCheckDefault" style="margin-top: 2px">
+          Ativo
+        </label>
+
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+            <span class="text-danger"
+                  *ngIf="novaFormaPagamento.get('nome')?.errors?.['required'] && novaFormaPagamento.get('nome')?.touched">
+                O campo nome é obrigatório
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" aria-label="descricao"formControlName="descricao" id="descricao" rows="4" maxlength="254"></textarea>
+            <span class="text-danger"
+                  *ngIf="novaFormaPagamento.get('descricao')?.errors?.['required'] && novaFormaPagamento.get('descricao')?.touched">
+                O campo descricao é obrigatório
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="botoes" *ngIf="edit">
+        <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+        <button class="btn btn-success" [disabled]="!novaFormaPagamento.valid"(click)="add()">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>

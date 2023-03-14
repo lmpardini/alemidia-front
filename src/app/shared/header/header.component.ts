@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   public financeiro: boolean = false
   public painelControle: boolean = false
   public admin: boolean = false
+  public pagamento: boolean = false
 
   public nome:string|null = ''
 
@@ -55,6 +56,10 @@ export class HeaderComponent implements OnInit {
 
   public exibirPainelcontrole(): void {
     this.painelControle = !this.painelControle;
+  }
+
+  public exibirPagamento(): void {
+    this.pagamento = !this.pagamento;
   }
 
   public goToHome(): void {

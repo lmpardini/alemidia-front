@@ -1,40 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from "@angular/material/table";
-import { Buffet } from "../../../../../core/interfaces/buffet";
+import { Buffet } from "../../../../../../core/interfaces/buffet";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UsuarioService } from "../../../../../core/services/usuario.service";
-import { AlertService } from "../../../../../core/services/alert.service";
+import { ProdutoService } from "../../../../../../core/services/produto.service";
+import { AlertService } from "../../../../../../core/services/alert.service";
 import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
-import { ProdutoService } from "../../../../../core/services/produto.service";
+import { FormaPagamentoService } from "../../../../../../core/services/admin/pagamento/forma-pagamento.service";
 
 @Component({
-  selector: 'app-produto-grid',
-  templateUrl: './produto-grid.component.html',
-  styleUrls: ['./produto-grid.component.scss']
+  selector: 'app-forma-pagamento-grid',
+  templateUrl: './forma-pagamento-grid.component.html',
+  styleUrls: ['./forma-pagamento-grid.component.scss']
 })
-export class ProdutoGridComponent {
-
+export class FormaPagamentoGridComponent {
   public confirmDialog: boolean = false
 
-  displayedColumns = ['id', 'nome', 'descricao','ativo', 'detalhes'];
+  displayedColumns = ['id', 'nome','ativo', 'detalhes'];
   dataSource =  new MatTableDataSource<Buffet>;
 
   pesquisaForm = this.fb.group({
     filtro: ['', Validators.required]
   })
 
-  usuario = this.fb.group({
-    id:[null],
-    nome:[null],
-    email:[null],
-    usuario:[null],
-    ativo:[null],
-  })
-
   constructor(  private router: Router,
                 private fb: FormBuilder,
-                private produtoService: ProdutoService,
+                private formaPagamentoService: FormaPagamentoService,
                 private alertService: AlertService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
 
@@ -55,7 +46,7 @@ export class ProdutoGridComponent {
   }
 
   public list(filtro: string | null | undefined) {
-    this.produtoService.list(filtro).subscribe({next: (res) => {
+    this.formaPagamentoService.list(filtro).subscribe({next: (res) => {
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
       }, error: (err) => {

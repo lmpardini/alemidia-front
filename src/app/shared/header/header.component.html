@@ -73,9 +73,18 @@
       <div class="item-sub-menu" [routerLink]="['/admin/produtos/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">shopping_bag</mat-icon> Produtos
       </div>
-      <div class="item-sub-menu" [routerLink]="['']" (click)="drawer.toggle()">
-        <mat-icon class="icon-menu">credit_card</mat-icon> Formas de Pagamento
+      <div class="item-sub-menu" (click)="exibirPagamento()">
+        <mat-icon class="icon-menu">credit_card</mat-icon> Pagamento
       </div>
+      <div *ngIf="pagamento">
+        <div class="item-sub-sub-menu" [routerLink]="['/admin/pagamentos/formas/listar']" (click)="drawer.toggle()">
+          <mat-icon class="icon-menu">credit_card</mat-icon> Formas de Pagamento
+        </div>
+        <div class="item-sub-sub-menu" [routerLink]="['/admin/pagamentos/condicoes/listar']" (click)="drawer.toggle()">
+          <mat-icon class="icon-menu">credit_card</mat-icon> Condições de Pagamento
+        </div>
+      </div>
+
       <!-- Fim submenu Administrativo   -->
     </div>
   </mat-drawer>

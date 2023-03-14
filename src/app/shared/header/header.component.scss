@@ -7,7 +7,7 @@
   height: 91vh;
 }
 .area-menu{
-  width: 250px;
+  width: 300px;
   background-color: #ffffff ;
 }
 .item-menu{
@@ -23,10 +23,18 @@
   height: 50px;
   padding-left: 55px;
 }
-.item-menu:hover , .item-sub-menu:hover{
+
+.item-sub-sub-menu{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 75px;
+}
+.item-menu:hover , .item-sub-menu:hover, .item-sub-sub-menu:hover{
+  cursor: pointer;
   background-color: #efefef;
 }
-.item-menu:active{
+.item-menu:active, .item-sub-menu:active, .item-sub-sub-menu:active{
   background-color: #efefef;
 }
 .icon-menu{
