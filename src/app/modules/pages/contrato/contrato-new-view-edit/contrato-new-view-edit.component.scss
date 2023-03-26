@@ -1,0 +1,113 @@
+.container {
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+.btnEditar {
+  display: flex;
+  align-items: self-end;
+  justify-content: space-between;
+
+}
+
+.labelInfo {
+  font-size: 11px;
+}
+
+.matCard {
+  margin-bottom: 20px!important;
+  //box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+}
+
+.area-form {
+  padding: 15px;
+  border: 1px solid #C1C1C2;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.areaPgto {
+  display: flex;
+  justify-content: center;
+}
+
+.cardPgto {
+  padding: 15px;
+  box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+
+}
+
+.botoes{
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+.botoesPgto {
+  width: 40px;
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+.iconPgto{
+  font-size: 20px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+th {
+  background-color: #0077c2;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+
+@media screen and (max-width: 575px) {
+  .row {
+    flex-direction: column;
+  }
+  .spinner {
+    height: 200%;
+  }
+
+  #rowCep {
+    flex-direction: row;
+  }
+
+  #cep{
+    width: 120px;
+  }
+  #colCepButton {
+    width: 42%;
+  }
+  #colCepInput {
+    width: 58%;
+  }
+  #colLogradouro, #colNumero {
+    width: 100%;
+  }
+}

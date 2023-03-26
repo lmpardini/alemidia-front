@@ -31,4 +31,9 @@ export class ProdutoService {
     const url = `${this.urlApi}/admin/produto/${id}`;
     return this.http.put<any>(url, produto);
   }
+
+  public listarProduto(): Observable<any> {
+    const url = `${this.urlApi}/listar-produtos`
+    return this.http.get<any>(url);
+  }
 }

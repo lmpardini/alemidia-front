@@ -36,4 +36,9 @@ export class ColaboradorService {
     const url = `${this.urlApi}/admin/colaborador-funcao`
     return this.http.get<any>(url);
   }
+
+  public listVendedores(filtro: string | null | undefined): Observable<any> {
+    const url = `${this.urlApi}/listar-vendedores?filtro=${filtro}`
+    return this.http.get<any>(url);
+  }
 }

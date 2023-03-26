@@ -43,7 +43,7 @@
     </div>
 
     <!-- Menu Contratos-->
-    <div class="item-menu" (click)="exibirVendas()">
+    <div class="item-menu" [routerLink]="['/contratos/listar']" (click)="drawer.toggle()">
       <mat-icon class="icon-menu">point_of_sale</mat-icon> Contratos
     </div>
 

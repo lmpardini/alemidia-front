@@ -48,7 +48,7 @@
         <div class="col">
           <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea class="form-control" aria-label="Descrição"formControlName="descricao" rows="4" maxlength="254"></textarea>
+            <textarea class="form-control" id="descricao" aria-label="Descrição"formControlName="descricao" rows="4" maxlength="254"></textarea>
             <span class="text-danger"
                   *ngIf="novoProduto.get('descricao')?.errors?.['required'] && novoProduto.get('descricao')?.touched">
                 O campo descricao é obrigatório

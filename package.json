@@ -24,6 +24,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "ng-block-ui": "^3.0.2",
+    "ngx-currency": "^3.0.0",
     "ngx-mask": "^15.0.3",
     "ngx-toastr": "^16.0.2",
     "rxjs": "~7.8.0",
