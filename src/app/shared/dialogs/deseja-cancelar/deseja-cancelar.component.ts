@@ -11,6 +11,7 @@ export class DesejaCancelarComponent implements OnInit {
   public titulo:string ='';
   public descricao:string ='';
   public tipo :string ='';
+  public produtos:Array<any> = [];
 
   public confirm: boolean = false;
 
@@ -22,6 +23,7 @@ export class DesejaCancelarComponent implements OnInit {
     this.titulo = this.data.titulo
     this.descricao = this.data.descricao
     this.tipo = this.data.tipo
+    this.produtos = this.data.produtos
   }
 
   public cancelar() {

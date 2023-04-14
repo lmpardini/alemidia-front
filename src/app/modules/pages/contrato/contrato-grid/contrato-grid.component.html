@@ -1,52 +1,64 @@
-<div class="container-xl">
+<div class="container-xl" xmlns="http://www.w3.org/1999/html">
   <section>
     <div class="cab">
       <div class="button-section">
         <button mat-raised-button  class="botaoAddCliente" [routerLink]="['/contratos/novo']">Adicionar Contrato</button>
       </div>
-      <form class="input-pesquisa" [formGroup]="pesquisaForm">
+      <form class="input-pesquisa" [formGroup]="pesquisaForm" *ngIf="areaFiltro">
+        <div class="d-flex">
+          <div class="filtroArea ml-5">
+            <span>Data Inicio</span>
+            <input type="date" class="form-control" id="data_inicio" formControlName="data_inicio" placeholder="Data Inicio" aria-describedby="button-addon2">
+          </div>
+          <div class="filtroArea ml-2">
+            <input type="date" class="form-control" id="data_fim" formControlName="data_fim" placeholder="Data Fim" aria-describedby="button-addon2">
+          </div>
+        </div>
         <div class="filtroArea">
+          <button class="btn btn-sm btn-danger botoesFiltro" (click)="limparFiltro()"><mat-icon class="iconesFiltro">close</mat-icon>Limpar</button>
+         <button class="btn btn-sm btn-success botoesFiltro" (click)="filtro()"><mat-icon>search</mat-icon></button>
+        </div>
+        <div class="input-pesquisa">
           <input type="text" class="form-control" id="filtro" formControlName="filtro" placeholder="Busque por nome" (keyup)="filtro()"aria-describedby="button-addon2">
           <mat-icon class="icon-menu limpaBusca" (click)="limparFiltro()">close</mat-icon>
         </div>
 
+
       </form>
+      <div class="filtroArea">
+        <button class="btn btn-sm btn-primary botoesFiltro" (click)="abreFiltro()"><mat-icon class="iconesFiltro">tune</mat-icon> Filtrar</button>
+      </div>
+
     </div>
 
     <div>
       <div class="mat-elevation-z8 tabela-carros" >
         <table mat-table [dataSource]="dataSource">
 
+
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Id</th>
-            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+            <th mat-header-cell *matHeaderCellDef>Contrato</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.id}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef >Nome/Razão Social</th>
-            <td mat-cell *matCellDef="let row">{{row.nome_razao_social}}</td>
+          <ng-container matColumnDef="data_evento">
+            <th mat-header-cell *matHeaderCellDef >Data Evento</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.data_evento}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="cpf" class="campoVeiculo">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileCPF">CPF/CNPJ</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileCPF">{{row.cpf_cnpj | mask: 'CPF_CNPJ'}}</td>
+          <ng-container matColumnDef="contratante" >
+            <th mat-header-cell *matHeaderCellDef >Contratante</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.contratante }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="mail">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">E-Mail</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileMail">{{row.mail}}</td>
+          <ng-container matColumnDef="produtos" >
+            <th mat-header-cell *matHeaderCellDef >Produtos</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.produtos }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="telefone">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Telefone</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileTelefone"> {{row.celular | mask:"(00) 00000-0000"}}  </td>
-          </ng-container>
-
-          <ng-container matColumnDef="detalhes">
-            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-raised-button [routerLink]="['/cadastros/clientes/consultar', row.id]">Detalhes</button>
-            </td>
+          <ng-container matColumnDef="buffet">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Buffet</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileMail" [routerLink]="['/contratos/consultar', row.id]">{{row.buffet}}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

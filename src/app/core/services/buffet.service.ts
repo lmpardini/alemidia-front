@@ -18,6 +18,11 @@ export class BuffetService {
     return this.http.get<any>(url);
   }
 
+  public listActive(filtro: string | null | undefined): Observable<any> {
+    const url = `${this.urlApi}/buffets-ativos?filtro=${filtro}`
+    return this.http.get<any>(url);
+  }
+
   public listBuffetById(id:number): Observable<any> {
     const url = `${this.urlApi}/buffet/${id}`
     return this.http.get<any>(url);

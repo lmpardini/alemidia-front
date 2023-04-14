@@ -5,7 +5,8 @@ import { ContratoNewViewEditComponent } from "./contrato-new-view-edit/contrato-
 
 const routes: Routes = [
   { path: 'listar', component: ContratoGridComponent },
-  { path: 'novo', component: ContratoNewViewEditComponent }
+  { path: 'novo', component: ContratoNewViewEditComponent },
+  { path: 'consultar/:id', component: ContratoNewViewEditComponent }
 ];
 
 @NgModule({

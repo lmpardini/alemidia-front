@@ -31,4 +31,9 @@ export class CondicaoPagamentoService {
     const url = `${this.urlApi}/admin/pagamento/condicao/${id}`;
     return this.http.put<any>(url, produto);
   }
+
+  public listActive(): Observable<any> {
+    const url = `${this.urlApi}/listar-condicao-pagamento`
+    return this.http.get<any>(url);
+  }
 }

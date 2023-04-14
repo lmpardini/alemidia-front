@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Cliente } from "../../../../core/interfaces/cliente";
 import { MatTableDataSource } from "@angular/material/table";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ClienteService } from "../../../../core/services/cliente.service";
 import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
 import { AlertService } from "../../../../core/services/alert.service";
+import { ContratoService } from "../../../../core/services/contrato.service";
 
 @Component({
   selector: 'app-contrato-grid',
@@ -14,18 +15,16 @@ import { AlertService } from "../../../../core/services/alert.service";
 })
 export class ContratoGridComponent {
 
-  public clientes:Cliente[] = [];
+  displayedColumns = ['id', 'data_evento', 'contratante', 'produtos','buffet'];
+  dataSource =  new MatTableDataSource<any>;
 
-  displayedColumns = ['id', 'nome', 'cpf', 'mail', 'telefone', 'detalhes'];
-  dataSource =  new MatTableDataSource<Cliente>;
+  pesquisaForm!: UntypedFormGroup;
 
-  pesquisaForm = this.fb.group({
-    filtro: ['', Validators.required]
-  })
+  areaFiltro:boolean = false;
 
   constructor(  private router: Router,
                 private fb: FormBuilder,
-                private clienteService: ClienteService,
+                private contratoService: ContratoService,
                 public _MatPaginatorIntl: MatPaginatorIntl,
                 private alertService: AlertService
 
@@ -39,19 +38,27 @@ export class ContratoGridComponent {
   }
 
   ngOnInit() {
-    //this.listCliente('')
+    this.createForm();
+    this.listContratos('', '', '');
+
 
     //traduz label da barra de paginação da tabela
     this._MatPaginatorIntl.itemsPerPageLabel = 'Itens por Pagina'
   }
 
+  public createForm() {
+    this.pesquisaForm = this.fb.group({
+      filtro: ['', Validators.required],
+      data_inicio: [''],
+      data_fim: ['']
+    })
+  }
 
-  public listCliente(filtro: string | null | undefined) {
-    this.clienteService.listClientes(filtro).subscribe({next: (res) => {
-        this.clientes = res.data;
+
+  public listContratos(filtro: any, data_inicio: any, data_fim: any) {
+    this.contratoService.list({filtro: filtro, data_inicio: data_inicio, data_fim: data_fim} ).subscribe({next: (res) => {
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
-
       }, error: (err) =>{
         this.alertService.errorMessage(err)
       }
@@ -59,14 +66,20 @@ export class ContratoGridComponent {
   }
 
   public filtro() {
-    console.log(typeof this.pesquisaForm.value.filtro)
-    const filter = this.pesquisaForm.get('filtro')?.value
-    this.listCliente(filter)
+    let filtro = this.pesquisaForm.get('filtro')?.value !== null ? this.pesquisaForm.get('filtro')?.value : '';
+    let data_inicio = this.pesquisaForm.get('data_inicio')?.value !== null ? this.pesquisaForm.get('data_inicio')?.value : '';
+    let data_fim = this.pesquisaForm.get('data_fim')?.value !== null ? this.pesquisaForm.get('data_fim')?.value : '';
+
+    this.listContratos(filtro, data_inicio, data_fim)
   }
 
   public limparFiltro() {
     this.pesquisaForm.reset();
-    this.listCliente('');
+    this.listContratos('', '', '');
   }
 
+  abreFiltro() {
+    this.areaFiltro = !this.areaFiltro
+
+  }
 }

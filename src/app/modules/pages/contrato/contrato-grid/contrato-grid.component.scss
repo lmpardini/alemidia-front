@@ -111,7 +111,20 @@ mat-header-cell, mat-cell {
 
 .filtroArea {
   display: flex;
-  margin-top:4px
+  margin-top:4px;
+}
+
+.botoesFiltro {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.iconesFiltro {
+  margin-right: 5px;
+
+}
+input {
+  margin-left: 10px;
 }
 
 @media (min-width 651px) and (max-width 992px) {

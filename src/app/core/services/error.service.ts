@@ -32,6 +32,9 @@ export class ErrorService {
         // @ts-ignore
         this.alertService.errorGenericMessage(res[1].toString());
       })
+  }
 
+  public erroGenerico(err:any) {
+    this.alertService.errorGenericMessage(err);
   }
 }

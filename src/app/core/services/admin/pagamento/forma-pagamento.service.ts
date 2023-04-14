@@ -36,4 +36,9 @@ export class FormaPagamentoService {
     const url = `${this.urlApi}/admin/pagamento/formas-pagamento`
     return this.http.get<any>(url);
   }
+
+  public listActive(): Observable<any> {
+    const url = `${this.urlApi}/listar-forma-pagamento`
+    return this.http.get<any>(url);
+  }
 }

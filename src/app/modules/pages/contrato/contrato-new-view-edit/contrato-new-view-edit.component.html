@@ -4,14 +4,14 @@
   <h1 *ngIf="view">Dados Contrato</h1>
   <h1 *ngIf="edit && !new">Editar Contrato</h1>
 
-  <form [formGroup]="novoEvento" novalidate>
+  <form [formGroup]="form" novalidate autocomplete="off">
 
-    <!-- Verifica se é PF ou PJ -->
     <div class="btnEditar">
       <div *ngIf="view">
         <button class="btn btn-danger" [routerLink]="'/contratos/listar'" >Voltar</button>
         <button class="btn btn-primary" (click)="editar()">Editar</button>
       </div>
+      <div  *ngIf="view"  ><button class="btn btn-secondary" (click)="imprimirContrato()">Imprimir Contrato</button></div>
 
     </div>
 
@@ -19,13 +19,21 @@
       <div class="area-form">
         <h6>Dados do Evento:</h6>
         <div class="row">
+          <div class="col" *ngIf="viewNroContrato">
+            <div class="mb-3">
+              <label for="data_evento" class="form-label">Contrato</label>
+              <div class="col-sm-10">
+                <input type="number" id="id" class="form-control" formControlName="id" style="pointer-events: none; cursor: default; text-decoration: none">
+              </div>
+            </div>
+          </div>
           <div class="col">
             <div class="mb-3">
               <label for="data_evento" class="form-label">Data do evento</label>
               <div class="col-sm-10">
-                <input (blur)="verificaDataProduto()" type="date" id="data_evento" class="form-control" formControlName="data_evento">
+                <input  type="date" id="data_evento" class="form-control" formControlName="data_evento">
                 <span class="text-danger"
-                      *ngIf="novoEvento.get('data_evento')?.errors?.['required'] && novoEvento.get('data_evento')?.touched">
+                      *ngIf="form.get('data_evento')?.errors?.['required'] && form.get('data_evento')?.touched">
                Data do Evento é obrigatório
             </span>
 
@@ -36,20 +44,24 @@
           <div class="col">
             <div class="mb-3">
               <label for="produtos" class="form-label">Produtos</label>
-              <mat-select (closed)="verificaDataProduto()" class="form-control" formControlName="produtos" id="produtos" multiple >
+              <mat-select class="form-control"  id="produtos" formControlName="produtos" multiple >
                 <mat-option *ngFor="let item of produtosAlemidia" [value]="item.slug" >{{ item.nome }}</mat-option>
               </mat-select>
               <span class="text-danger"
-                    *ngIf="novoEvento.get('produtos')?.errors?.['required'] && novoEvento.get('produtos')?.touched">
+                    *ngIf="form.get('produtos')?.errors?.['required'] && form.get('produtos')?.touched">
                É obrigatório escolher ao menos um produto
             </span>
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary " *ngIf="!etapa1" (click)="verificaDataProduto(false)"
+              [disabled]="form.get('produtos')?.errors?.['required'] || form.get('data_evento')?.errors?.['required']">Verificar Data</button>
+        </div>
       </div>
 
 <!--    <div *ngIf="etapa1">-->
-      <div *ngIf="true">
+      <div *ngIf="etapa1">
 
 <!--      Dados Contratante-->
 
@@ -62,7 +74,7 @@
               <label for="noivo_debutante" class="form-label">Noivos/Debutante</label>
               <input type="text"  id="noivo_debutante" class="form-control" formControlName="noivo_debutante">
               <span class="text-danger"
-                    *ngIf="novoEvento.get('noivo_debutante')?.errors?.['required'] && novoEvento.get('noivo_debutante')?.touched">
+                    *ngIf="form.get('noivo_debutante')?.errors?.['required'] && form.get('noivo_debutante')?.touched">
               Nome dos noivos/debutante é obrigatório
             </span>
             </div>
@@ -76,11 +88,11 @@
                 </mat-option>
               </mat-autocomplete>
               <span class="text-danger"
-                    *ngIf="novoEvento.get('cliente')?.errors?.['required'] && novoEvento.get('cliente')?.touched">
+                    *ngIf="form.get('cliente')?.errors?.['required'] && form.get('cliente')?.touched">
               Nome do cliente é obrigatório
             </span>
               <span class="text-danger"
-                    *ngIf="novoEvento.controls['cliente'].hasError('incorrect') && novoEvento.get('cliente')?.touched">
+                    *ngIf="form.controls['cliente'].hasError('incorrect') && form.get('cliente')?.touched">
               Selecione um cliente valido
             </span>
             </div>
@@ -111,7 +123,7 @@
               <label for="qtde_convidados" class="form-label">Quantidade Convidados</label>
               <input class="form-control" id="qtde_convidados" type="number" formControlName="qtde_convidados">
               <span class="text-danger"
-                    *ngIf="novoEvento.get('qtde_convidados')?.errors?.['required'] && novoEvento.get('qtde_convidados')?.touched">
+                    *ngIf="form.get('qtde_convidados')?.errors?.['required'] && form.get('qtde_convidados')?.touched">
              Quantidade de convidados é obrigatório
             </span>
             </div>
@@ -128,11 +140,11 @@
                 </mat-option>
               </mat-autocomplete>
               <span class="text-danger"
-                    *ngIf="novoEvento.get('buffet')?.errors?.['required'] && novoEvento.get('buffet')?.touched">
+                    *ngIf="form.get('buffet')?.errors?.['required'] && form.get('buffet')?.touched">
               Nome do buffet é obrigatório
             </span>
               <span class="text-danger"
-                    *ngIf="novoEvento.controls['buffet'].hasError('incorrect') && novoEvento.get('buffet')?.touched">
+                    *ngIf="form.controls['buffet'].hasError('incorrect') && form.get('buffet')?.touched">
               Selecione um buffet valido
             </span>
             </div>
@@ -146,11 +158,11 @@
                 </mat-option>
               </mat-autocomplete>
               <span class="text-danger"
-                    *ngIf="novoEvento.get('assessoria')?.errors?.['required'] && novoEvento.get('assessoria')?.touched">
+                    *ngIf="form.get('assessoria')?.errors?.['required'] && form.get('assessoria')?.touched">
               Nome da assessoria é obrigatório
             </span>
               <span class="text-danger"
-                    *ngIf="novoEvento.controls['assessoria'].hasError('incorrect') && novoEvento.get('assessoria')?.touched">
+                    *ngIf="form.controls['assessoria'].hasError('incorrect') && form.get('assessoria')?.touched">
               Selecione uma assessoria valida
             </span>
             </div>
@@ -164,11 +176,11 @@
                 </mat-option>
               </mat-autocomplete>
               <span class="text-danger"
-                    *ngIf="novoEvento.get('vendedor')?.errors?.['required'] && novoEvento.get('vendedor')?.touched">
+                    *ngIf="form.get('vendedor')?.errors?.['required'] && form.get('vendedor')?.touched">
               Nome do vendedor é obrigatório
             </span>
               <span class="text-danger"
-                    *ngIf="novoEvento.controls['vendedor'].hasError('incorrect') && novoEvento.get('vendedor')?.touched">
+                    *ngIf="form.controls['vendedor'].hasError('incorrect') && form.get('vendedor')?.touched">
               Selecione um vendedor valido
             </span>
             </div>
@@ -180,137 +192,84 @@
 
       <div class="area-form">
         <h6>Produtos: </h6>
-
-        <div *ngFor="let item of novoEvento.controls['produtos'].value ">
-          <!-- Totem -->
-          <ng-container  *ngIf="item == 'totem'">
+        <ng-container [formGroup]="produtosArrayAsFormGroup">
+          <div *ngFor="let item of produtosArray.controls; let index = index" [formGroupName]="index" >
             <mat-card class="matCard">
-              <mat-card-header><h4>Totem</h4></mat-card-header>
+              <mat-card-header><h4>{{ getNameCardProduto(item.value.produto) }} </h4></mat-card-header>
               <mat-card-content>
                 <div class="row">
                   <div class="col">
                     <div class="mb-3">
-                      <label for="qtde_totem" class="form-label">Quantidade Totem</label>
-                      <mat-select  class="form-control" formControlName="qtde_totem" id="qtde_totem" >
-                        <mat-option *ngFor="let item of qtdeTotemDisponivel" [value]="item" >{{ item }}</mat-option>
+                      <label for="quantidade" class="form-label">Quantidade</label>
+                      <mat-select  class="form-control"  id="quantidade" formControlName="quantidade">
+                        <mat-option *ngFor="let item of definirQtdeProdutosDisponiveis(item.value.produto)" [value]="item" >{{ item }}</mat-option>
                       </mat-select>
                       <span class="text-danger"
-                            *ngIf="novoEvento.get('qtde_totem')?.errors?.['required'] && novoEvento.get('qtde_totem')?.touched">
-                      Quantidade de totem é obrigatório
-                      </span>
+                            *ngIf="item.get('quantidade')?.errors?.['required'] && item.get('quantidade')?.touched">
+                    Quantidade é obrigatório
+                    </span>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col" *ngIf="['totem', 'espelho_magico', 'cabine'].includes(item.value.produto)">
                     <div class="mb-3">
                       <label for="qtde_fotos_totem" class="form-label">Quantidade Fotos</label>
-                      <input class="form-control" id="qtde_fotos_totem" type="number" formControlName="qtde_fotos_totem">
+                      <input class="form-control" id="qtde_fotos_totem" type="number" formControlName="quantidade_foto" >
                       <span class="labelInfo">
-                      *Para fotos ilimitadas escolher numero 0
-                      </span>
+                    *Para fotos ilimitadas escolher numero 0
+                    </span>
                       <span class="text-danger"
-                            *ngIf="novoEvento.get('qtde_fotos_totem')?.errors?.['required'] && novoEvento.get('qtde_fotos_totem')?.touched">
-                      Quantidade de fotos é obrigatório
-                      </span>
+                          *ngIf="item.get('quantidade_foto')?.errors?.['required'] && item.get('quantidade_foto')?.touched">
+                          Quantidade de fotos é obrigatório
+                    </span>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col" *ngIf="['totem', 'cabine'].includes(item.value.produto)">
                     <div class="mb-3">
-                      <label for="impressao_totem" class="form-label">Impressão</label>
-                      <mat-select class="form-control" formControlName="impressao_totem" id="impressao_totem" >
+                      <label for="impressao" class="form-label">Impressão</label>
+                      <mat-select class="form-control" id="impressao" formControlName="impressao">
                         <mat-option value="definir">A Definir</mat-option>
                         <mat-option value="1_pose">1 pose</mat-option>
                         <mat-option value="1_pose">4 poses</mat-option>
                         <mat-option value="tirinha">Tirinha</mat-option>
                       </mat-select>
                       <span class="text-danger"
-                            *ngIf="novoEvento.get('impressao_totem')?.errors?.['required'] && novoEvento.get('impressao_totem')?.touched">
-                      Tipo de impressão é obrigatório
-                </span>
+                            *ngIf="item.get('impressao')?.errors?.['required'] && item.get('impressao')?.touched">
+                              Tipo de impressão é obrigatório
+                      </span>
                     </div>
                   </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </ng-container>
-
-          <!-- Cabine-->
-          <ng-container  *ngIf="item == 'cabine'">
-            <mat-card class="matCard">
-              <mat-card-header><h4>Cabine</h4></mat-card-header>
-              <mat-card-content>
-                <div class="row">
-                  <div class="col">
+                  <div class="col" *ngIf="['robo_led'].includes(item.value.produto)">
                     <div class="mb-3">
-                      <label for="qtde_cabine" class="form-label">Quantidade Cabine</label>
-                      <mat-select  class="form-control" formControlName="qtde_cabine" id="qtde_cabine" >
-                        <mat-option *ngFor="let item of qtdeCabineDisponivel" [value]="item" >{{ item }}</mat-option>
+                      <label for="bazuca" class="form-label">Bazuca</label>
+                      <mat-select class="form-control" id="bazuca" formControlName="bazuca">
+                        <mat-option [value]="1">Sim</mat-option>
+                        <mat-option [value]="0">Não</mat-option>
                       </mat-select>
                       <span class="text-danger"
-                            *ngIf="novoEvento.get('qtde_cabine')?.errors?.['required'] && novoEvento.get('qtde_cabine')?.touched">
-                      Quantidade de cabine é obrigatório
+                            *ngIf="form.get('bazuca')?.errors?.['required'] && form.get('bazuca')?.touched">
+                        Campo Obrigatório
                       </span>
                     </div>
                   </div>
                   <div class="col">
                     <div class="mb-3">
-                      <label for="qtde_fotos_cabine" class="form-label">Quantidade Fotos</label>
-                      <input class="form-control" id="qtde_fotos_cabine" type="number" formControlName="qtde_fotos_cabine">
-                      <span class="labelInfo">
-                      *Para fotos ilimitadas escolher numero 0
-                      </span>
+                      <label for="tempo_evento" class="form-label">Tempo Evento (em horas)</label>
+                      <input class="form-control" id="tempo_evento" type="number" formControlName="tempo_evento" >
                       <span class="text-danger"
-                            *ngIf="novoEvento.get('qtde_fotos_cabine')?.errors?.['required'] && novoEvento.get('qtde_fotos_cabine')?.touched">
-                      Quantidade de fotos é obrigatório
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="mb-3">
-                      <label for="impressao_cabine" class="form-label">Impressão</label>
-                      <mat-select class="form-control" formControlName="impressao_cabine" id="impressao_cabine" >
-                        <mat-option value="definir">A Definir</mat-option>
-                        <mat-option value="1_pose">1 pose</mat-option>
-                        <mat-option value="1_pose">4 poses</mat-option>
-                        <mat-option value="tirinha">Tirinha</mat-option>
-                      </mat-select>
-                      <span class="text-danger"
-                            *ngIf="novoEvento.get('impressao_cabine')?.errors?.['required'] && novoEvento.get('impressao_cabine')?.touched">
-                     Tipo de impressão é obrigatório
-                </span>
+                            *ngIf="item.get('tempo_evento')?.errors?.['required'] && item.get('tempo_evento')?.touched">
+                          Tempo de Evento é obrigatório
+                    </span>
                     </div>
                   </div>
                 </div>
               </mat-card-content>
             </mat-card>
-          </ng-container>
-
-          <!-- Robo-->
-          <ng-container  *ngIf="item == 'robo_led'">
-            <mat-card class="matCard">
-              <mat-card-header><h4>Robo</h4></mat-card-header>
-              <mat-card-content>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-check" >
-                      <input class="form-check-input" type="checkbox" value="" id="robo_bazuca" formControlName="robo_bazuca">
-                      <label class="form-check-label" for="robo_bazuca" style="margin-top: 2px">
-                        Bazuca com Co²
-                      </label>
-                    </div>
-                  </div>
-
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </ng-container>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="mb-3">
-              <label for="observacao" class="form-label">Observações:</label>
-              <textarea class="form-control" id="observacao" aria-label="Descrição"formControlName="observacao" rows="4" maxlength="254"></textarea>
-            </div>
+          </div>
+        </ng-container>
+        <div class="col">
+          <div class="mb-3">
+            <label for="observacoes" class="form-label">Observações</label>
+            <textarea class="form-control" id="observacoes" type="text" formControlName="observacoes" rows="4" maxlength="254" ></textarea>
           </div>
         </div>
       </div>
@@ -319,33 +278,32 @@
 
       <div class="area-form">
         <h6>Forma de Pagamento: </h6>
-
         <div class="row">
           <div class="col">
             <div class="mb-3">
               <label for="condicao_pgto" class="form-label">Condição de Pagamento</label>
-              <mat-select (closed)="selectedCondicaoPgto()" class="form-control" formControlName="condicao_pgto" id="condicao_pgto" (valueChange)="handleCondPgto($event)">
+              <mat-select  class="form-control" formControlName="condicao_pgto" id="condicao_pgto" (valueChange)="handleCondPgto($event)">
                 <mat-option *ngFor="let item of condicaoPgto" [value]="item.slug">{{ item.nome }} </mat-option>
               </mat-select>
-              <span class="text-danger"
-                    *ngIf="novoEvento.get('condicao_pgto')?.errors?.['required'] && novoEvento.get('condicao_pgto')?.touched">
-              Condição de pagamento é obrigatório
-            </span>
+                <span class="text-danger"
+                      *ngIf="form.get('condicao_pgto')?.errors?.['required'] && form.get('condicao_pgto')?.touched">
+                      Condição de pagamento é obrigatório
+                </span>
             </div>
-            </div>
+          </div>
             <div class="col">
               <div class="mb-3" *ngIf="exibeValorTotal">
                 <label for="valor_total" class="form-label">Valor Total</label>
-                <input class="form-control" id="valor_total" type="text" formControlName="valor_total" (blur)="handleCondPgto(novoEvento.get('condicao_pgto')?.value)"
+                <input class="form-control" id="valor_total" type="text" formControlName="valor_total" (blur)="handleCondPgto(form.get('condicao_pgto')?.value)"
                        currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
                 <span class="text-danger"
-                      *ngIf="novoEvento.get('valor_total')?.errors?.['required'] && novoEvento.get('valor_total')?.touched">
+                      *ngIf="form.get('valor_total')?.errors?.['required'] && form.get('valor_total')?.touched">
                   Condição de pagamento é obrigatório
                 </span>
               </div>
             </div>
           <div class="col">
-            <div class="mb-3" *ngIf="exibeValorTotal && novoEvento.get('valor_total')?.value && ['parcelado'].includes(novoEvento.get('condicao_pgto')?.value)">
+            <div class="mb-3" *ngIf="exibeValorTotal && form.get('valor_total')?.value && ['parcelado'].includes(form.get('condicao_pgto')?.value)">
               <label for="parcelas" class="form-label">Parcelas</label>
               <mat-select class="form-control" formControlName="parcelas" id="parcelas" (closed)="addOpcao()">
                 <mat-option *ngFor="let item of [2,3,4,5,6,7,8,9,10,11,12]" [value]="item">{{ item }} </mat-option>
@@ -353,8 +311,8 @@
             </div>
           </div>
           <div class="col">
-            <div class="mb-3" *ngIf="exibeValorTotal && novoEvento.get('valor_total')?.value && ['parcelado'].includes(novoEvento.get('condicao_pgto')?.value)
-                                    && novoEvento.get('parcelas')?.value">
+            <div class="mb-3" *ngIf="exibeValorTotal && form.get('valor_total')?.value && ['parcelado'].includes(form.get('condicao_pgto')?.value)
+                                    && form.get('parcelas')?.value">
               <label for="parcelas" class="form-label">Forma de Pagamento</label>
               <mat-select class="form-control" formControlName="forma_pgto_padrao" (closed)="addOpcao();">
                 <mat-option *ngFor="let item of formaPgto" [value]="item.slug">{{ item.nome }} </mat-option>
@@ -362,14 +320,19 @@
             </div>
           </div>
             </div>
+        <div class="row">
+          <div class="col" *ngIf="!['a_vista', 'parcelado'].includes(form.get('condicao_pgto')?.value) && (form.get('condicao_pgto')?.value)">
+            <div class="mb-3">
+              <label for="observacao_pagamento" class="form-label">Observações:</label>
+              <input class="form-control" id="observacao_pagamento" type="text" formControlName="observacao_pagamento">
+            </div>
+          </div>
+        </div>
 
-
-
-          <ng-container *ngIf="exibeValorTotal && ['a_vista'].includes(novoEvento.get('condicao_pgto')?.value)" [formGroup]="formArrayAsFormGroup">
+          <ng-container *ngIf="exibeValorTotal && ['a_vista'].includes(form.get('condicao_pgto')?.value)" [formGroup]="formArrayAsFormGroup">
               <div class="areaPgto">
                 <table>
                   <tr>
-
                     <th>Data Pagamento</th>
                     <th>Forma de Pagamento</th>
                     <th>Valor</th>
@@ -391,11 +354,11 @@
             </div>
           </ng-container>
 
-        <ng-container *ngIf="['parcelado'].includes(novoEvento.get('condicao_pgto')?.value) && novoEvento.get('parcelas')?.value
-                             && novoEvento.get('forma_pgto_padrao')?.value" [formGroup]="formArrayAsFormGroup">
+        <ng-container *ngIf="['parcelado'].includes(form.get('condicao_pgto')?.value) && form.get('parcelas')?.value
+                             && form.get('forma_pgto_padrao')?.value" [formGroup]="formArrayAsFormGroup">
           <div class="areaPgto">
             <table>
-              <tr>
+              <tr class="cabecalhoTabela">
                 <th></th>
                 <th>Data Pagamento</th>
                 <th>Forma de Pagamento</th>
@@ -404,7 +367,7 @@
               <tr *ngFor="let item of formArray.controls; let index = index; let last = last; let first = first" [formGroupName]="index">
                 <td> {{index + 1}}</td>
                 <td>
-                  <input class="form-control" type="date" formControlName="data_pagamento" >
+                  <input class="form-control" type="date" formControlName="data_pagamento" (input)="alteraDataParcelamento(index)">
                 </td>
                 <td>
                   <mat-select class="form-control" formControlName="forma_pagamento">
@@ -412,7 +375,7 @@
                   </mat-select>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" >
+                  <input class="form-control" type="text" formControlName="valor"  currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" (blur)="recalculaValorParcela(index)">
                 </td>
               </tr>
             </table>
@@ -421,14 +384,17 @@
       </div>
     </div>
 
-    <div class="botoes" *ngIf="edit">
-      <button (click)="teste()">Teste</button>
-      <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
-      <button class="btn btn-success" [disabled]="!novoEvento.valid"(click)="addContrato()">Salvar</button>
+    <div class="botoes" *ngIf="edit" style="display: flex;justify-content: space-between">
+      <div>
+        <button type="button" class="btn btn-outline-danger" *ngIf="cancelContrato" (click)="cancelarContrato()">Cancelar Contrato</button>
+      </div>
+     <div>
+       <button class="btn btn-danger" (click)="cancelAdd()">Cancelar</button>
+       <button class="btn btn-success" [disabled]="!form.valid"(click)="save()">Salvar</button>
+     </div>
     </div>
   </form>
 </div>
-
 
 
 

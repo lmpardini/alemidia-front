@@ -17,6 +17,11 @@ export class ClienteService {
     return this.http.get<any>(url);
   }
 
+  public listActive(filtro: string | null | undefined): Observable<any> {
+    const url = `${this.urlApi}/clientes-ativos?filtro=${filtro}`
+    return this.http.get<any>(url);
+  }
+
   public listClientesbyId(id:number): Observable<any> {
     const url = `${this.urlApi}/cliente/${id}`
     return this.http.get<any>(url);

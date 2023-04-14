@@ -7,7 +7,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
 import { NgxMaskDirective, NgxMaskPipe } from "ngx-mask";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { ContratoNewViewEditComponent } from './contrato-new-view-edit/contrato-new-view-edit.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -42,7 +42,8 @@ import { NgxCurrencyModule } from "ngx-currency";
     MatAutocompleteModule,
     MatCardModule,
     NgxMaskDirective,
-    NgxCurrencyModule
+    NgxCurrencyModule,
+    FormsModule
   ]
 })
 export class ContratoModule { }

@@ -18,10 +18,10 @@ export class LoginService {
     return this.http.post<any>(url, login).pipe(
       map(res => res['data']),
       tap(res => {
-        this.setAuthState({token: res.token, userName: res.user.nome, user: res.user.usuario, email: res.user.email, roleAccess: res.user.regra_acesso});
+        this.setAuthState({token: res.token, userName: res.user.nome, user: res.user.usuario, email: res.user.email, roleAccess: res.user.regra_acesso, logged:true});
       }),
       catchError(error => {
-        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: ''})
+        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: '', logged:false})
         return throwError(error);
       })
     );
@@ -35,7 +35,7 @@ export class LoginService {
         //this.setAuthState({token: res.token, userName: res.user.nome, user: res.user.usuario, email: res.user.email, roleAccess: res.user.regra_acesso});
       }),
       catchError(error => {
-        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: ''})
+        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: '', logged:false})
         return throwError(error);
       })
     );
@@ -46,10 +46,10 @@ export class LoginService {
     return this.http.get<any>(url).pipe(
       map(res => res),
       tap(res => {
-        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: ''})
+        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: '', logged:false})
       }),
       catchError(error => {
-        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: ''})
+        this.setAuthState({token: '', userName: '', user: '', email: '', roleAccess: '', logged:false})
         return throwError(error);
       })
     );
@@ -61,11 +61,12 @@ export class LoginService {
     return this.http.put<any>(url, form);
   }
 
-  private setAuthState(authData: {token:string, userName:string, user: string, email:string, roleAccess:string}) {
+  private setAuthState(authData: {token:string, userName:string, user: string, email:string, roleAccess:string, logged:boolean}) {
     window.localStorage.setItem(StorageKeys.AUTH_TOKEN, authData.token);
     window.localStorage.setItem(StorageKeys.AUTH_USER_NAME, authData.userName);
     window.localStorage.setItem(StorageKeys.AUTH_USERNAME, authData.user);
     window.localStorage.setItem(StorageKeys.AUTH_USER_EMAIL, authData.email);
     window.localStorage.setItem(StorageKeys.AUTH_ROLE_ACCESS, authData.roleAccess);
+    window.localStorage.setItem(StorageKeys.AUTH_LOGGED_ACCESS, String(authData.logged));
   }
 }

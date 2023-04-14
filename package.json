@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "moment-timezone": "^0.5.43",
     "ng-block-ui": "^3.0.2",
     "ngx-currency": "^3.0.0",
     "ngx-mask": "^15.0.3",
