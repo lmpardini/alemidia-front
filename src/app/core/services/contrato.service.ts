@@ -18,8 +18,17 @@ export class ContratoService {
     return this.http.get<any>(url, {params});
   }
 
+  public listByDate(params?:any): Observable<any> {
+    const url = `${this.urlApi}/contratos-por-data`
+    return this.http.get<any>(url, {params});
+  }
+
   public listById(id:number): Observable<any> {
     const url = `${this.urlApi}/contrato/${id}`
+    return this.http.get<any>(url);
+  }
+  public listContratoResumo(id:number): Observable<any> {
+    const url = `${this.urlApi}/contrato-resumo/${id}`
     return this.http.get<any>(url);
   }
 
@@ -54,4 +63,10 @@ export class ContratoService {
       link.click();
     });
   }
+  public listarEventos(params?:any): Observable<any> {
+    const url = `${this.urlApi}/listar-eventos`
+    return this.http.get<any>(url, {params});
+  }
+
+
 }

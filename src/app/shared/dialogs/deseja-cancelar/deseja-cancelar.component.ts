@@ -12,18 +12,20 @@ export class DesejaCancelarComponent implements OnInit {
   public descricao:string ='';
   public tipo :string ='';
   public produtos:Array<any> = [];
+  public dadosEvento:any = [];
 
   public confirm: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DesejaCancelarComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,) {
-  }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
 
   ngOnInit(): void {
     this.titulo = this.data.titulo
     this.descricao = this.data.descricao
     this.tipo = this.data.tipo
     this.produtos = this.data.produtos
+    this.dadosEvento = this.data.dados_evento
   }
 
   public cancelar() {
@@ -35,4 +37,7 @@ export class DesejaCancelarComponent implements OnInit {
     this.dialogRef.close(this.confirm);
   }
 
+  getEntries(obj: any) {
+    return Object.entries(obj);
+  }
 }

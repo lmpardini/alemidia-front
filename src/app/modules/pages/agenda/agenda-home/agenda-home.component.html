@@ -1,0 +1,63 @@
+<div class="container-xl" >
+
+  <mat-tab-group>
+    <mat-tab label="Agenda">
+      <full-calendar [options]="calendarOptions" [events]="eventos" style="margin-top: 30px"></full-calendar>
+    </mat-tab>
+    <mat-tab label="Busca Evento por Dia">
+
+      <div>
+        <form [formGroup]="formFiltro" novalidate autocomplete="off">
+
+           <div class="col-12 col-md-4">
+             <div class="mb-3">
+               <label for="data_evento" class="form-label">Buscar evento por data</label>
+                 <input  type="date" id="data_evento" class="form-control" formControlName="data_evento">
+                   <span class="text-danger"
+                         *ngIf="formFiltro.get('data_evento')?.errors?.['required'] && formFiltro.get('data_evento')?.touched">
+                   Data do Evento é obrigatório
+                    </span>
+             </div>
+           </div>
+
+        </form>
+
+      <div *ngIf="mostraTemplateVazio"  class="cardsContainer">
+
+        <ng-container *ngIf="eventosPorData.length > 0; else templateVazio">
+<!--          <ng-template *ngFor="let item of eventosPorData">-->
+          <ng-template ngFor let-item [ngForOf]="eventosPorData">
+            <mat-card class="card">
+              <mat-card-header> <h3><strong>Noivos/Debutante: {{ item.noivo_debutante }}</strong></h3></mat-card-header>
+              <mat-card-content>
+                <p>Contrato: {{ item.contrato }}</p>
+                <p>Espaço: {{ item.espaco }}</p>
+                <p>Produtos: {{ item.produtos }}</p>
+                <p>Horario: {{ item.hora_inicio }} as {{ item.hora_fim }}</p>
+                <p *ngIf="item.observacoes !== null"><strong>Observações: {{ item.observacoes }}</strong></p>
+              </mat-card-content>
+            </mat-card>
+          </ng-template>
+        </ng-container>
+
+        <ng-template #templateVazio>
+          <mat-card>
+            <mat-card-header> <h3>Sem Eventos!</h3></mat-card-header>
+            <mat-card-content>
+              <p>Contrato: Não há eventos cadastrados para este dia!</p>
+            </mat-card-content>
+          </mat-card>
+        </ng-template>
+      </div>
+
+      </div>
+
+
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+</div>
+

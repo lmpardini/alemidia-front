@@ -15,6 +15,7 @@ import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from
 import { LoadingComponent } from './loading/loading.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AtivoPipe } from "../core/pipes/ativo.pipe";
+import { FormsModule } from "@angular/forms";
 
 
 
@@ -46,7 +47,8 @@ import { AtivoPipe } from "../core/pipes/ativo.pipe";
     NgbDropdownToggle,
     NgbDropdownMenu,
     NgbDropdownItem,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule
 
   ],
   providers: [provideNgxMask()]

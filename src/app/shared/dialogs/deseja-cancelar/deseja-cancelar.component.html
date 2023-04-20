@@ -1,9 +1,15 @@
 <h1 mat-dialog-title>{{ titulo }}</h1>
 
 <div mat-dialog-content>
-  {{ descricao }}
+  <p>{{ descricao }}</p>
   <br>
   <p *ngFor="let item of produtos" style="font-weight: bold ; margin-top: 8px"> - {{item}}</p>
+
+
+  <div *ngIf="tipo === 'resumo_contrato'">
+      <p *ngFor="let item of getEntries(dadosEvento)"> {{ item[1] }} </p>
+  </div>
+
 </div>
 
 <div mat-dialog-actions class="btnDialog">
@@ -26,6 +32,10 @@
   <div *ngIf="tipo === 'warning'">
     <button class="btn btn btn-secondary" (click)="cancelar()">Não</button>
     <button class="btn btn btn-warning" (click)="confirmar()">Sim</button>
+  </div>
+
+  <div *ngIf="tipo === 'resumo_contrato'">
+    <button class="btn btn btn-secondary" (click)="cancelar()">Fechar</button>
   </div>
 
 
