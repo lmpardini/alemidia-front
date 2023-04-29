@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Detalhes do Pagamento</h1>
+
+<div mat-dialog-content>
+
+
+          <p>Numero Contrato: {{ data.contrato }}</p>
+          <p>Contratante: {{ data.contratante }}</p>
+          <p>Data vencimento: {{ data.data_pagamento }} </p>
+          <p>Valor: {{ data.valor }} </p>
+          <p *ngIf="data.situacao === 'em_atraso'">Situação: <span class="badge text-bg-danger">em atraso</span> </p>
+          <p *ngIf="data.situacao === 'quitado'">Situação: <span class="badge text-bg-success">quitado</span> </p>
+          <p *ngIf="data.situacao === 'a_vencer'">Situação: <span class="badge text-bg-info">a vencer</span> </p>
+
+
+<div mat-dialog-actions class="btnDialog">
+
+    <button class="btn btn btn-secondary" (click)="verContrato()">Ver Contrato</button>
+    <button *ngIf="data.situacao != 'quitado'" class="btn btn btn-success" (click)="quitarPagamento(true)">Quitar Pagamento</button>
+    <button *ngIf="data.situacao === 'quitado'"  class="btn btn btn-danger" (click)="quitarPagamento(false)">Reabrir Pagamento</button>
+
+</div>
+</div>
+
+
+

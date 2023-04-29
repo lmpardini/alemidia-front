@@ -34,8 +34,6 @@
     <div>
       <div class="mat-elevation-z8 tabela-carros" >
         <table mat-table [dataSource]="dataSource">
-
-
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Contrato</th>
             <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.id}}</td>

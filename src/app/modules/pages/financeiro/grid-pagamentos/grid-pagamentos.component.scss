@@ -1,0 +1,92 @@
+td {
+  cursor:pointer;
+}
+
+.botaoFiltro {
+  margin-top: 29px;
+}
+
+.posicaoSituacao{
+  margin-top:10px
+}
+
+.card {
+
+  padding: 15px;
+  margin-bottom: 15px;
+  //box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+}
+@media screen and (max-width: 987px) {
+  .botaoFiltro {
+    margin-top: 0px;
+  }
+}
+
+@media (min-width 651px) and (max-width 992px) {
+
+  .ocultaMobileMail {
+    display: none!important;
+  }
+  .tabela-carros {
+    min-width: 750px;
+    width: 100%;
+  }
+
+}
+
+@media screen and (min-width:768px) and (max-width: 992px) {
+
+  .ocultaMobileCPF {
+    display: none!important;
+  }
+
+  .tabela-carros {
+    min-width: 750px;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width:651px) and (max-width: 767px) {
+
+  .ocultaMobileCPF, .ocultaMobileMail {
+    display: none!important;
+  }
+
+  .tabela-carros {
+    min-width: 550px;
+    width: 100%;
+  }
+
+
+}
+
+@media screen and (max-width: 650px) {
+
+  .modal {
+    width: auto;
+  }
+  .input-pesquisa {
+    display: flex;
+    flex-direction: column;
+    //width: 160px!important;
+  }
+
+  .ocultaMobileCPF, .ocultaMobileMail , .ocultaMobileTelefone {
+    display: none!important;
+  }
+
+  .botaoAddCliente {
+    font-size: 13px;
+  }
+
+  .tabela-carros {
+    min-width: 350px;
+    width: 100%!important;
+  }
+
+  .mat-mdc-paginator-container {
+    justify-content: center !important;
+    min-height: 100px !important;
+  }
+}
+

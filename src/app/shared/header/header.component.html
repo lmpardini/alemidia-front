@@ -39,8 +39,8 @@
       <div class="item-sub-menu" [routerLink]="['/cadastros/assessores/listar']" (click)="drawer.toggle()">
         <mat-icon class="icon-menu">handshake</mat-icon> Assessoria
       </div>
-      <!-- Fim submenu Cadastro   -->
     </div>
+    <!-- Fim submenu Cadastro   -->
 
     <!-- Menu Contratos-->
     <div class="item-menu" [routerLink]="['/contratos/listar']" (click)="drawer.toggle()">
@@ -53,10 +53,18 @@
     </div>
 
 
-    <!-- Menu Financeiro-->
-<!--    <div class="item-menu" (click)="exibirFinanceiro()">-->
-<!--      <mat-icon class="icon-menu">paid</mat-icon> Financeiro-->
-<!--    </div>    -->
+<!--     Menu Financeiro-->
+    <div class="item-menu" *ngIf="admin" (click)="exibirFinanceiro()">
+      <mat-icon class="icon-menu">paid</mat-icon> Financeiro
+    </div>
+
+    <!-- Submenu Financeiro   -->
+    <div *ngIf="financeiro">
+      <div class="item-sub-menu" [routerLink]="['/financeiro/listar']" (click)="drawer.toggle()">
+        <mat-icon class="icon-menu">person</mat-icon> Pagamentos
+      </div>
+    </div>
+    <!-- Fim submenu Financeiro   -->
 
     <!-- Menu Administrativo-->
 

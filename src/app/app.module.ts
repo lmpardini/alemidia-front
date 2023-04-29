@@ -12,8 +12,13 @@ import { ToastrModule } from "ngx-toastr";
 import { BlockUI, BlockUIModule, NgBlockUI } from "ng-block-ui";
 import { TokenInterceptor } from "./core/interceptor/token.interceptor";
 import { LoadingInterceptor } from "./core/interceptor/loading.interceptor";
-import { AtivoPipe } from './core/pipes/ativo.pipe';
-import * as moment from 'moment-timezone';
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+
+registerLocaleData(ptBr);
+
+
 
 
 
@@ -32,14 +37,16 @@ import * as moment from 'moment-timezone';
     NgbModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    // McBreadcrumbsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
     { provide: LOCALE_ID, useValue: 'pt-BR', multi: true },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' , multi: true},
-    { provide: 'moment', useFactory: () => moment().tz('America/Sao_Paulo'), multi: true },
+    { provide: LOCALE_ID, useValue: 'pt',  multi: true },
+
 
   ],
   exports: [

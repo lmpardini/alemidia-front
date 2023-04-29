@@ -1,0 +1,131 @@
+<div class="container-xl">
+  <div class="d-flex" style="margin-top: 30px">
+    <form [formGroup]="pesquisaForm">
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="tipo_pagamento" class="form-label">Tipo Pagamento</label>
+            <mat-select class="form-control" id="tipo_pagamento" formControlName="tipo_pagamento"
+                         style="min-width: 200px">
+              <mat-option value="em_atraso">Em atraso</mat-option>
+              <mat-option value="a_vencer">A Vencer</mat-option>
+              <mat-option value="quitado">Quitados</mat-option>
+              <mat-option value="todos">Todos</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="pesquisaForm.get('tipo_pagamento')?.errors?.['required'] && pesquisaForm.get('tipo_pagamento')?.touched">
+                 É obrigatório escolher o tipo de pagamento
+              </span>
+          </div>
+        </div>
+        <div class="col" *ngIf="pesquisaForm.get('tipo_pagamento')?.value">
+          <div class="mb-3">
+            <label for="tipo_busca" class="form-label">Tipo de Busca</label>
+            <mat-select class="form-control" id="tipo_busca" formControlName="tipo_busca"
+                        style="min-width: 200px" (valueChange)="handleOption($event)">
+              <mat-option value="periodo">Por Periodo</mat-option>
+              <mat-option value="cliente">Por Cliente</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="pesquisaForm.get('tipo_busca')?.errors?.['required'] && pesquisaForm.get('tipo_busca')?.touched">
+                 É obrigatório escolher um tipo de pagamento
+              </span>
+          </div>
+        </div>
+        <div class="col" *ngIf="pesquisaForm.get('tipo_busca')?.value === 'periodo'">
+          <div class="mb-3">
+            <label for="periodo" class="form-label">Periodo de busca</label>
+            <mat-select class="form-control" id="periodo" formControlName="periodo"
+                        style="min-width: 200px">
+              <mat-option value="hoje">Hoje</mat-option>
+              <mat-option value="mes">Mês Atual</mat-option>
+              <mat-option value="personalizado">Personalizado</mat-option>
+            </mat-select>
+            <span class="text-danger"
+                  *ngIf="pesquisaForm.get('periodo')?.errors?.['required'] && pesquisaForm.get('periodo')?.touched">
+                 É obrigatório escolher um periodo
+              </span>
+          </div>
+        </div>
+        <div class="col" *ngIf="pesquisaForm.get('tipo_busca')?.value === 'cliente'">
+          <div class="mb-3">
+            <label for="filtro" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="filtro" formControlName="filtro" style="min-width: 200px" autocomplete="off">
+            <span class="text-danger"
+                  *ngIf="pesquisaForm.get('periodo')?.errors?.['filtro'] && pesquisaForm.get('filtro')?.touched">
+                 É obrigatório escolher um periodo
+              </span>
+          </div>
+        </div>
+          <div class="col" *ngIf="pesquisaForm.get('periodo')?.value === 'personalizado'">
+            <div class="mb-3">
+              <label for="data_inicio" class="form-label">Data Inicio</label>
+              <input type="date" class="form-control" id="data_inicio" formControlName="data_inicio" placeholder="Data Inicio" aria-describedby="button-addon2"
+                     style="min-width: 200px">
+
+              <span class="text-danger"
+                    *ngIf="pesquisaForm.get('data_inicio')?.errors?.['required'] && pesquisaForm.get('data_inicio')?.touched">
+                 É obrigatório escolher um periodo
+              </span>
+            </div>
+          </div>
+          <div class="col" *ngIf="pesquisaForm.get('periodo')?.value === 'personalizado'">
+            <div class="mb-3">
+              <label for="data_fim" class="form-label">Data Fim</label>
+              <input type="date" class="form-control" id="data_fim" formControlName="data_fim" placeholder="Data Inicio" aria-describedby="button-addon2"
+                     style="min-width: 200px">
+              <span class="text-danger"
+                    *ngIf="pesquisaForm.get('data_fim')?.errors?.['required'] && pesquisaForm.get('data_fim')?.touched">
+                 É obrigatório escolher um periodo
+              </span>
+            </div>
+          </div>
+      </div>
+    </form>
+  </div>
+      <div class="mat-elevation-z8 tabela-carros" *ngIf="valores.length > 0" >
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="contrato">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Contrato</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileMail" (click)="openDetalhesPagamentoModal(row)">{{row.contrato}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="contratante">
+            <th mat-header-cell *matHeaderCellDef >Contratante</th>
+            <td mat-cell *matCellDef="let row"  (click)="openDetalhesPagamentoModal(row)">{{ row.contratante }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="data_pagamento" >
+            <th mat-header-cell *matHeaderCellDef >Data Pagamento</th>
+            <td mat-cell *matCellDef="let row" (click)="openDetalhesPagamentoModal(row)">{{row.data_pagamento }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail" >Valor</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileMail" (click)="openDetalhesPagamentoModal(row)" >{{ row.valor }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="situacao">
+            <th mat-header-cell *matHeaderCellDef >Situação</th>
+            <td mat-cell *matCellDef="let row"  (click)="openDetalhesPagamentoModal(row)">
+              <p *ngIf="row.situacao === 'em_atraso'" class="posicaoSituacao"><span class="badge text-bg-danger">em atraso</span> </p>
+              <p *ngIf="row.situacao === 'quitado'" class="posicaoSituacao"><span class="badge text-bg-success">quitado</span> </p>
+              <p *ngIf="row.situacao === 'a_vencer'" class="posicaoSituacao"><span class="badge text-bg-info">a vencer</span> </p>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator style="width: 100%"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 50, 100]"
+
+                       showFirstLastButtons
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+</div>
+

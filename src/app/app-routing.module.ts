@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'cadastros', loadChildren: () => import('./modules/pages/cadastro/cadastro.module').then( m => m.CadastroModule) },
   { path: 'admin', loadChildren:() => import('./modules/pages/admin/admin.module').then( m => m.AdminModule) },
   { path: 'contratos', loadChildren:() => import('./modules/pages/contrato/contrato.module').then(( m => m.ContratoModule)) },
-  { path: 'agenda', loadChildren:() => import('./modules/pages/agenda/agenda.module').then(( m => m.AgendaModule)) }
+  { path: 'agenda', loadChildren:() => import('./modules/pages/agenda/agenda.module').then(( m => m.AgendaModule)) },
+  { path: 'financeiro', loadChildren:() => import('./modules/pages/financeiro/financeiro.module').then(( m => m.FinanceiroModule)) },
 ];
 
 @NgModule({
