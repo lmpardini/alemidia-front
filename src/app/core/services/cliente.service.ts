@@ -12,9 +12,9 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
-  public listClientes(filtro: string | null | undefined | unknown): Observable<any> {
-    const url = `${this.urlApi}/clientes/?filtro=${filtro}`
-    return this.http.get<any>(url);
+  public listClientes(params: any): Observable<any> {
+    const url = `${this.urlApi}/clientes`
+    return this.http.get<any>(url, {params});
   }
 
   public listActive(filtro: string | null | undefined): Observable<any> {

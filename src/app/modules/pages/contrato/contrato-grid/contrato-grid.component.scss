@@ -67,13 +67,14 @@ table{
   min-width: 150px;
 }
 
-td, th {
-  text-align: center !important;
+th, td {
+  cursor:pointer;
+  text-align: start !important;
   vertical-align: middle !important;
 }
 
 .mat-sort-header-container {
-  justify-content: center !important;
+  justify-content: start !important;
 }
 
 .mat-elevation-z8{

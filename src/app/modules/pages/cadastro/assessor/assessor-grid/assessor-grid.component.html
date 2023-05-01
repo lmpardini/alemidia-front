@@ -2,76 +2,59 @@
   <section>
     <div class="cab">
       <div class="button-section">
-        <button mat-raised-button  class="botaoAddBuffet" [routerLink]="['/cadastros/assessores/novo']">Adicionar Assessoria</button>
+        <button mat-raised-button class="botaoAddBuffet" [routerLink]="['/cadastros/assessores/novo']">Adicionar
+          Assessoria
+        </button>
       </div>
       <form class="input-pesquisa" [formGroup]="pesquisaForm">
         <div class="filtroArea">
-          <input type="text" class="form-control" id="filtro" formControlName="filtro" placeholder="Busque por nome" (keyup)="filtro()"aria-describedby="button-addon2">
+          <input type="text" class="form-control" id="filtro" formControlName="filtro" placeholder="Busque por nome"
+                 (keyup)="filtro()" aria-describedby="button-addon2">
           <mat-icon class="icon-menu limpaBusca" (click)="limparFiltro()">close</mat-icon>
         </div>
 
       </form>
     </div>
 
-    <div *ngIf="clientes.length >=0; then thenBlock else elseBlock"></div>
+    <div class="mat-elevation-z8 tabela-carros">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)">
 
-    <ng-template #thenBlock>
+        <ng-container matColumnDef="nome_razao_social">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome/Razão Social</th>
+          <td mat-cell *matCellDef="let row"
+              [routerLink]="['/cadastros/assessores/consultar', row.id]">{{row.nome_razao_social}}</td>
+        </ng-container>
 
-      <div class="mat-elevation-z8 tabela-carros" >
-        <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="mail" class="campoVeiculo">
+          <th mat-header-cell *matHeaderCellDef class="ocultaMobileCPF">E-mail</th>
+          <td mat-cell *matCellDef="let row" [routerLink]="['/cadastros/assessores/consultar', row.id]"
+              class="ocultaMobileCPF">{{row.mail}}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Id</th>
-            <td mat-cell *matCellDef="let row">{{row.id}}</td>
-          </ng-container>
+        <ng-container matColumnDef="celular">
+          <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Celular</th>
+          <td mat-cell *matCellDef="let row" [routerLink]="['/cadastros/assessores/consultar', row.id]"
+              class="ocultaMobileMail">{{row.celular | mask:"(00) 00000-0000"}}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef >Nome/Razão Social</th>
-            <td mat-cell *matCellDef="let row">{{row.nome_razao_social}}</td>
-          </ng-container>
+        <ng-container matColumnDef="cidade">
+          <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Cidade</th>
+          <td mat-cell *matCellDef="let row" [routerLink]="['/cadastros/assessores/consultar', row.id]"
+              class="ocultaMobileTelefone"> {{row.cidade }}  </td>
+        </ng-container>
 
-          <ng-container matColumnDef="mail" class="campoVeiculo">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileCPF">E-mail</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileCPF">{{row.mail}}</td>
-          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-          <ng-container matColumnDef="celular">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Celular</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileMail">{{row.celular | mask:"(00) 00000-0000"}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="cidade">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileTelefone">Cidade</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileTelefone"> {{row.cidade }}  </td>
-          </ng-container>
-
-          <ng-container matColumnDef="detalhes">
-            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-raised-button [routerLink]="['/cadastros/assessores/consultar', row.id]">Detalhes</button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-        <mat-paginator style="width: 100%"
-                       [pageSize]="10"
-                       [pageSizeOptions]="[5, 10, 25, 50, 100]"
-                       showFirstLastButtons
-                       aria-label="Select page">
-        </mat-paginator>
-      </div>
-    </ng-template>
-
-    <ng-template #elseBlock>
-      <div class="container-sm">
-        <mat-card class="card-home" style="padding: 15px">
-          <h4> Ainda não existem clientes cadastrados :(</h4>
-          <p> Clique no botão Adicionar Clientes acima e cadastre!</p>
-        </mat-card>
-      </div>
-    </ng-template>
+      </table>
+      <mat-paginator style="width: 100%"
+                     [length]="paginator?.length"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                     (page)="loadPage($event.pageIndex+1, $event.pageSize)"
+                     showFirstLastButtons
+                     aria-label="Select page">
+      </mat-paginator>
+    </div>
   </section>
 </div>

@@ -13,9 +13,9 @@ export class BuffetService {
 
   constructor(private http: HttpClient) { }
 
-  public listBuffet(filtro: string | null | undefined): Observable<any> {
-    const url = `${this.urlApi}/buffets/?filtro=${filtro}`
-    return this.http.get<any>(url);
+  public list(params: any): Observable<any> {
+    const url = `${this.urlApi}/buffets`
+    return this.http.get<any>(url, {params});
   }
 
   public listActive(filtro: string | null | undefined): Observable<any> {

@@ -11,9 +11,9 @@ export class AssessoriaService {
   protected urlApi: string = environment.alemidia_api;
   constructor(private http: HttpClient) { }
 
-  public listAssessoria(filtro: string | null | undefined): Observable<any> {
-    const url = `${this.urlApi}/assessorias/?filtro=${filtro}`
-    return this.http.get<any>(url);
+  public list(params:any): Observable<any> {
+    const url = `${this.urlApi}/assessorias`
+    return this.http.get<any>(url, {params});
   }
 
   public listActive(filtro: string | null | undefined): Observable<any> {

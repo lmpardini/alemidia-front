@@ -7,6 +7,7 @@ import { ClienteService } from "../../../../core/services/cliente.service";
 import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
 import { AlertService } from "../../../../core/services/alert.service";
 import { ContratoService } from "../../../../core/services/contrato.service";
+import { MatSort, Sort } from "@angular/material/sort";
 
 @Component({
   selector: 'app-contrato-grid',
@@ -30,17 +31,19 @@ export class ContratoGridComponent {
 
   ) { }
 
-  private paginator:any =  MatPaginator;
+  public paginator:any =  MatPaginator;
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
   }
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   ngOnInit() {
     this.createForm();
-    this.listContratos('', '', '');
-
+    this.dataSource.sort = this.sort;
+    this.loadPage(1,10);
 
     //traduz label da barra de paginação da tabela
     this._MatPaginatorIntl.itemsPerPageLabel = 'Itens por Pagina'
@@ -54,32 +57,44 @@ export class ContratoGridComponent {
     })
   }
 
+  loadPage(page: number, pageSize: number) {
+    const label = this.sort?.active === undefined ? '' : this.sort?.active
+    const dir = this.sort?.direction === undefined ? '' : this.sort?.direction
+    const params = {
+      per_page: pageSize,
+      page: page,
+      filtro: this.pesquisaForm.get('filtro')?.value === null ? '' : this.pesquisaForm.get('filtro')?.value,
+      data_inicio: this.pesquisaForm.get('data_inicio')?.value === null ? '' : this.pesquisaForm.get('data_inicio')?.value,
+      data_fim: this.pesquisaForm.get('data_fim')?.value === null ? '' : this.pesquisaForm.get('data_fim')?.value,
+      label:label,
+      dir: dir
+    }
 
-  public listContratos(filtro: any, data_inicio: any, data_fim: any) {
-    this.contratoService.list({filtro: filtro, data_inicio: data_inicio, data_fim: data_fim} ).subscribe({next: (res) => {
-        this.dataSource = new MatTableDataSource(res.data);
-        this.dataSource.paginator = this.paginator;
-      }, error: (err) =>{
+    this.contratoService.list(params).subscribe({
+      next: (res) => {
+        this.dataSource = new MatTableDataSource(res.data.data);
+        this.paginator.length = res.data.total
+      }, error: (err) => {
         this.alertService.errorMessage(err)
       }
     })
   }
 
-  public filtro() {
-    let filtro = this.pesquisaForm.get('filtro')?.value !== null ? this.pesquisaForm.get('filtro')?.value : '';
-    let data_inicio = this.pesquisaForm.get('data_inicio')?.value !== null ? this.pesquisaForm.get('data_inicio')?.value : '';
-    let data_fim = this.pesquisaForm.get('data_fim')?.value !== null ? this.pesquisaForm.get('data_fim')?.value : '';
+  sortChange(sortState: Sort) {
+    this.loadPage(this.paginator.pageIndex+1, this.paginator.pageSize)
+  }
 
-    this.listContratos(filtro, data_inicio, data_fim)
+
+  public filtro() {
+    this.loadPage(1,10);
   }
 
   public limparFiltro() {
     this.pesquisaForm.reset();
-    this.listContratos('', '', '');
+    this.loadPage(1,10);
   }
 
   abreFiltro() {
     this.areaFiltro = !this.areaFiltro
-
   }
 }

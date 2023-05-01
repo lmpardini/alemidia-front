@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ClienteService } from "../../../../../../core/services/cliente.service";
-import { AlertService } from "../../../../../../core/services/alert.service";
-import { BuscaCepService } from "../../../../../../core/services/busca-cep.service";
+import { ClienteService } from "../../../../../core/services/cliente.service";
+import { AlertService } from "../../../../../core/services/alert.service";
+import { BuscaCepService } from "../../../../../core/services/busca-cep.service";
 import { MatDialog } from "@angular/material/dialog";
-import { DesejaCancelarComponent } from "../../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
-import { GenericValidator } from "../../../../../../core/validators";
+import { DesejaCancelarComponent } from "../../../../../shared/dialogs/deseja-cancelar/deseja-cancelar.component";
+import { GenericValidator } from "../../../../../core/validators";
 
 @Component({
   selector: 'app-clientes-criar',

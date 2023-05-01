@@ -33,20 +33,20 @@
 
     <div>
       <div class="mat-elevation-z8 tabela-carros" >
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource"  matSort (matSortChange)="sortChange($event)">
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Contrato</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Contrato</th>
             <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.id}}</td>
           </ng-container>
 
           <ng-container matColumnDef="data_evento">
-            <th mat-header-cell *matHeaderCellDef >Data Evento</th>
-            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.data_evento}}</td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data Evento</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.data}}</td>
           </ng-container>
 
           <ng-container matColumnDef="contratante" >
-            <th mat-header-cell *matHeaderCellDef >Contratante</th>
-            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.contratante }}</td>
+            <th mat-header-cell *matHeaderCellDef>Contratante</th>
+            <td mat-cell *matCellDef="let row" [routerLink]="['/contratos/consultar', row.id]">{{row.cliente.nome_razao_social }}</td>
           </ng-container>
 
           <ng-container matColumnDef="produtos">
@@ -54,9 +54,9 @@
             <td mat-cell *matCellDef="let row" class="ocultaMobileMail" [routerLink]="['/contratos/consultar', row.id]" >{{row.produtos }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="buffet">
-            <th mat-header-cell *matHeaderCellDef class="ocultaMobileMail">Buffet</th>
-            <td mat-cell *matCellDef="let row" class="ocultaMobileMail" [routerLink]="['/contratos/consultar', row.id]">{{row.buffet}}</td>
+          <ng-container matColumnDef="buffet" >
+            <th mat-header-cell *matHeaderCellDef  class="ocultaMobileMail">Buffet</th>
+            <td mat-cell *matCellDef="let row" class="ocultaMobileMail" [routerLink]="['/contratos/consultar', row.id]">{{row.buffet.nome_razao_social}}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -64,8 +64,10 @@
 
         </table>
         <mat-paginator style="width: 100%"
+                       [length]="paginator?.length"
                        [pageSize]="10"
                        [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                       (page)="loadPage($event.pageIndex+1, $event.pageSize)"
                        showFirstLastButtons
                        aria-label="Select page">
         </mat-paginator>

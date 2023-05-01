@@ -12,6 +12,7 @@ import { MatTableModule } from "@angular/material/table";
 import { NgxMaskDirective, NgxMaskPipe } from "ngx-mask";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AssessorNewViewEditComponent } from './assessor-new-view-edit/assessor-new-view-edit.component';
+import { MatSortModule } from "@angular/material/sort";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AssessorNewViewEditComponent } from './assessor-new-view-edit/assessor-
     MatTableModule,
     NgxMaskPipe,
     MatProgressSpinnerModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    MatSortModule
   ]
 })
 export class AssessorModule { }

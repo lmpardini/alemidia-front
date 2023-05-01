@@ -22,7 +22,6 @@ export class AgendaHomeComponent implements OnInit{
 
   currentEvents: EventApi[] = []
 
-
   eventos: any[] = [];
   eventosPorData:any[] = [];
   mostraTemplateVazio:boolean = false;
@@ -82,6 +81,7 @@ export class AgendaHomeComponent implements OnInit{
     eventClick: this.handleEventClick.bind(this),
     initialEvents: [this.eventos]
   };
+
 
   handleEvents(events: any) {
     const dataInicio = new Date(events.startStr).toISOString().replace(/T.*$/, '');

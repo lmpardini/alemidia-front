@@ -16,7 +16,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AtivoPipe } from "../core/pipes/ativo.pipe";
 import { FormsModule } from "@angular/forms";
-import { McBreadcrumbsModule } from "ngx-breadcrumbs";
+
 
 
 
@@ -50,7 +50,6 @@ import { McBreadcrumbsModule } from "ngx-breadcrumbs";
     NgbDropdownItem,
     MatProgressSpinnerModule,
     FormsModule,
-    McBreadcrumbsModule
 
   ],
   providers: [provideNgxMask()]

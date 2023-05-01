@@ -18,6 +18,7 @@ import { NgbTypeahead } from "@ng-bootstrap/ng-bootstrap";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatCardModule } from "@angular/material/card";
 import { NgxCurrencyModule } from "ngx-currency";
+import { MatSortModule } from "@angular/material/sort";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NgxCurrencyModule } from "ngx-currency";
     MatCardModule,
     NgxMaskDirective,
     NgxCurrencyModule,
-    FormsModule
+    FormsModule,
+    MatSortModule
   ]
 })
 export class ContratoModule { }

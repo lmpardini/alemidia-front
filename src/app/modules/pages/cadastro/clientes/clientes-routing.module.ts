@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientesGridComponent } from "./components/clientes-grid/clientes-grid.component";
-import { ClientesCriarComponent } from "./components/clientes-criar/clientes-criar.component";
+import { ClientesGridComponent } from "./clientes-grid/clientes-grid.component";
+import { ClientesCriarComponent } from "./clientes-criar/clientes-criar.component";
 
 const routes: Routes = [
   { path: 'listar', component: ClientesGridComponent },

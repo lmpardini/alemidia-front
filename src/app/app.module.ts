@@ -14,13 +14,10 @@ import { TokenInterceptor } from "./core/interceptor/token.interceptor";
 import { LoadingInterceptor } from "./core/interceptor/loading.interceptor";
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-
+import { AgendaModule } from "./modules/pages/agenda/agenda.module";
+import { FullCalendarModule } from "@fullcalendar/angular";
 
 registerLocaleData(ptBr);
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -38,7 +35,6 @@ registerLocaleData(ptBr);
     HttpClientModule,
     ToastrModule.forRoot(),
     BlockUIModule.forRoot(),
-    // McBreadcrumbsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
