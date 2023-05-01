@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { FormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { auto } from "@popperjs/core";
+import { debounceTime } from "rxjs";
 
 
 @Component({
@@ -45,7 +46,8 @@ export class AgendaHomeComponent implements OnInit{
       data_evento: [null, Validators.required],
     });
 
-    this.formFiltro.get('data_evento')?.valueChanges.subscribe({next: () => {
+    this.formFiltro.get('data_evento')?.valueChanges.pipe(
+      debounceTime(500)).subscribe({next: () => {
       this.contratoService.listByDate({data: this.formFiltro.get('data_evento')?.value}).subscribe({next: (res) => {
         this.eventosPorData = res.data;
       }});
