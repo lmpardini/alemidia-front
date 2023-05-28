@@ -4,9 +4,9 @@ import { ClientesGridComponent } from "./clientes-grid/clientes-grid.component";
 import { ClientesCriarComponent } from "./clientes-criar/clientes-criar.component";
 
 const routes: Routes = [
-  { path: 'listar', component: ClientesGridComponent },
-  { path: 'novo', component: ClientesCriarComponent},
-  { path: 'consultar/:id', component: ClientesCriarComponent}
+  { path: 'listar', component: ClientesGridComponent,  data: {title: 'Listar'}},
+  { path: 'novo', component: ClientesCriarComponent,  data: {title: 'Novo'}},
+  { path: 'consultar/:id', component: ClientesCriarComponent,  data: {title: 'Visualizar'}}
 ];
 
 @NgModule({

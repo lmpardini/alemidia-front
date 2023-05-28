@@ -1,0 +1,33 @@
+<div class="container-xl">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li *ngFor="let route of activeRoutes; let last = last"
+          [ngClass]="{ 'disabled': !last }"
+          class="breadcrumb-item active">
+        <a *ngIf="last; else inactiveLink"
+           [routerLink]="route.url"
+           routerLinkActive="active">{{ route.title }}</a>
+        <ng-template #inactiveLink>
+          <span>{{ route.title }}</span>
+        </ng-template>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+
+
+
+<!--<nav aria-label="breadcrumb">-->
+<!--    <ol class="breadcrumb">-->
+<!--      <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+<!--      <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+<!--      <li class="breadcrumb-item active" aria-current="page">Data</li>-->
+<!--    </ol>-->
+<!--  </nav>-->
+
+
+
+<!--</div>-->
+
