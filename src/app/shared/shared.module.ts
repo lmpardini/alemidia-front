@@ -54,6 +54,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     FormsModule,
     RouterLinkActive,
 
+
   ],
   providers: [provideNgxMask()]
 })

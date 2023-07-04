@@ -25,7 +25,13 @@ export class HeaderComponent implements OnInit {
     private alertService: AlertService,
   ) { }
 
+
+
+
+
   ngOnInit(): void {
+
+
     if (localStorage.getItem('regra_acesso') === 'admin') {
       this.admin = true;
     }
